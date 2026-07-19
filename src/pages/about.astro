@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { site } from '../data/site';
+import aboutPage from '../data/about-page.json';
+---
+<BaseLayout title="אודות | עו״ד אליזבט ברזאני דדון">
+  <section class="section">
+    <div class="container split">
+      <div>
+        <SectionHeading eyebrow="אודות" title={aboutPage.title} description={aboutPage.description} />
+        {aboutPage.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <div class="card image-card">
+        <img src={site.heroImage} alt={site.shortName} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container values-grid">
+      {aboutPage.values.map((value) => (
+        <article class="card">
+          <h3>{value.title}</h3>
+          <p>{value.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split,
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .image-card img {
+    border-radius: 18px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  @media (max-width: 900px) {
+    .split,
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "name": "עו\"ד אליזבט ברזאני דדון",
+  "shortName": "אליזבט ברזאני דדון",
+  "title": "עו\"ד אליזבט ברזאני דדון | משרד עורכי דין לענייני משפחה",
+  "description": "משרד עורכי דין בוטיק לענייני משפחה, גירושין, צוואות, ירושות, ייפוי כוח מתמשך והסכמים, עם ליווי אישי, מקצועי ודיסקרטי.",
+  "phone": "050-6610110",
+  "email": "Elib-law@gmail.com",
+  "whatsapp": "https://wa.me/message/JKSB54AIRT4DC1",
+  "address": "רחוב ראשי שדות 16, קדימה צורן, 6092000",
+  "hours": [
+    "ראשון – חמישי: 9:00–18:00",
+    "שישי: 8:00–13:00"
+  ],
+  "domain": "https://elib-law.co.il",
+  "facebook": "https://www.facebook.com/eliblaw",
+  "heroImage": "/images/elib-profile.jpg",
+  "logo": "/images/elib-logo.svg",
+  "tagline": "משרד עורכי דין לענייני משפחה"
+}

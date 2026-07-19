@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { getCollection } from 'astro:content';
+
+const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="שאלות נפוצות | עו״ד אליזבט ברזאני דדון">
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="האזור הזה נועד גם להרגיע, גם לחנך את הקהל, וגם לתמוך ב‑SEO. כל שאלה ניתנת לעריכה פשוטה דרך ה‑CMS." />
+      <div class="faq-list">
+        {faq.map((item) => (
+          <details class="card">
+            <summary>{item.data.question}</summary>
+            <p>{item.data.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  details[open] summary {
+    margin-bottom: 0.8rem;
+  }
+</style>

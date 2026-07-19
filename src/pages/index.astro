@@ -1,11 +1,340 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PracticeAreasPreview from '../components/PracticeAreasPreview.astro';
+import FaqPreview from '../components/FaqPreview.astro';
+import { contactCards, highlights, site } from '../data/site';
+import { homePage } from '../data/home';
 ---
+<BaseLayout>
+  <section class="section hero-shell">
+    <div class="container hero-panel">
+      <div class="hero-copy-block">
+        <div class="eyebrow">{homePage.hero.kicker}</div>
+        <h1>{homePage.hero.title}</h1>
+        <p class="hero-copy">{homePage.hero.description}</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href={homePage.hero.primaryCta.href}>{homePage.hero.primaryCta.label}</a>
+          <a class="button button-secondary" href={homePage.hero.secondaryCta.href}>{homePage.hero.secondaryCta.label}</a>
+        </div>
+        <ul class="hero-meta">
+          <li>חברת לשכת עורכי הדין משנת 2008</li>
+          <li>שירות אישי, ישיר ודיסקרטי</li>
+          <li>דיני משפחה, גירושין, צוואות, ירושות וייפוי כוח מתמשך</li>
+        </ul>
+      </div>
+      <div class="hero-visual-wrap">
+        <div class="hero-visual card">
+          <img src={site.heroImage} alt={site.shortName} />
+        </div>
+        <div class="hero-floating-card card">
+          <strong>זמינות גבוהה וליווי אישי</strong>
+          <p>כל תיק מקבל יחס ישיר, שקול ומדויק – בלי מתווכים ובלי רעש מיותר.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<Layout>
-	<Welcome />
-</Layout>
+  <section class="section stats-band">
+    <div class="container stats-grid">
+      <article class="stat-item">
+        <strong>2008+</strong>
+        <span>ניסיון משפטי ממוקד</span>
+      </article>
+      <article class="stat-item">
+        <strong>דיני משפחה</strong>
+        <span>מיקוד מקצועי ברור</span>
+      </article>
+      <article class="stat-item">
+        <strong>ליווי אישי</strong>
+        <span>טיפול ישיר בכל תיק</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <SectionHeading eyebrow="למה לבחור במשרד" title="משרד בוטיק שמחבר בין אנושיות, אסטרטגיה ומשפט" description={homePage.intro} />
+      <div class="grid highlight-grid">
+        {highlights.map((item) => (
+          <article class="card highlight-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split-section">
+      <div>
+        <SectionHeading eyebrow="אודות המשרד" title="ליווי אישי לכל מי שמתמודד עם רגעים משמעותיים ורגישים בחיים" description="העיצוב החדש מבליט מקצועיות וביטחון, אבל משאיר מקום גם לרגישות. זה קריטי במיוחד באתר של עורכת דין לענייני משפחה." />
+        <p>
+          עו״ד אליזבט ברזאני דדון מלווה לקוחות בהליכי גירושין, משמורת, מזונות, חלוקת רכוש, צוואות, ירושות,
+          ייפוי כוח מתמשך והסכמים – תוך הקפדה על יחס אישי, שקיפות וחשיבה לטווח ארוך.
+        </p>
+        <p>
+          האתר נבנה כך שיוכל להתרחב בקלות, להציג תוכן איכותי, ולשמש בסיס למאמרים עתידיים ולפעילות SEO חכמה.
+        </p>
+      </div>
+      <div class="card contact-side-card">
+        <div class="eyebrow">פרטי קשר</div>
+        <div class="contact-mini-grid">
+          {contactCards.map((item) => (
+            <a class="mini-card" href={item.href}>{item.label}<strong>{item.value}</strong></a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <SectionHeading eyebrow="תחומי עיסוק" title="מענה משפטי רחב בתוך התמחות אחת מדויקת" description="במקום תפריט דליל כמו באתר הישן, אנחנו בונים אזור תוכן ברור ומודולרי שאפשר להרחיב עם עמודים, שאלות ותוכן SEO." />
+      <PracticeAreasPreview />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container process-grid">
+      <div>
+        <SectionHeading eyebrow="תהליך העבודה" title="שלבים ברורים שמורידים עומס, בלבול ואי ודאות" description="המסר הוא לא רק מה המשרד עושה – אלא גם איך נראה תהליך נכון מהרגע הראשון." />
+      </div>
+      <div class="grid process-cards">
+        {homePage.process.map((step, index) => (
+          <article class="card process-card">
+            <span class="step-index">0{index + 1}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container faq-preview">
+      <SectionHeading eyebrow="שאלות נפוצות" title="תוכן שמסביר, מרגיע ומכין לקריאה נוספת" description="ה‑FAQ החדש נועד גם לשירות לקוחות, גם ל‑SEO, וגם ליצירת אמון עוד לפני שיחה ראשונה." />
+      <FaqPreview />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cta-banner card">
+      <div>
+        <div class="eyebrow">יצירת קשר</div>
+        <h2>{homePage.cta.title}</h2>
+        <p>{homePage.cta.text}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button button-primary" href={homePage.cta.primary.href}>{homePage.cta.primary.label}</a>
+        <a class="button button-secondary" href={homePage.cta.secondary.href}>{homePage.cta.secondary.label}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-shell {
+    padding-top: 3rem;
+  }
+
+  .hero-panel {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #fff7e6 0%, #ffffff 56%);
+    border: 1px solid rgba(255, 182, 55, 0.25);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-copy {
+    font-size: 1.1rem;
+    max-width: 62ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .hero-meta {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    gap: 0.8rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .hero-meta li::before {
+    content: '•';
+    color: var(--color-primary);
+    margin-left: 0.55rem;
+  }
+
+  .hero-visual-wrap {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-visual {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  .hero-visual img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  .hero-floating-card {
+    max-width: 280px;
+    position: absolute;
+    left: -2rem;
+    bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.94);
+  }
+
+  .stats-band {
+    padding-top: 2rem;
+  }
+
+  .stats-grid,
+  .highlight-grid,
+  .contact-mini-grid,
+  .process-grid,
+  .split-section {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stat-item {
+    padding: 1.35rem;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .stat-item strong {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .highlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .highlight-card {
+    min-height: 100%;
+  }
+
+  .split-section {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+
+  .contact-side-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fff8ea 100%);
+  }
+
+  .contact-mini-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mini-card {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .mini-card strong {
+    color: var(--color-text);
+  }
+
+  .process-grid {
+    grid-template-columns: 0.95fr 1.05fr;
+    align-items: start;
+  }
+
+  .process-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-card {
+    min-height: 100%;
+  }
+
+  .step-index {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff7e6;
+    border: 1px solid rgba(255, 182, 55, 0.35);
+    color: #8a6513;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .cta-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: linear-gradient(120deg, #1f1f1f 0%, #2b2b2b 100%);
+    color: white;
+  }
+
+  .cta-banner p,
+  .cta-banner h2 {
+    color: white;
+  }
+
+  .cta-banner .eyebrow {
+    color: #8a6513;
+    background: rgba(255, 182, 55, 0.18);
+  }
+
+  @media (max-width: 980px) {
+    .hero-panel,
+    .stats-grid,
+    .highlight-grid,
+    .split-section,
+    .process-grid,
+    .process-cards,
+    .contact-mini-grid,
+    .cta-banner {
+      grid-template-columns: 1fr;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero-floating-card {
+      position: static;
+      max-width: none;
+    }
+  }
+</style>

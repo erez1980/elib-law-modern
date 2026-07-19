@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+
+const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
+---
+<div class="grid areas-grid">
+  {practiceAreas.map((area) => (
+    <article class="card area-card">
+      <h3>{area.data.title}</h3>
+      <p>{area.data.summary}</p>
+      <a href="/practice-areas" class="text-link">לפרטים נוספים</a>
+    </article>
+  ))}
+</div>
+
+<style>
+  .areas-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .text-link {
+    color: #8a6513;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .areas-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

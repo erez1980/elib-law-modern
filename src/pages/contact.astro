@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { contactCards, site } from '../data/site';
+import contactPage from '../data/contact-page.json';
+---
+<BaseLayout title="צור קשר | עו״ד אליזבט ברזאני דדון">
+  <section class="section">
+    <div class="container contact-grid">
+      <div>
+        <SectionHeading eyebrow="צור קשר" title={contactPage.title} description={contactPage.description} />
+        <div class="grid cards-grid">
+          {contactCards.map((item) => (
+            <a class="card" href={item.href}>
+              <h3>{item.label}</h3>
+              <p>{item.value}</p>
+            </a>
+          ))}
+        </div>
+        <div class="card hours-card">
+          <h3>שעות פעילות</h3>
+          <ul>
+            {site.hours.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="small-note">{contactPage.formSuccessNote}</p>
+        </div>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid,
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 1.5rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 1.5rem;
+  }
+
+  .hours-card ul {
+    margin: 0;
+    padding-right: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

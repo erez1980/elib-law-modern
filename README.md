@@ -1,46 +1,30 @@
-# Astro Starter Kit: Basics
+# elib-law-modern
 
-```sh
-npm create astro@latest -- --template basics
+אתר חדש לעו"ד אליזבט ברזאני דדון, מבוסס Astro + GitHub Pages + Decap CMS.
+
+## מה יש כרגע
+- RTL מלא
+- עמודי בסיס: ראשי, אודות, תחומי עיסוק, FAQ, צור קשר, מאמרים
+- Decap CMS בנתיב `/admin`
+- טופס מחובר דרך FormSubmit למייל `Elib-law@gmail.com`
+- הכנה ל-GitHub Pages דרך GitHub Actions
+
+## פיתוח מקומי
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+## Build
+```bash
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## פרסום
+ה־workflow ב-`.github/workflows/deploy.yml` מפרסם ל-GitHub Pages על כל push ל-`main`.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## מה עוד נשאר
+- להחליף ללוגו המקורי כשתספק קובץ איכותי
+- להוסיף קישור WhatsApp בהגדרות `src/data/site-settings.json`
+- לשקול מעבר מטופס FormSubmit לשירות עם domain/email מותאם אישית בהמשך
+- לשפר את Decap CMS כדי לערוך גם `site settings` ו-`home` בצורה מלאה דרך JSON/YAML

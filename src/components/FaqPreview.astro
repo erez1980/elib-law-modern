@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+
+const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order).slice(0, 4);
+---
+<div class="grid faq-grid">
+  {faq.map((item) => (
+    <article class="card">
+      <h3>{item.data.question}</h3>
+      <p>{item.data.answer}</p>
+    </article>
+  ))}
+</div>
+
+<style>
+  .faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 900px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { getCollection, render } from 'astro:content';
+
+const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order);
+const renderedAreas = await Promise.all(
+  practiceAreas.map(async (area) => ({
+    area,
+    rendered: await render(area),
+  })),
+);
+---
+<BaseLayout title="תחומי עיסוק | עו״ד אליזבט ברזאני דדון">
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="תחומי עיסוק" title="תחומים משפטיים שבהם המשרד מלווה באופן אישי ומקצועי" description="כל תחום יקבל בהמשך גם עמוד SEO ייעודי אם נרצה. כרגע הקמתי עמוד מרכזי ברור ונקי, שאפשר להרחיב בקלות דרך ה‑CMS." />
+      <div class="areas-grid">
+        {renderedAreas.map(({ area, rendered }) => {
+          const { Content } = rendered;
+          return (
+            <article class="card">
+              <h2>{area.data.title}</h2>
+              <p>{area.data.summary}</p>
+              <div class="content"><Content /></div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .areas-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

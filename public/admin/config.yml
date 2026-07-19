@@ -1,0 +1,141 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+locale: he
+
+collections:
+  - name: site_settings
+    label: הגדרות אתר
+    files:
+      - file: src/data/site-settings.json
+        label: הגדרות כלליות
+        name: site
+        fields:
+          - { label: שם מלא, name: name, widget: string }
+          - { label: שם קצר, name: shortName, widget: string }
+          - { label: כותרת אתר, name: title, widget: string }
+          - { label: תיאור אתר, name: description, widget: text }
+          - { label: טלפון, name: phone, widget: string }
+          - { label: אימייל, name: email, widget: string }
+          - { label: WhatsApp, name: whatsapp, widget: string, required: false }
+          - { label: כתובת, name: address, widget: string }
+          - { label: שעות פעילות, name: hours, widget: list }
+          - { label: דומיין, name: domain, widget: string }
+          - { label: פייסבוק, name: facebook, widget: string, required: false }
+          - { label: תמונת Hero, name: heroImage, widget: image }
+          - { label: לוגו, name: logo, widget: image }
+          - { label: שורת משנה, name: tagline, widget: string }
+
+      - file: src/data/home-page.json
+        label: דף הבית
+        name: home
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: שורת פתיחה, name: kicker, widget: string }
+              - { label: כותרת ראשית, name: title, widget: string }
+              - { label: תיאור, name: description, widget: text }
+              - label: CTA ראשי
+                name: primaryCta
+                widget: object
+                fields:
+                  - { label: טקסט, name: label, widget: string }
+                  - { label: קישור, name: href, widget: string }
+              - label: CTA משני
+                name: secondaryCta
+                widget: object
+                fields:
+                  - { label: טקסט, name: label, widget: string }
+                  - { label: קישור, name: href, widget: string }
+          - { label: טקסט היכרות, name: intro, widget: text }
+          - label: תהליך עבודה
+            name: process
+            widget: list
+            fields:
+              - { label: כותרת, name: title, widget: string }
+              - { label: טקסט, name: text, widget: text }
+          - label: אזור CTA
+            name: cta
+            widget: object
+            fields:
+              - { label: כותרת, name: title, widget: string }
+              - { label: טקסט, name: text, widget: text }
+              - label: CTA ראשי
+                name: primary
+                widget: object
+                fields:
+                  - { label: טקסט, name: label, widget: string }
+                  - { label: קישור, name: href, widget: string }
+              - label: CTA משני
+                name: secondary
+                widget: object
+                fields:
+                  - { label: טקסט, name: label, widget: string }
+                  - { label: קישור, name: href, widget: string }
+
+      - file: src/data/about-page.json
+        label: דף אודות
+        name: about
+        fields:
+          - { label: כותרת, name: title, widget: string }
+          - { label: תיאור, name: description, widget: text }
+          - { label: פסקאות, name: paragraphs, widget: list }
+          - label: ערכים
+            name: values
+            widget: list
+            fields:
+              - { label: כותרת, name: title, widget: string }
+              - { label: טקסט, name: text, widget: text }
+
+      - file: src/data/contact-page.json
+        label: דף צור קשר
+        name: contact
+        fields:
+          - { label: כותרת, name: title, widget: string }
+          - { label: תיאור, name: description, widget: text }
+          - { label: הערת טופס, name: formSuccessNote, widget: text }
+
+  - name: practiceAreas
+    label: תחומי עיסוק
+    folder: src/content/practiceAreas
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: כותרת, name: title, widget: string }
+      - { label: תקציר, name: summary, widget: text }
+      - { label: סדר, name: order, widget: number }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: תוכן, name: body, widget: markdown }
+
+  - name: faq
+    label: שאלות נפוצות
+    folder: src/content/faq
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: שאלה, name: question, widget: string }
+      - { label: תשובה, name: answer, widget: text }
+      - { label: קטגוריה, name: category, widget: string }
+      - { label: סדר, name: order, widget: number }
+
+  - name: articles
+    label: מאמרים
+    folder: src/content/articles
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: כותרת, name: title, widget: string }
+      - { label: תקציר, name: excerpt, widget: text }
+      - { label: תאריך פרסום, name: publishDate, widget: datetime, format: 'YYYY-MM-DD' }
+      - { label: טיוטה, name: draft, widget: boolean, default: false }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: תגיות, name: tags, widget: list, required: false }
+      - { label: תמונת שער, name: coverImage, widget: image, required: false }
+      - { label: תוכן, name: body, widget: markdown }
