@@ -6,6 +6,12 @@ import aboutPage from '../data/about-page.json';
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const heroImage = withBase(site.heroImage);
+const workStyle = [
+  'להתחיל מסדר ובהירות, לא מלחץ ומהירות',
+  'להסתכל גם על ההשלכות האנושיות, לא רק על הסעיף המשפטי',
+  'לשמור על דיסקרטיות, כבוד ותקשורת עניינית',
+  'לבחור בכל פעם את הדרך שתשרת את הלקוח בצורה הנכונה ביותר',
+];
 ---
 <BaseLayout title="אודות | עו״ד אליזבט ברזאני דדון">
   <section class="section about-hero">
@@ -22,7 +28,7 @@ const heroImage = withBase(site.heroImage);
 
   <section class="section section-alt">
     <div class="container values-shell">
-      <SectionHeading eyebrow="הגישה המקצועית" title="שלושה עקרונות שמובילים את העבודה במשרד" />
+      <SectionHeading eyebrow="הגישה המקצועית" title="כך נראה ליווי משפטי שנשען גם על מקצועיות וגם על שיקול דעת" />
       <div class="values-grid">
         {aboutPage.values.map((value) => (
           <article class="card value-card">
@@ -34,21 +40,33 @@ const heroImage = withBase(site.heroImage);
     </div>
   </section>
 
-  <section class="section authority-section">
+  <section class="section">
     <div class="container authority-grid">
-      <article class="card authority-card">
+      <article class="card authority-card authority-card--main">
+        <div class="eyebrow">מה חשוב בעבודה</div>
+        <h2>לא רק לפתור את הבעיה המשפטית, אלא גם לעזור לעבור את התקופה הזאת בצורה נכונה יותר</h2>
+        <ul class="work-style-list">
+          {workStyle.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="card authority-card authority-card--side">
         <div class="eyebrow">למה לבחור במשרד</div>
-        <h2>ליווי אישי, ניסיון מקצועי וגישה שמחפשת את הדרך הנכונה לכל מקרה</h2>
-        <p>
-          המשרד משלב בין הבנה אנושית עמוקה של מצבים משפחתיים רגישים לבין עבודה משפטית מסודרת, מדויקת ומבוססת מטרה.
-        </p>
-      </article>
-      <article class="card authority-card">
+        <p>שילוב בין ניסיון מקצועי, גישור וייצוג משפטי, טיפול אישי וישיר, וחשיבה שמחפשת את הדרך הנכונה לכל מקרה - לא את הדרך האוטומטית.</p>
+        <div class="mini-divider"></div>
         <div class="eyebrow">אזורי שירות</div>
-        <p>
-          המשרד מלווה לקוחות מקדימה צורן, אזור השרון ומקומות נוספים בארץ, בפגישות מסודרות וליווי אישי לאורך הדרך.
-        </p>
+        <p>המשרד מלווה לקוחות מקדימה צורן, אזור השרון ומקומות נוספים בארץ, בפגישות מסודרות וליווי אישי לאורך הדרך.</p>
       </article>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container about-cta card">
+      <div>
+        <div class="eyebrow">פנייה ראשונה</div>
+        <h2>אם חשוב לך להבין מול מי עובדים ואיך נראה הליווי, אפשר להתחיל בשיחה רגועה וברורה</h2>
+        <p>לפעמים שיחה אחת מסודרת כבר עושה הרבה סדר. אפשר לפנות, לשאול, להבין את האפשרויות, ולקבל כיוון ראשוני בלי לחץ מיותר.</p>
+      </div>
+      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
     </div>
   </section>
 </BaseLayout>
@@ -87,10 +105,48 @@ const heroImage = withBase(site.heroImage);
 
   .authority-grid {
     grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+
+  .value-card,
+  .authority-card,
+  .about-cta {
+    min-height: 100%;
   }
 
   .value-card {
-    min-height: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .authority-card--main {
+    background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+  }
+
+  .authority-card--side {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .work-style-list {
+    margin: 0;
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.8rem;
+    color: #5a5a5a;
+  }
+
+  .mini-divider {
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+    margin: 1.15rem 0;
+  }
+
+  .about-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
   }
 
   @media (max-width: 900px) {
@@ -98,6 +154,11 @@ const heroImage = withBase(site.heroImage);
     .values-grid,
     .authority-grid {
       grid-template-columns: 1fr;
+    }
+
+    .about-cta {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 </style>
