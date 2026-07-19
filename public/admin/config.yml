@@ -98,7 +98,6 @@ collections:
         fields:
           - { label: כותרת, name: title, widget: string }
           - { label: תיאור, name: description, widget: text }
-          - { label: הערת טופס, name: formSuccessNote, widget: text }
 
   - name: practiceAreas
     label: תחומי עיסוק

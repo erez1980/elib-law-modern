@@ -1,0 +1,94 @@
+---
+import WhatsappIcon from './WhatsappIcon.astro';
+import { site } from '../data/site';
+
+const phoneHref = `tel:${site.phone.replace(/-/g, '')}`;
+const emailHref = `mailto:${site.email}?subject=${encodeURIComponent('פנייה מהאתר')}`;
+const whatsappHref = site.whatsapp || phoneHref;
+---
+<div class="contact-actions-panel card">
+  <div>
+    <div class="eyebrow">יצירת קשר מהירה</div>
+    <h2>בחרו את הדרך הנוחה לפנייה</h2>
+    <p>אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. הפנייה תיענה בדיסקרטיות ובמקצועיות.</p>
+  </div>
+  <div class="contact-actions-grid">
+    <a class="action-card action-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
+      <WhatsappIcon size={32} />
+      <span>WhatsApp Business</span>
+      <strong>שליחת הודעה</strong>
+    </a>
+    <a class="action-card" href={phoneHref}>
+      <span class="action-icon">☎</span>
+      <span>טלפון</span>
+      <strong>{site.phone}</strong>
+    </a>
+    <a class="action-card" href={emailHref}>
+      <span class="action-icon">✉</span>
+      <span>אימייל</span>
+      <strong>{site.email}</strong>
+    </a>
+  </div>
+</div>
+
+<style>
+  .contact-actions-panel {
+    display: grid;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #fff8ea 100%);
+  }
+
+  .contact-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .action-card {
+    min-height: 150px;
+    padding: 1.25rem;
+    border-radius: 18px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.88);
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 0.4rem;
+    transition: 180ms ease;
+  }
+
+  .action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .action-card span {
+    color: var(--color-muted);
+  }
+
+  .action-card strong {
+    color: var(--color-text);
+  }
+
+  .action-whatsapp {
+    border-color: rgba(37, 211, 102, 0.35);
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), #ffffff);
+  }
+
+  .action-icon {
+    width: 34px;
+    height: 34px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff7e6;
+    color: var(--color-primary-deep) !important;
+    font-weight: 800;
+  }
+
+  @media (max-width: 900px) {
+    .contact-actions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

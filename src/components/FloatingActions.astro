@@ -1,4 +1,5 @@
 ---
+import WhatsappIcon from './WhatsappIcon.astro';
 import { site } from '../data/site';
 
 const phoneHref = `tel:${site.phone.replace(/-/g, '')}`;
@@ -6,7 +7,10 @@ const whatsappHref = site.whatsapp || phoneHref;
 ---
 <div class="floating-actions">
   <a href={phoneHref} class="floating-chip">שיחה</a>
-  <a href={whatsappHref} class="floating-chip floating-chip--primary" target={site.whatsapp ? '_blank' : undefined} rel={site.whatsapp ? 'noreferrer' : undefined}>WhatsApp</a>
+  <a href={whatsappHref} class="floating-chip floating-chip--whatsapp" target={site.whatsapp ? '_blank' : undefined} rel={site.whatsapp ? 'noreferrer' : undefined} aria-label="שליחת הודעת WhatsApp">
+    <WhatsappIcon size={22} />
+    <span>WhatsApp</span>
+  </a>
 </div>
 
 <style>
@@ -24,6 +28,7 @@ const whatsappHref = site.whatsapp || phoneHref;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.45rem;
     min-width: 112px;
     min-height: 48px;
     padding: 0.8rem 1rem;
@@ -34,9 +39,10 @@ const whatsappHref = site.whatsapp || phoneHref;
     font-weight: 700;
   }
 
-  .floating-chip--primary {
-    background: var(--color-primary);
-    color: var(--color-text);
+  .floating-chip--whatsapp {
+    background: #ffffff;
+    color: #128c4a;
+    border: 1px solid rgba(37, 211, 102, 0.35);
   }
 
   @media (max-width: 900px) {
