@@ -122,12 +122,12 @@ const restArticles = articles.slice(1);
 
   .featured-article p,
   .article-card p {
-    color: #5c5c5c;
+    color: var(--color-soft-text);
     line-height: 1.9;
   }
 
   .text-link {
-    color: #8a6513;
+    color: var(--color-pill-text);
     font-weight: 700;
   }
 
@@ -136,7 +136,7 @@ const restArticles = articles.slice(1);
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-card-strong) 100%);
   }
 
   @media (max-width: 900px) {

@@ -75,7 +75,7 @@ const relatedArticles = allArticles.slice(0, 3);
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    color: #666;
+    color: var(--color-muted);
     font-weight: 600;
     background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
   }
@@ -91,7 +91,7 @@ const relatedArticles = allArticles.slice(0, 3);
 
   .article-body :global(p),
   .article-body :global(li) {
-    color: #595959;
+    color: var(--color-soft-text);
     line-height: 1.95;
   }
 
@@ -100,7 +100,7 @@ const relatedArticles = allArticles.slice(0, 3);
   }
 
   .article-body :global(a) {
-    color: #8a6513;
+    color: var(--color-pill-text);
     font-weight: 700;
   }
 
@@ -130,7 +130,7 @@ const relatedArticles = allArticles.slice(0, 3);
   }
 
   .related-reading-grid span {
-    color: #5c5c5c;
+    color: var(--color-soft-text);
     line-height: 1.8;
   }
 
@@ -139,7 +139,7 @@ const relatedArticles = allArticles.slice(0, 3);
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-card-strong) 100%);
   }
 
   .article-cta-actions {

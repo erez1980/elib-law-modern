@@ -97,7 +97,7 @@ const openingPoints = [
   }
 
   .practice-hero-copy {
-    background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+    background: linear-gradient(180deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
   }
 
   .practice-hero-side {
@@ -148,16 +148,16 @@ const openingPoints = [
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
-    background: #fff7e6;
+    background: var(--color-pill-bg);
     border: 1px solid rgba(255, 182, 55, 0.35);
-    color: #8a6513;
+    color: var(--color-pill-text);
     font-weight: 700;
     flex: 0 0 auto;
   }
 
   .content :global(p),
   .practice-hero-side p {
-    color: #595959;
+    color: var(--color-soft-text);
     line-height: 1.9;
   }
 
@@ -176,7 +176,7 @@ const openingPoints = [
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-card-strong) 100%);
   }
 
   @media (max-width: 900px) {

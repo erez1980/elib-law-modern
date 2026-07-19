@@ -36,7 +36,7 @@ const whatsappHref = site.whatsapp || phoneHref;
   .contact-actions-panel {
     display: grid;
     gap: 1.75rem;
-    background: linear-gradient(135deg, #ffffff 0%, #fff8ea 100%);
+    background: linear-gradient(135deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
   }
 
   .contact-actions-panel h2 {
@@ -47,7 +47,7 @@ const whatsappHref = site.whatsapp || phoneHref;
   .contact-lead {
     font-size: 1.12rem;
     line-height: 1.95;
-    color: #585858;
+    color: var(--color-soft-text);
   }
 
   .contact-actions-grid {
@@ -61,7 +61,7 @@ const whatsappHref = site.whatsapp || phoneHref;
     padding: 1.5rem;
     border-radius: 20px;
     border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--color-card);
     display: grid;
     align-content: center;
     justify-items: start;
@@ -86,14 +86,14 @@ const whatsappHref = site.whatsapp || phoneHref;
   }
 
   .response-note {
-    color: #6a6a6a;
+    color: var(--color-muted);
     margin-bottom: 0;
     font-size: 1.02rem;
   }
 
   .action-whatsapp {
     border-color: rgba(37, 211, 102, 0.35);
-    background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), #ffffff);
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.14), var(--color-card-strong));
   }
 
   .action-icon {
@@ -102,7 +102,7 @@ const whatsappHref = site.whatsapp || phoneHref;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
-    background: #fff7e6;
+    background: var(--color-pill-bg);
     color: var(--color-primary-deep) !important;
     font-weight: 800;
     font-size: 1.45rem !important;

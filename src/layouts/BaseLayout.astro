@@ -44,6 +44,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#FFB637" />
+    <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -120,12 +121,51 @@ const jsonLd = {
     --color-surface-warm: #fffaf1;
     --color-border: #e6e6e6;
     --color-white: #ffffff;
+    --color-page-top: #fffdf9;
+    --color-header: rgba(255, 255, 255, 0.88);
+    --color-header-border: rgba(230, 230, 230, 0.78);
+    --color-card: rgba(255, 255, 255, 0.92);
+    --color-card-strong: rgba(255,255,255,0.97);
+    --color-overlay: rgba(31, 31, 31, 0.78);
+    --color-overlay-text: rgba(255, 255, 255, 0.82);
+    --color-pill-bg: #fff7e6;
+    --color-pill-text: #8a6513;
+    --color-soft-text: #575757;
+    --color-footer-bg-start: #252525;
+    --color-footer-bg-end: #1b1b1b;
     --shadow-soft: 0 18px 50px rgba(45, 45, 45, 0.08);
     --shadow-strong: 0 30px 80px rgba(45, 45, 45, 0.14);
     --radius-lg: 24px;
     --radius-md: 16px;
     --radius-sm: 12px;
     --container: min(1120px, calc(100vw - 2rem));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-primary: #f2b84b;
+      --color-primary-deep: #f0c978;
+      --color-text: #f3efe7;
+      --color-muted: #c0b8ab;
+      --color-surface: #121212;
+      --color-surface-warm: #171514;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-white: #0f0f10;
+      --color-page-top: #151312;
+      --color-header: rgba(16, 16, 17, 0.82);
+      --color-header-border: rgba(255, 255, 255, 0.06);
+      --color-card: rgba(24, 24, 26, 0.92);
+      --color-card-strong: rgba(29, 29, 31, 0.96);
+      --color-overlay: rgba(10, 10, 11, 0.82);
+      --color-overlay-text: rgba(255, 255, 255, 0.86);
+      --color-pill-bg: rgba(242, 184, 75, 0.12);
+      --color-pill-text: #f1c975;
+      --color-soft-text: #ddd5ca;
+      --color-footer-bg-start: #0f0f10;
+      --color-footer-bg-end: #0a0a0b;
+      --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --shadow-strong: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
   }
 
   html {
@@ -141,7 +181,7 @@ const jsonLd = {
     font-size: 1.04rem;
     background:
       radial-gradient(circle at top right, rgba(255, 182, 55, 0.08), transparent 24%),
-      linear-gradient(180deg, #fffdf9 0%, #ffffff 22%);
+      linear-gradient(180deg, var(--color-page-top) 0%, var(--color-white) 22%);
   }
 
   * {
@@ -167,8 +207,8 @@ const jsonLd = {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(255, 255, 255, 0.88);
-    border-bottom: 1px solid rgba(230, 230, 230, 0.78);
+    background: var(--color-header);
+    border-bottom: 1px solid var(--color-header-border);
     backdrop-filter: blur(18px);
     box-shadow: 0 8px 30px rgba(45, 45, 45, 0.04);
   }
@@ -204,7 +244,7 @@ const jsonLd = {
     height: 54px;
     object-fit: contain;
     border-radius: 14px;
-    background: #fff9ec;
+    background: var(--color-surface-warm);
     padding: 0.55rem;
     border: 1px solid rgba(255, 182, 55, 0.35);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
@@ -276,8 +316,8 @@ const jsonLd = {
     gap: 0.5rem;
     font-weight: 700;
     font-size: 0.9rem;
-    color: #8a6513;
-    background: #fff7e6;
+    color: var(--color-pill-text);
+    background: var(--color-pill-bg);
     border: 1px solid rgba(255, 182, 55, 0.35);
     border-radius: 999px;
     padding: 0.45rem 0.85rem;
@@ -305,7 +345,7 @@ const jsonLd = {
 
   p {
     margin: 0 0 1rem;
-    color: #575757;
+    color: var(--color-soft-text);
     max-width: 68ch;
   }
 
@@ -315,8 +355,8 @@ const jsonLd = {
   }
 
   .card {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(230, 230, 230, 0.92);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 1.5rem;
     box-shadow: var(--shadow-soft);
@@ -326,7 +366,7 @@ const jsonLd = {
 
   .site-footer {
     padding: 3rem 0 7rem;
-    background: linear-gradient(180deg, #252525 0%, #1b1b1b 100%);
+    background: linear-gradient(180deg, var(--color-footer-bg-start) 0%, var(--color-footer-bg-end) 100%);
     color: rgba(255, 255, 255, 0.88);
     border-top: 1px solid rgba(255,255,255,0.04);
   }

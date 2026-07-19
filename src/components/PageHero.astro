@@ -27,7 +27,7 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
     padding: 2rem 2.1rem;
     border-radius: 28px;
     border: 1px solid rgba(255, 182, 55, 0.24);
-    background: linear-gradient(135deg, #fff7e6 0%, #ffffff 68%);
+    background: linear-gradient(135deg, var(--color-pill-bg) 0%, var(--color-card-strong) 68%);
     box-shadow: var(--shadow-soft);
   }
 
@@ -43,7 +43,7 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
   .page-hero p {
     font-size: 1.05rem;
     line-height: 1.9;
-    color: #5c5c5c;
+    color: var(--color-soft-text);
     max-width: 60ch;
     margin-bottom: 0;
   }
