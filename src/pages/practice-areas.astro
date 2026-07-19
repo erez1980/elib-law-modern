@@ -19,37 +19,97 @@ const renderedAreas = await Promise.all(
     rendered: await render(area),
   })),
 );
+const openingPoints = [
+  'לא כל מקרה צריך עימות, ולא כל הסכמה היא הסכמה נכונה',
+  'לפעמים צריך גישור, לפעמים הסכם, ולפעמים ייצוג משפטי נחוש',
+  'המטרה היא לבחור את הדרך הנכונה לפי המציאות שלך',
+];
 ---
 <BaseLayout title="תחומי עיסוק | עו״ד אליזבט ברזאני דדון">
-  <section class="section">
+  <section class="section practice-hero">
+    <div class="container practice-hero-grid">
+      <div class="practice-hero-copy card">
+        <SectionHeading eyebrow="תחומי עיסוק" title="הנושאים המרכזיים שבהם המשרד מלווה, מייעץ ופועל באופן אישי ומדויק" description="דיני משפחה כוללים שאלות משפטיות, רגשיות וכלכליות שמשפיעות על החיים עצמם. לכן חשוב לבחור לא רק תחום, אלא גם דרך פעולה שמתאימה באמת למקרה." />
+        <ul class="opening-points">
+          {openingPoints.map((point) => <li>{point}</li>)}
+        </ul>
+      </div>
+      <div class="card practice-hero-side">
+        <div class="eyebrow">איך לבחור נכון</div>
+        <h2>הצעד הראשון הוא לא לרוץ לפעולה - אלא להבין מה נכון למקרה שלך</h2>
+        <p>כאן אפשר לראות בצורה מסודרת את תחומי הליווי המרכזיים, ולהיכנס לעמוד המורחב של כל נושא לפי מה שמעסיק אותך עכשיו.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
     <div class="container areas-shell">
-      <SectionHeading eyebrow="תחומי עיסוק" title="תחומים משפטיים שבהם המשרד מלווה באופן אישי, רגיש ומדויק" description="שירות משפטי וגישורי בענייני משפחה, עם מיקוד בפתרונות מעשיים, הסכמות כשאפשר וייצוג נחוש כשצריך." />
       <div class="areas-grid">
         {renderedAreas.map(({ area, rendered }) => {
           const { Content } = rendered;
           return (
             <article class="card area-card">
               <div class="area-head">
-                <h2>{area.data.title}</h2>
+                <div class="area-title-row">
+                  <h2>{area.data.title}</h2>
+                  <span class="area-order">0{area.data.order}</span>
+                </div>
                 <p>{area.data.summary}</p>
               </div>
               <div class="content"><Content /></div>
-              {seoServiceMap[area.data.title] && (
-                <a class="text-link" href={withBase(seoServiceMap[area.data.title])}>למידע נוסף על התחום</a>
-              )}
+              <div class="area-actions">
+                {seoServiceMap[area.data.title] ? (
+                  <a class="button button-secondary" href={withBase(seoServiceMap[area.data.title])}>למידע נוסף על התחום</a>
+                ) : (
+                  <a class="button button-secondary" href={withBase('/contact')}>לפנייה בנושא זה</a>
+                )}
+              </div>
             </article>
           );
         })}
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container practice-cta card">
+      <div>
+        <div class="eyebrow">לא בטוחים לאן זה שייך?</div>
+        <h2>זה טבעי. הרבה מקרים משלבים כמה נושאים יחד - ילדים, רכוש, הסכמות, צוואות או שאלות על העתיד</h2>
+        <p>אם לא ברור עדיין מאיזה תחום להתחיל, אפשר פשוט לפנות. שיחה ראשונה טובה תעזור להבין מה נכון לבדוק קודם ואיך להתקדם בצורה מסודרת.</p>
+      </div>
+      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  .practice-hero-grid,
   .areas-shell,
   .areas-grid {
     display: grid;
     gap: 1.5rem;
+  }
+
+  .practice-hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+
+  .practice-hero-copy {
+    background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+  }
+
+  .practice-hero-side {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .opening-points {
+    margin: 0;
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.8rem;
+    color: #5b5b5b;
   }
 
   .areas-grid {
@@ -60,6 +120,14 @@ const renderedAreas = await Promise.all(
     min-height: 100%;
     display: grid;
     gap: 1rem;
+    align-content: start;
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .area-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+    border-color: rgba(255, 182, 55, 0.28);
   }
 
   .area-head {
@@ -67,13 +135,59 @@ const renderedAreas = await Promise.all(
     border-bottom: 1px solid rgba(230, 230, 230, 0.9);
   }
 
+  .area-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .area-order {
+    width: 40px;
+    height: 40px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff7e6;
+    border: 1px solid rgba(255, 182, 55, 0.35);
+    color: #8a6513;
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
+
+  .content :global(p),
+  .practice-hero-side p {
+    color: #595959;
+    line-height: 1.9;
+  }
+
   .content :global(p:last-child) {
     margin-bottom: 0;
   }
 
+  .area-actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .practice-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
   @media (max-width: 900px) {
+    .practice-hero-grid,
     .areas-grid {
       grid-template-columns: 1fr;
+    }
+
+    .practice-cta {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 </style>
