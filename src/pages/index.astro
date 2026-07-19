@@ -13,56 +13,56 @@ const trustBadges = [
   'שירות אישי וישיר ללא מתמחים',
   'ליווי דיסקרטי בדיני משפחה, צוואות וייפוי כוח מתמשך',
 ];
+const quickFacts = [
+  { title: 'ניסיון מקצועי', value: '2008+' },
+  { title: 'תחום התמחות', value: 'דיני משפחה' },
+  { title: 'סגנון עבודה', value: 'ליווי אישי' },
+];
 ---
 <BaseLayout>
   <section class="section hero-shell">
-    <div class="container hero-panel">
-      <div class="hero-copy-block">
+    <div class="container hero-grid">
+      <div class="hero-main">
         <div class="eyebrow">{homePage.hero.kicker}</div>
         <h1>{homePage.hero.title}</h1>
         <p class="hero-copy">{homePage.hero.description}</p>
+
         <div class="hero-actions">
           <a class="button button-primary" href={withBase(homePage.hero.primaryCta.href)}>{homePage.hero.primaryCta.label}</a>
           <a class="button button-secondary" href={withBase(homePage.hero.secondaryCta.href)}>{homePage.hero.secondaryCta.label}</a>
         </div>
+
         <ul class="hero-meta">
           {trustBadges.map((badge) => <li>{badge}</li>)}
         </ul>
       </div>
-      <div class="hero-visual-wrap">
-        <div class="hero-visual card">
-          <img src={heroImage} alt={site.shortName} />
-        </div>
-        <div class="hero-floating-card card">
-          <strong>זמינות גבוהה וליווי אישי</strong>
-          <p>כל תיק מקבל יחס ישיר, שקול ומדויק – בלי מתווכים ובלי רעש מיותר.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section stats-band">
-    <div class="container stats-grid">
-      <article class="stat-item">
-        <strong>2008+</strong>
-        <span>ותק מקצועי רציף</span>
-      </article>
-      <article class="stat-item">
-        <strong>דיני משפחה</strong>
-        <span>התמחות ממוקדת ולא כללית</span>
-      </article>
-      <article class="stat-item">
-        <strong>יחס אישי</strong>
-        <span>ליווי ישיר ושקול בכל שלב</span>
-      </article>
+      <aside class="hero-stack">
+        <div class="hero-image-card card">
+          <img src={heroImage} alt={site.shortName} />
+          <div class="hero-image-overlay">
+            <strong>ליווי מדויק בתקופות מורכבות</strong>
+            <span>שילוב בין רגישות, אסטרטגיה ובהירות משפטית</span>
+          </div>
+        </div>
+
+        <div class="hero-facts card">
+          {quickFacts.map((fact) => (
+            <div class="fact-row">
+              <span>{fact.title}</span>
+              <strong>{fact.value}</strong>
+            </div>
+          ))}
+        </div>
+      </aside>
     </div>
   </section>
 
   <section class="section trust-strip">
-    <div class="container trust-strip-inner card">
+    <div class="container trust-band card">
       <div>
         <div class="eyebrow">אמון, בהירות ומקצועיות</div>
-        <h2>משרד שנועד לתת גם תשובה משפטית נכונה וגם תחושת יציבות</h2>
+        <h2>משרד שנועד לתת לא רק תשובה משפטית נכונה, אלא גם תחושת כיוון ושקט</h2>
       </div>
       <div class="trust-points">
         <span>ליווי אישי</span>
@@ -89,21 +89,24 @@ const trustBadges = [
 
   <section class="section">
     <div class="container split-section">
-      <div>
-        <SectionHeading eyebrow="אודות המשרד" title="ליווי אישי לכל מי שמתמודד עם רגעים משמעותיים ורגישים בחיים" description="העיצוב החדש מבליט מקצועיות וביטחון, אבל משאיר מקום גם לרגישות. זה קריטי במיוחד באתר של עורכת דין לענייני משפחה." />
+      <div class="story-card card">
+        <SectionHeading eyebrow="אודות המשרד" title="ליווי אישי למי שמתמודד עם החלטות משמעותיות ורגישות" description="המבנה החדש של האתר שם דגש על אמון, קריאות, היררכיה ונגישות רגשית - לא רק על מידע יבש." />
         <p>
-          עו״ד אליזבט ברזאני דדון מלווה לקוחות בהליכי גירושין, משמורת, מזונות, חלוקת רכוש, צוואות, ירושות,
-          ייפוי כוח מתמשך והסכמים – תוך הקפדה על יחס אישי, שקיפות וחשיבה לטווח ארוך.
+          עו״ד אליזבט ברזאני דדון מלווה לקוחות בהליכי גירושין, משמורת, מזונות, חלוקת רכוש, צוואות,
+          ירושות, ייפוי כוח מתמשך והסכמים - תוך הקפדה על יחס אישי, שקיפות וחשיבה לטווח ארוך.
         </p>
         <p>
-          האתר נבנה כך שיוכל להתרחב בקלות, להציג תוכן איכותי, ולשמש בסיס למאמרים עתידיים ולפעילות SEO חכמה.
+          המטרה היא לייצר לא רק שירות משפטי מקצועי, אלא גם חוויה מסודרת, בהירה ומרגיעה ככל האפשר.
         </p>
       </div>
       <div class="card contact-side-card">
         <div class="eyebrow">פרטי קשר</div>
         <div class="contact-mini-grid">
           {contactCards.map((item) => (
-            <a class="mini-card" href={item.href}>{item.label}<strong>{item.value}</strong></a>
+            <a class="mini-card" href={item.href}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </a>
           ))}
         </div>
       </div>
@@ -111,16 +114,16 @@ const trustBadges = [
   </section>
 
   <section class="section section-alt">
-    <div class="container">
-      <SectionHeading eyebrow="תחומי עיסוק" title="מענה משפטי רחב בתוך התמחות אחת מדויקת" description="במקום תפריט דליל כמו באתר הישן, אנחנו בונים אזור תוכן ברור ומודולרי שאפשר להרחיב עם עמודים, שאלות ותוכן SEO." />
+    <div class="container areas-shell">
+      <SectionHeading eyebrow="תחומי עיסוק" title="מענה משפטי רחב בתוך התמחות אחת ברורה" description="ארכיטקטורת התוכן החדשה נועדה לשרת גם את הקוראים, גם את ה-SEO, וגם הרחבות עתידיות למאמרים ותוכן AI." />
       <PracticeAreasPreview />
     </div>
   </section>
 
   <section class="section">
-    <div class="container process-grid">
-      <div>
-        <SectionHeading eyebrow="תהליך העבודה" title="שלבים ברורים שמורידים עומס, בלבול ואי ודאות" description="המסר הוא לא רק מה המשרד עושה – אלא גם איך נראה תהליך נכון מהרגע הראשון." />
+    <div class="container process-shell">
+      <div class="process-intro">
+        <SectionHeading eyebrow="תהליך העבודה" title="שלבים ברורים שמורידים בלבול, עומס ואי ודאות" description="המסר הוא לא רק מה המשרד עושה - אלא איך נראה תהליך נכון, רגוע ומקצועי מהרגע הראשון." />
       </div>
       <div class="grid process-cards">
         {homePage.process.map((step, index) => (
@@ -135,8 +138,8 @@ const trustBadges = [
   </section>
 
   <section class="section section-alt">
-    <div class="container faq-preview">
-      <SectionHeading eyebrow="שאלות נפוצות" title="תוכן שמסביר, מרגיע ומכין לקריאה נוספת" description="ה‑FAQ החדש נועד גם לשירות לקוחות, גם ל‑SEO, וגם ליצירת אמון עוד לפני שיחה ראשונה." />
+    <div class="container faq-shell">
+      <SectionHeading eyebrow="שאלות נפוצות" title="תוכן שמסביר, מרגיע ויוצר אמון עוד לפני השיחה הראשונה" description="ה-FAQ החדש בנוי גם לשירות לקוחות, גם ל-SEO, וגם לשיפור דרמטי בתחושת הבהירות באתר." />
       <FaqPreview />
     </div>
   </section>
@@ -148,7 +151,7 @@ const trustBadges = [
         <h2>{homePage.cta.title}</h2>
         <p>{homePage.cta.text}</p>
       </div>
-      <div class="hero-actions">
+      <div class="hero-actions cta-actions">
         <a class="button button-primary" href={withBase(homePage.cta.primary.href)}>{homePage.cta.primary.label}</a>
         <a class="button button-secondary" href={withBase(homePage.cta.secondary.href)}>{homePage.cta.secondary.label}</a>
       </div>
@@ -158,23 +161,24 @@ const trustBadges = [
 
 <style>
   .hero-shell {
-    padding-top: 3rem;
+    padding-top: 2.5rem;
   }
 
-  .hero-panel {
+  .hero-grid,
+  .split-section,
+  .process-shell {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.08fr 0.92fr;
     gap: 2rem;
-    align-items: center;
-    padding: 2rem;
-    border-radius: 32px;
-    background: linear-gradient(135deg, #fff7e6 0%, #ffffff 56%);
-    border: 1px solid rgba(255, 182, 55, 0.25);
-    box-shadow: var(--shadow-soft);
+    align-items: start;
+  }
+
+  .hero-main {
+    padding-top: 1rem;
   }
 
   .hero-copy {
-    font-size: 1.1rem;
+    font-size: 1.14rem;
     max-width: 62ch;
   }
 
@@ -182,79 +186,118 @@ const trustBadges = [
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin: 1.5rem 0;
+    margin: 1.75rem 0;
   }
 
   .hero-meta {
     list-style: none;
     padding: 0;
-    margin: 2rem 0 0;
+    margin: 0;
     display: grid;
-    gap: 0.8rem;
+    gap: 0.9rem;
     color: var(--color-text);
     font-weight: 500;
   }
 
-  .hero-meta li::before {
-    content: '•';
-    color: var(--color-primary);
-    margin-left: 0.55rem;
+  .hero-meta li {
+    position: relative;
+    padding-right: 1.2rem;
   }
 
-  .hero-visual-wrap {
-    position: relative;
+  .hero-meta li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    position: absolute;
+    right: 0;
+    top: 0.65rem;
+  }
+
+  .hero-stack {
     display: grid;
     gap: 1rem;
   }
 
-  .hero-visual {
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.75);
+  .hero-image-card {
+    position: relative;
+    overflow: hidden;
+    padding: 0.85rem;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #fff7e6 0%, #ffffff 100%);
   }
 
-  .hero-visual img {
+  .hero-image-card img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: 24px;
+    border-radius: 22px;
   }
 
-  .hero-floating-card {
-    max-width: 280px;
+  .hero-image-overlay {
     position: absolute;
-    left: -2rem;
+    right: 1.5rem;
+    left: 1.5rem;
     bottom: 1.5rem;
-    background: rgba(255, 255, 255, 0.94);
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: rgba(31, 31, 31, 0.78);
+    color: white;
+    display: grid;
+    gap: 0.35rem;
   }
 
-  .stats-band {
-    padding-top: 2rem;
+  .hero-image-overlay span {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.95rem;
+  }
+
+  .hero-facts {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .fact-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+  }
+
+  .fact-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .fact-row span {
+    color: var(--color-muted);
+  }
+
+  .fact-row strong {
+    font-size: 1.05rem;
   }
 
   .trust-strip {
-    padding-top: 0;
+    padding-top: 1rem;
   }
 
-  .stats-grid,
-  .highlight-grid,
-  .contact-mini-grid,
-  .process-grid,
-  .split-section,
-  .trust-points {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .trust-strip-inner {
+  .trust-band {
     display: grid;
     grid-template-columns: 1fr auto;
+    gap: 2rem;
     align-items: center;
-    gap: 1.5rem;
     background: linear-gradient(120deg, #fff 0%, #fff8ea 100%);
+  }
+
+  .trust-points,
+  .highlight-grid,
+  .contact-mini-grid,
+  .process-cards {
+    display: grid;
+    gap: 1rem;
   }
 
   .trust-points {
@@ -262,40 +305,28 @@ const trustBadges = [
   }
 
   .trust-points span {
-    padding: 0.9rem 1rem;
+    padding: 0.95rem 1rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 182, 55, 0.28);
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.9);
     font-weight: 700;
     text-align: center;
-  }
-
-  .stat-item {
-    padding: 1.35rem;
-    border-radius: 20px;
-    background: #fff;
-    border: 1px solid var(--color-border);
-    text-align: center;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .stat-item strong {
-    display: block;
-    font-size: 1.5rem;
-    margin-bottom: 0.35rem;
   }
 
   .highlight-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .highlight-card {
+  .highlight-card,
+  .story-card,
+  .contact-side-card,
+  .process-card,
+  .cta-banner {
     min-height: 100%;
   }
 
-  .split-section {
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: start;
+  .story-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
   }
 
   .contact-side-card {
@@ -312,24 +343,31 @@ const trustBadges = [
     padding: 1rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .mini-card span {
+    color: var(--color-muted);
+    font-size: 0.95rem;
   }
 
   .mini-card strong {
     color: var(--color-text);
+    word-break: break-word;
   }
 
-  .process-grid {
-    grid-template-columns: 0.95fr 1.05fr;
-    align-items: start;
+  .areas-shell,
+  .faq-shell {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .process-shell {
+    grid-template-columns: 0.92fr 1.08fr;
   }
 
   .process-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .process-card {
-    min-height: 100%;
   }
 
   .step-index {
@@ -365,25 +403,23 @@ const trustBadges = [
     background: rgba(255, 182, 55, 0.18);
   }
 
+  .cta-actions {
+    margin: 0;
+  }
+
   @media (max-width: 980px) {
-    .hero-panel,
-    .stats-grid,
-    .highlight-grid,
+    .hero-grid,
     .split-section,
-    .process-grid,
-    .process-cards,
+    .process-shell,
+    .trust-band,
+    .highlight-grid,
     .contact-mini-grid,
-    .cta-banner,
-    .trust-strip-inner,
-    .trust-points {
+    .process-cards,
+    .trust-points,
+    .cta-banner {
       grid-template-columns: 1fr;
       flex-direction: column;
       align-items: stretch;
-    }
-
-    .hero-floating-card {
-      position: static;
-      max-width: none;
     }
   }
 </style>
