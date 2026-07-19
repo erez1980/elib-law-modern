@@ -11,24 +11,50 @@ export async function getStaticPaths() {
   }));
 }
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const { article } = Astro.props;
 const { Content } = await render(article);
+const allArticles = (await getCollection('articles'))
+  .filter((item) => !item.data.draft && item.id !== article.id)
+  .sort((a, b) => b.data.publishDate.localeCompare(a.data.publishDate));
+const relatedArticles = allArticles.slice(0, 3);
 ---
 <BaseLayout title={`${article.data.title} | עו״ד אליזבט ברזאני דדון`} description={article.data.excerpt}>
   <PageHero eyebrow="מאמר" title={article.data.title} description={article.data.excerpt} />
 
   <section class="section article-section">
     <div class="container article-shell">
+      <div class="article-meta-row card">
+        <span>תאריך פרסום: {article.data.publishDate}</span>
+        <span>נושא: {(article.data.tags || []).join(' · ')}</span>
+      </div>
+
       <article class="card article-body">
         <Content />
       </article>
+
+      <div class="card related-reading">
+        <div class="eyebrow">קריאה נוספת</div>
+        <div class="related-reading-grid">
+          {relatedArticles.map((item) => (
+            <a href={withBase(`/articles/${item.id.replace(/\.md$/, '')}`)}>
+              <strong>{item.data.title}</strong>
+              <span>{item.data.excerpt}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
       <div class="card article-cta">
         <div>
           <div class="eyebrow">רוצים להבין איך זה רלוונטי למקרה שלכם?</div>
           <h2>אפשר לפנות ולקבל תמונה ראשונית, בשפה ברורה ובלי לחץ מיותר</h2>
           <p>כל מקרה נראה קצת אחרת. שיחה ראשונה טובה יכולה לעזור להבין מה נכון לבדוק, מה לא למהר לעשות, ואיך להתקדם בצורה רגועה יותר.</p>
         </div>
-        <a class="button button-primary" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`}>לפנייה וייעוץ ראשוני</a>
+        <div class="article-cta-actions">
+          <a class="button button-primary" href={withBase('/contact')}>לפנייה וייעוץ ראשוני</a>
+          <a class="button button-secondary" href={withBase('/articles')}>לכל המאמרים</a>
+        </div>
       </div>
     </div>
   </section>
@@ -43,6 +69,15 @@ const { Content } = await render(article);
     max-width: 860px;
     display: grid;
     gap: 1.5rem;
+  }
+
+  .article-meta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: #666;
+    font-weight: 600;
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
   }
 
   .article-body {
@@ -73,12 +108,44 @@ const { Content } = await render(article);
     margin-bottom: 0;
   }
 
+  .related-reading {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .related-reading-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .related-reading-grid a {
+    display: grid;
+    gap: 0.3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+  }
+
+  .related-reading-grid a:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .related-reading-grid span {
+    color: #5c5c5c;
+    line-height: 1.8;
+  }
+
   .article-cta {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
     background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
+  .article-cta-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 900px) {

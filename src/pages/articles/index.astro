@@ -7,13 +7,41 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, ''
 const articles = (await getCollection('articles'))
   .filter((item) => !item.data.draft)
   .sort((a, b) => b.data.publishDate.localeCompare(a.data.publishDate));
+const openingPoints = [
+  'מאמרים שנכתבו כדי להסביר בצורה פשוטה נושאים משפטיים מורכבים',
+  'תוכן שמסייע להבין מה נכון לבדוק לפני שמקבלים החלטות',
+  'שפה ברורה, בלי עומס משפטי מיותר',
+];
+const featuredArticle = articles[0];
+const restArticles = articles.slice(1);
 ---
 <BaseLayout title="מאמרים בדיני משפחה | עו״ד אליזבט ברזאני דדון">
-  <PageHero eyebrow="מאמרים" title="מאמרים מקצועיים בדיני משפחה, גישור, צוואות וייפוי כוח מתמשך" description="ריכזנו כאן מידע שימושי וברור בנושאים משפטיים שמעסיקים משפחות, זוגות ויחידים לפני קבלת החלטות משמעותיות." />
+  <PageHero eyebrow="מאמרים" title="מאמרים מקצועיים בדיני משפחה, גישור, צוואות וייפוי כוח מתמשך" description="ריכזנו כאן מידע שימושי, ברור ונגיש בנושאים משפטיים שמעסיקים משפחות, זוגות ויחידים לפני קבלת החלטות משמעותיות." />
+
+  <section class="section articles-intro-section">
+    <div class="container articles-intro-grid">
+      <div class="card articles-intro-card">
+        <div class="eyebrow">למה לקרוא כאן</div>
+        <h2>המטרה של המאמרים היא לא להציף, אלא לעזור להבין את התמונה בשפה רגועה וברורה</h2>
+        <ul class="opening-points">
+          {openingPoints.map((point) => <li>{point}</li>)}
+        </ul>
+      </div>
+      {featuredArticle && (
+        <a class="card featured-article" href={withBase(`/articles/${featuredArticle.id.replace(/\.md$/, '')}`)}>
+          <div class="eyebrow">מאמר עדכני</div>
+          <p class="article-date">{featuredArticle.data.publishDate}</p>
+          <h2>{featuredArticle.data.title}</h2>
+          <p>{featuredArticle.data.excerpt}</p>
+          <span class="text-link">לקריאת המאמר</span>
+        </a>
+      )}
+    </div>
+  </section>
 
   <section class="section articles-section">
     <div class="container articles-grid">
-      {articles.map((article) => (
+      {restArticles.map((article) => (
         <a class="card article-card" href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
           <p class="article-date">{article.data.publishDate}</p>
           <h2>{article.data.title}</h2>
@@ -23,30 +51,66 @@ const articles = (await getCollection('articles'))
       ))}
     </div>
   </section>
+
+  <section class="section section-alt">
+    <div class="container articles-cta card">
+      <div>
+        <div class="eyebrow">לא מצאתם עדיין את מה שחיפשתם?</div>
+        <h2>אפשר לפנות ולקבל הכוונה ראשונית גם אם עוד לא ברור בדיוק איך להגדיר את השאלה</h2>
+        <p>לפעמים קריאה עוזרת להבין את הכיוון, אבל שיחה קצרה עושה את הסדר האמיתי. אפשר לתאר את המצב ולקבל הבנה ראשונית לגבי הצעד הבא.</p>
+      </div>
+      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  .articles-intro-grid,
+  .articles-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .articles-intro-grid {
+    grid-template-columns: 1.02fr 0.98fr;
+    align-items: start;
+  }
+
+  .articles-intro-card,
+  .featured-article,
+  .article-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .opening-points {
+    margin: 0;
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.8rem;
+    color: #5b5b5b;
+  }
+
+  .featured-article,
+  .article-card {
+    min-height: 100%;
+    display: grid;
+    gap: 0.8rem;
+    align-content: start;
+  }
+
+  .featured-article:hover,
+  .article-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-strong);
+    border-color: rgba(255, 182, 55, 0.28);
+  }
+
   .articles-section {
     padding-top: 1.5rem;
   }
 
   .articles-grid {
-    display: grid;
-    gap: 1.5rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .article-card {
-    min-height: 100%;
-    display: grid;
-    gap: 0.8rem;
-    transition: 180ms ease;
-    align-content: start;
-  }
-
-  .article-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-strong);
   }
 
   .article-date {
@@ -56,6 +120,7 @@ const articles = (await getCollection('articles'))
     font-size: 0.95rem;
   }
 
+  .featured-article p,
   .article-card p {
     color: #5c5c5c;
     line-height: 1.9;
@@ -66,9 +131,23 @@ const articles = (await getCollection('articles'))
     font-weight: 700;
   }
 
+  .articles-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
   @media (max-width: 900px) {
+    .articles-intro-grid,
     .articles-grid {
       grid-template-columns: 1fr;
+    }
+
+    .articles-cta {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 </style>
