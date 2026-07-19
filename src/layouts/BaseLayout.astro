@@ -13,9 +13,9 @@ interface Props {
 const { title = site.title, description = site.description, image = site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
-const contactHref = site.whatsappLink;
+const contactHref = withBase('/contact');
 const logoHref = withBase(site.logo);
-const lightLogoHref = withBase('/images/logo-light.png');
+const lightLogoHref = withBase('/images/logo-light.jpg');
 const darkLogoHref = withBase('/images/logo-dark.jpg');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
@@ -83,9 +83,13 @@ const jsonLd = {
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a href={homeHref} class="brand" aria-label={site.shortName}>
-          <img src={lightLogoHref} alt={site.shortName} class="brand-full brand-full--light" />
-          <img src={darkLogoHref} alt={site.shortName} class="brand-full brand-full--dark" />
+        <a href={homeHref} class="brand">
+          <img src={lightLogoHref} alt={site.shortName} class="brand-logo brand-logo--light" />
+          <img src={darkLogoHref} alt={site.shortName} class="brand-logo brand-logo--dark" />
+          <div class="brand-text">
+            <strong>{site.shortName}</strong>
+            <span>{site.tagline}</span>
+          </div>
         </a>
         <nav class="nav" aria-label="ניווט ראשי">
           {navigation.map((item) => {
@@ -378,29 +382,42 @@ const jsonLd = {
   .brand {
     display: inline-flex;
     align-items: center;
+    gap: 0.9rem;
     font-size: 0.95rem;
-    width: min(560px, 100%);
   }
 
-  .brand-full {
-    width: 100%;
-    height: auto;
-    max-height: 122px;
-    object-fit: contain;
-    object-position: right center;
+  .brand strong {
     display: block;
-    overflow: visible;
+    font-size: 1rem;
+    font-family: 'Heebo', 'Assistant', Arial, sans-serif;
   }
 
-  .brand-full--dark {
+  .brand span {
+    color: var(--color-muted);
+    font-size: 0.88rem;
+  }
+
+  .brand-logo {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    border-radius: 14px;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    flex: 0 0 auto;
+  }
+
+  .brand-logo--dark {
     display: none;
   }
 
-  :root[data-theme='dark'] .brand-full--light {
+  :root[data-theme='dark'] .brand-logo--light {
     display: none;
   }
 
-  :root[data-theme='dark'] .brand-full--dark {
+  :root[data-theme='dark'] .brand-logo--dark {
     display: block;
   }
 
@@ -627,31 +644,55 @@ const jsonLd = {
 
     .header-inner {
       min-height: auto;
-      padding: 0.2rem 0;
+      padding: 0.3rem 0;
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.25rem;
     }
 
     .brand {
       justify-content: flex-start;
+      text-align: right;
       min-width: 0;
+      gap: 0.45rem;
       width: 100%;
       flex: 1 1 auto;
     }
 
-    .brand-full {
+    .brand-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 9px;
+      padding: 0;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      min-width: 0;
       width: 100%;
-      height: auto;
-      max-height: 52px;
-      object-fit: contain;
-      object-position: right center;
+    }
+
+    .brand strong {
+      font-size: 0.88rem;
+      margin-bottom: 0.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand span {
+      font-size: 0.74rem;
+      line-height: 1.25;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .header-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 0.18rem;
+      gap: 0.22rem;
       align-items: center;
       flex: 0 0 auto;
     }
