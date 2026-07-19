@@ -13,7 +13,7 @@ interface Props {
 const { title = site.title, description = site.description, image = site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
-const contactHref = withBase('/contact');
+const contactHref = site.whatsappLink;
 const logoHref = withBase(site.logo);
 const lightLogoHref = withBase('/images/logo-light.png');
 const darkLogoHref = withBase('/images/logo-dark.jpg');
@@ -389,6 +389,7 @@ const jsonLd = {
     object-fit: contain;
     object-position: right center;
     display: block;
+    overflow: visible;
   }
 
   .brand-full--dark {
@@ -640,8 +641,11 @@ const jsonLd = {
     }
 
     .brand-full {
-      max-height: 86px;
       width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      object-position: right center;
     }
 
     .header-actions {
