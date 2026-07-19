@@ -1,0 +1,46 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: 'right' | 'center';
+}
+
+const { eyebrow, title, description, align = 'right' } = Astro.props;
+---
+<section class={`page-hero ${align === 'center' ? 'center' : ''}`}>
+  <div class="container">
+    <div class="page-hero-card">
+      {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+      <h1>{title}</h1>
+      {description && <p>{description}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding: 2.5rem 0 1rem;
+  }
+
+  .page-hero-card {
+    padding: 2.25rem;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 182, 55, 0.24);
+    background: linear-gradient(135deg, #fff7e6 0%, #ffffff 68%);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .page-hero.center .page-hero-card {
+    text-align: center;
+  }
+
+  .page-hero p {
+    max-width: 70ch;
+    margin-bottom: 0;
+  }
+
+  .page-hero.center p {
+    margin-inline: auto;
+  }
+</style>

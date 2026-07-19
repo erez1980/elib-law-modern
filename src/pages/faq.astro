@@ -1,36 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="שאלות נפוצות | עו״ד אליזבט ברזאני דדון">
-  <section class="section">
-    <div class="container">
-      <SectionHeading eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="האזור הזה נועד גם להרגיע, גם לחנך את הקהל, וגם לתמוך ב‑SEO. כל שאלה ניתנת לעריכה פשוטה דרך ה‑CMS." />
-      <div class="faq-list">
-        {faq.map((item) => (
-          <details class="card">
-            <summary>{item.data.question}</summary>
-            <p>{item.data.answer}</p>
-          </details>
-        ))}
-      </div>
+  <PageHero eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="עמוד ה-FAQ עבר שדרוג כדי לייצר יותר שקט, יותר קריאות ותחושת סדר. כל שאלה כאן נועדה להבהיר ולא להציף." />
+
+  <section class="section faq-section">
+    <div class="container faq-list">
+      {faq.map((item) => (
+        <details class="card faq-item">
+          <summary>{item.data.question}</summary>
+          <p>{item.data.answer}</p>
+        </details>
+      ))}
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .faq-section {
+    padding-top: 1.5rem;
+  }
+
   .faq-list {
     display: grid;
     gap: 1rem;
+    max-width: 920px;
+  }
+
+  .faq-item {
+    padding: 1.25rem 1.35rem;
   }
 
   summary {
     cursor: pointer;
     font-weight: 700;
     list-style: none;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  summary::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-primary-deep);
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  details[open] summary::before {
+    content: '–';
   }
 
   details[open] summary {
