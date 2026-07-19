@@ -23,6 +23,7 @@ const relatedArticles = page.relatedArticles
       <div class="service-main-col">
         <div class="card service-main">
           <p class="lead">{page.intro}</p>
+          <div class="micro-divider"></div>
           <h2>מה כולל הליווי?</h2>
           <ul>
             {page.bullets.map((item: string) => <li>{item}</li>)}
@@ -33,20 +34,20 @@ const relatedArticles = page.relatedArticles
           </p>
         </div>
 
-        <div class="card service-fit">
+        <div class="card service-fit soft-card">
           <h2>{page.fitTitle}</h2>
           <ul>
             {page.fitPoints.map((item: string) => <li>{item}</li>)}
           </ul>
         </div>
 
-        <div class="card service-when">
+        <div class="card service-when soft-card">
           <h2>{page.whenTitle}</h2>
           <p class="lead-sm">{page.whenText}</p>
         </div>
 
         <div class="card service-faq">
-          <h2>שאלות נפוצות בנושא</h2>
+          <h2>שאלות שעולות הרבה בתחילת הדרך</h2>
           <div class="faq-list">
             {page.faq.map((item: any) => (
               <details>
@@ -68,7 +69,7 @@ const relatedArticles = page.relatedArticles
       </div>
 
       <aside class="service-side-col">
-        <div class="card related-card">
+        <div class="card related-card soft-card">
           <div class="eyebrow">מאמרים קשורים</div>
           <div class="related-list">
             {relatedArticles.map((article: any) => (
@@ -80,7 +81,7 @@ const relatedArticles = page.relatedArticles
           </div>
         </div>
 
-        <div class="card trust-card">
+        <div class="card trust-card soft-card">
           <div class="eyebrow">למה לפנות למשרד</div>
           <ul>
             <li>ליווי אישי וישיר</li>
@@ -114,11 +115,29 @@ const relatedArticles = page.relatedArticles
     gap: 1.5rem;
   }
 
+  .soft-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .micro-divider {
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+    margin: 0 0 1.15rem;
+  }
+
   .service-main ul,
   .service-fit ul,
   .trust-card ul {
     padding-right: 1.2rem;
     margin: 0;
+  }
+
+  .service-main li,
+  .service-fit li,
+  .trust-card li {
+    margin-bottom: 0.55rem;
+    color: #595959;
   }
 
   .lead {
@@ -155,11 +174,16 @@ const relatedArticles = page.relatedArticles
     justify-content: space-between;
     gap: 1.5rem;
     background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+    border-color: rgba(255, 182, 55, 0.28);
   }
 
   details {
-    padding-bottom: 1rem;
+    padding: 0 0 1rem;
     border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+  }
+
+  details p {
+    margin-top: 0.7rem;
   }
 
   details:last-child {

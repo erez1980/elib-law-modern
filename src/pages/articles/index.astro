@@ -41,6 +41,7 @@ const articles = (await getCollection('articles'))
     display: grid;
     gap: 0.8rem;
     transition: 180ms ease;
+    align-content: start;
   }
 
   .article-card:hover {
@@ -52,6 +53,12 @@ const articles = (await getCollection('articles'))
     color: var(--color-primary-deep);
     font-weight: 700;
     margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .article-card p {
+    color: #5c5c5c;
+    line-height: 1.9;
   }
 
   .text-link {

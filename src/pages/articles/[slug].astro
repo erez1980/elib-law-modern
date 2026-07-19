@@ -22,6 +22,14 @@ const { Content } = await render(article);
       <article class="card article-body">
         <Content />
       </article>
+      <div class="card article-cta">
+        <div>
+          <div class="eyebrow">רוצים להבין איך זה רלוונטי למקרה שלכם?</div>
+          <h2>אפשר לפנות ולקבל תמונה ראשונית, בשפה ברורה ובלי לחץ מיותר</h2>
+          <p>כל מקרה נראה קצת אחרת. שיחה ראשונה טובה יכולה לעזור להבין מה נכון לבדוק, מה לא למהר לעשות, ואיך להתקדם בצורה רגועה יותר.</p>
+        </div>
+        <a class="button button-primary" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/contact/`}>לפנייה וייעוץ ראשוני</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -33,13 +41,50 @@ const { Content } = await render(article);
 
   .article-shell {
     max-width: 860px;
+    display: grid;
+    gap: 1.5rem;
   }
 
   .article-body {
-    padding: 2rem;
+    padding: 2.1rem;
+  }
+
+  .article-body :global(h2) {
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .article-body :global(p),
+  .article-body :global(li) {
+    color: #595959;
+    line-height: 1.95;
+  }
+
+  .article-body :global(ul) {
+    padding-right: 1.2rem;
+  }
+
+  .article-body :global(a) {
+    color: #8a6513;
+    font-weight: 700;
   }
 
   .article-body :global(p:last-child) {
     margin-bottom: 0;
+  }
+
+  .article-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
+  @media (max-width: 900px) {
+    .article-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 </style>
