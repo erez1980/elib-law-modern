@@ -1,5 +1,6 @@
 ---
 import FloatingActions from '../components/FloatingActions.astro';
+import AccessibilityWidget from '../components/AccessibilityWidget.astro';
 import { site, navigation } from '../data/site';
 
 interface Props {
@@ -110,6 +111,7 @@ const jsonLd = {
       <slot />
     </main>
     <FloatingActions />
+    <AccessibilityWidget />
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-brand-col">
