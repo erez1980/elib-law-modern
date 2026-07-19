@@ -3,10 +3,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+const openingPoints = [
+  'מתי נכון לפנות ולקבל ייעוץ',
+  'מה אפשר להסדיר בהסכם ומה דורש טיפול אחר',
+  'איך להבין את המצב בלי להילחץ מכל צעד',
+];
 ---
 <BaseLayout title="שאלות נפוצות | עו״ד אליזבט ברזאני דדון">
-  <PageHero eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="עמוד ה-FAQ עבר שדרוג כדי לייצר יותר שקט, יותר קריאות ותחושת סדר. כל שאלה כאן נועדה להבהיר ולא להציף." />
+  <PageHero eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="כאן ריכזנו תשובות ראשוניות לשאלות שאנשים שואלים כשהם מנסים להבין מה נכון לעשות עכשיו, בלי הצפה ובלי מילים משפטיות מיותרות." />
+
+  <section class="section faq-intro-section">
+    <div class="container faq-intro-grid">
+      <div class="card faq-intro-card">
+        <div class="eyebrow">מה תמצאו כאן</div>
+        <h2>שאלות שעוזרות לעשות קצת סדר בתוך תקופה שמרגישה לא פעם עמוסה ומבלבלת</h2>
+        <ul class="opening-points">
+          {openingPoints.map((point) => <li>{point}</li>)}
+        </ul>
+      </div>
+      <div class="card faq-intro-side">
+        <div class="eyebrow">חשוב לדעת</div>
+        <p>התשובות כאן נותנות כיוון ראשוני, אבל כל מקרה נבחן לפי הנסיבות שלו. לפעמים שינוי קטן בפרטים משנה את התמונה כולה.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="section faq-section">
     <div class="container faq-list">
@@ -18,21 +40,64 @@ const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.or
       ))}
     </div>
   </section>
+
+  <section class="section section-alt">
+    <div class="container faq-cta card">
+      <div>
+        <div class="eyebrow">עדיין יש שאלה?</div>
+        <h2>אם משהו נשאר לא ברור, אפשר לפנות ולקבל כיוון ראשוני בשיחה רגועה ומסודרת</h2>
+        <p>לא צריך לדעת להגדיר בדיוק את הבעיה מראש. אפשר פשוט לתאר את המצב, ואנחנו נעזור להבין מה נכון לבדוק ואיך נכון להתקדם.</p>
+      </div>
+      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  .faq-intro-grid,
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-intro-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+
+  .faq-intro-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+  }
+
+  .faq-intro-side {
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .opening-points {
+    margin: 0;
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.8rem;
+    color: #5b5b5b;
+  }
+
   .faq-section {
     padding-top: 1.5rem;
   }
 
   .faq-list {
-    display: grid;
-    gap: 1rem;
     max-width: 920px;
   }
 
   .faq-item {
     padding: 1.25rem 1.35rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,250,241,0.92) 100%);
+  }
+
+  .faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-strong);
+    border-color: rgba(255, 182, 55, 0.28);
   }
 
   summary {
@@ -41,6 +106,7 @@ const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.or
     list-style: none;
     position: relative;
     padding-left: 2rem;
+    line-height: 1.65;
   }
 
   summary::before {
@@ -59,5 +125,30 @@ const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.or
 
   details[open] summary {
     margin-bottom: 0.8rem;
+  }
+
+  .faq-item p {
+    color: #595959;
+    line-height: 1.9;
+    margin-bottom: 0;
+  }
+
+  .faq-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
+  @media (max-width: 900px) {
+    .faq-intro-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 </style>
