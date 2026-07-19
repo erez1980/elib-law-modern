@@ -3,20 +3,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PracticeAreasPreview from '../components/PracticeAreasPreview.astro';
 import FaqPreview from '../components/FaqPreview.astro';
-import { contactCards, highlights, site } from '../data/site';
+import { highlights, site } from '../data/site';
 import { homePage } from '../data/home';
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const heroImage = withBase(site.heroImage);
 const trustBadges = [
   'חברת לשכת עורכי הדין משנת 2008',
-  'שירות אישי וישיר ללא מתמחים',
-  'ליווי דיסקרטי בדיני משפחה, צוואות וייפוי כוח מתמשך',
+  'ליווי אישי וישיר בכל תיק',
+  'גישה משפטית וגישורית לפי מה שנכון למקרה',
 ];
-const quickFacts = [
-  { title: 'ניסיון מקצועי', value: '2008+' },
-  { title: 'תחום התמחות', value: 'דיני משפחה' },
-  { title: 'סגנון עבודה', value: 'ליווי אישי' },
+const credibilityPoints = [
+  'עו״ד ומגשרת לדיני משפחה',
+  'טיפול ישיר ללא מתמחים',
+  'רגישות, דיסקרטיות ושיקול דעת',
+];
+const featuredServices = [
+  { title: 'גירושין', text: 'ליווי משפטי מדויק בתחילת הדרך, במו״מ, בגישור או בהליך משפטי.', href: '/services/divorce-lawyer' },
+  { title: 'מזונות ומשמורת', text: 'בניית מסגרת ברורה ויציבה לילדים ולהורים, עם ראייה מעשית ואנושית.', href: '/services/custody-lawyer' },
+  { title: 'צוואות וירושות', text: 'עריכת צוואות, ליווי בירושות וטיפול במחלוקות משפחתיות רגישות.', href: '/services/will-lawyer' },
+  { title: 'ייפוי כוח מתמשך', text: 'תכנון משפטי אחראי שנותן שקט נפשי לעתיד.', href: '/services/lasting-power-attorney-lawyer' },
 ];
 ---
 <BaseLayout>
@@ -41,16 +47,15 @@ const quickFacts = [
         <div class="hero-image-card card">
           <img src={heroImage} alt={site.shortName} />
           <div class="hero-image-overlay">
-            <strong>ליווי מדויק בתקופות מורכבות</strong>
-            <span>שילוב בין רגישות, אסטרטגיה ובהירות משפטית</span>
+            <strong>ליווי מקצועי, אישי ודיסקרטי</strong>
+            <span>במצבים שבהם צריך גם בהירות משפטית וגם יד יציבה ורגישה</span>
           </div>
         </div>
 
-        <div class="hero-facts card">
-          {quickFacts.map((fact) => (
-            <div class="fact-row">
-              <span>{fact.title}</span>
-              <strong>{fact.value}</strong>
+        <div class="hero-credibility card">
+          {credibilityPoints.map((point) => (
+            <div class="credibility-row">
+              <span>{point}</span>
             </div>
           ))}
         </div>
@@ -60,22 +65,22 @@ const quickFacts = [
 
   <section class="section trust-strip">
     <div class="container trust-band card">
-      <div>
-        <div class="eyebrow">אמון, בהירות ומקצועיות</div>
-        <h2>משרד שנועד לתת לא רק תשובה משפטית נכונה, אלא גם תחושת כיוון ושקט</h2>
+      <div class="trust-copy">
+        <div class="eyebrow">אמון, בהירות וגישה אנושית</div>
+        <h2>משרד שמחבר בין הבנה אנושית עמוקה לבין עבודה משפטית שקולה ומדויקת</h2>
+        <p>לא כל מקרה צריך עימות. לא כל הסכמה היא הסכמה נכונה. המטרה היא להבין מה ישרת אותך באמת - ולבנות משם דרך פעולה נכונה.</p>
       </div>
-      <div class="trust-points">
-        <span>ליווי אישי</span>
-        <span>דיסקרטיות מלאה</span>
-        <span>חשיבה אסטרטגית</span>
-        <span>שירות בגובה העיניים</span>
+      <div class="trust-proof-list">
+        <div class="trust-proof-item"><strong>2008+</strong><span>שנות ניסיון מקצועי</span></div>
+        <div class="trust-proof-item"><strong>גישור + משפט</strong><span>בחירת הדרך המתאימה לכל מקרה</span></div>
+        <div class="trust-proof-item"><strong>יחס אישי</strong><span>טיפול ישיר, רגיש ודיסקרטי</span></div>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <SectionHeading eyebrow="למה לבחור במשרד" title="משרד בוטיק שמחבר בין אנושיות, אסטרטגיה ומשפט" description={homePage.intro} />
+      <SectionHeading eyebrow="למה לבחור במשרד" title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
       <div class="grid highlight-grid">
         {highlights.map((item) => (
           <article class="card highlight-card">
@@ -90,38 +95,42 @@ const quickFacts = [
   <section class="section">
     <div class="container split-section">
       <div class="story-card card">
-        <SectionHeading eyebrow="אודות המשרד" title="ליווי אישי למי שמתמודד עם החלטות משמעותיות ורגישות" description="המשרד משלב ניסיון משפטי עם גישה גישורית, כדי לבחור בכל מקרה את הדרך הנכונה: הידברות, הסכם או ייצוג משפטי נחוש כשצריך." />
+        <SectionHeading eyebrow="אודות המשרד" title="עורכת דין ומגשרת שמלווה ברגישות, בנוכחות, ובחשיבה לטווח ארוך" description="כשיש מתח, בלבול או חוסר ודאות, חשוב לעבוד עם מי שיודעת גם להחזיק את הסיטואציה האנושית וגם להוביל את המהלך המשפטי בצורה מדויקת." />
         <p>
-          עו״ד ומגשרת אליזבט ברזאני דדון מלווה לקוחות בהליכי גירושין, גישור משפחתי, משמורת, מזונות, חלוקת רכוש, צוואות,
-          ירושות, ייפוי כוח מתמשך והסכמים - תוך הקפדה על יחס אישי, שקיפות וחשיבה לטווח ארוך.
+          עו״ד ומגשרת אליזבט ברזאני דדון מלווה לקוחות בענייני גירושין, גישור משפחתי, משמורת, מזונות, חלוקת רכוש,
+          צוואות, ירושות, ייפוי כוח מתמשך והסכמים - מתוך הקשבה אמיתית, סדר מחשבתי וראייה רחבה של התמונה כולה.
         </p>
         <p>
-          המטרה היא לייצר לא רק שירות משפטי מקצועי, אלא גם חוויה מסודרת, בהירה ומרגיעה ככל האפשר.
+          הליווי נעשה באופן אישי וישיר, עם מטרה כפולה: גם להגן על האינטרסים המשפטיים שלך, וגם להפחית ככל האפשר רעש,
+          בלבול ועומס בתקופה שהיא ממילא רגישה ומורכבת.
         </p>
       </div>
-      <div class="card contact-side-card">
-        <div class="eyebrow">פרטי קשר</div>
-        <div class="contact-mini-grid">
-          {contactCards.map((item) => (
-            <a class="mini-card" href={item.href}>
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </a>
-          ))}
-        </div>
+      <div class="card warmth-card">
+        <div class="eyebrow">איך זה מרגיש בפועל</div>
+        <ul class="warmth-list">
+          <li>שיחה ברורה, בלי מילים משפטיות שמעמיסות סתם</li>
+          <li>בחינה אמיתית של האפשרויות, לא תגובה אוטומטית</li>
+          <li>רגישות כשאפשר, ונחישות כשצריך</li>
+          <li>תחושת סדר ובהירות כבר מהשלבים הראשונים</li>
+        </ul>
+        <a class="text-link" href={withBase('/about')}>לקריאה נוספת על המשרד</a>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container areas-shell">
-      <SectionHeading eyebrow="תחומי עיסוק" title="מענה משפטי רחב בתוך התמחות אחת ברורה" description="דיני משפחה דורשים מבט רחב: משפט, רגש, הורות, רכוש ועתיד. לכן כל תחום מוצג כאן בצורה ברורה, נגישה ומכוונת פעולה." />
-      <PracticeAreasPreview />
+      <SectionHeading eyebrow="תחומי עיסוק" title="התחומים המרכזיים שבהם המשרד מלווה באופן אישי ומדויק" description="במקום להעמיס בדף הבית את כל שכבות התוכן, ריכזנו כאן את הנושאים המרכזיים שמעסיקים לקוחות בתחילת הדרך." />
       <div class="service-links-grid">
-        <a class="card service-link-card" href={withBase('/services/divorce-lawyer')}><strong>עורך דין גירושין</strong><span>מידע ממוקד על ליווי בהליך גירושין</span></a>
-        <a class="card service-link-card" href={withBase('/services/child-support-lawyer')}><strong>עורך דין מזונות</strong><span>הבנת הזכויות והאפשרויות בענייני מזונות</span></a>
-        <a class="card service-link-card" href={withBase('/services/custody-lawyer')}><strong>עורך דין משמורת והסדרי שהות</strong><span>הסדרה הורית מתוך ראייה מעשית ורגישה</span></a>
-        <a class="card service-link-card" href={withBase('/services/family-mediation')}><strong>גישור משפחתי</strong><span>מתי נכון ללכת להסכמות ואיך עושים זאת נכון</span></a>
+        {featuredServices.map((service) => (
+          <a class="card service-link-card" href={withBase(service.href)}>
+            <strong>{service.title}</strong>
+            <span>{service.text}</span>
+          </a>
+        ))}
+      </div>
+      <div class="areas-footer-link">
+        <a class="button button-secondary" href={withBase('/practice-areas')}>לכל תחומי העיסוק</a>
       </div>
     </div>
   </section>
@@ -129,7 +138,7 @@ const quickFacts = [
   <section class="section">
     <div class="container process-shell">
       <div class="process-intro">
-        <SectionHeading eyebrow="תהליך העבודה" title="שלבים ברורים שמורידים בלבול, עומס ואי ודאות" description="המסר הוא לא רק מה המשרד עושה - אלא איך נראה תהליך נכון, רגוע ומקצועי מהרגע הראשון." />
+        <SectionHeading eyebrow="תהליך העבודה" title="כך נראה תהליך נכון, מסודר ורגוע יותר" description="הצעד הראשון הוא לא לרוץ - אלא להבין. משם אפשר לבחור דרך פעולה מדויקת יותר, עם פחות טעויות ויותר שקט." />
       </div>
       <div class="grid process-cards">
         {homePage.process.map((step, index) => (
@@ -145,7 +154,7 @@ const quickFacts = [
 
   <section class="section section-alt">
     <div class="container faq-shell">
-      <SectionHeading eyebrow="שאלות נפוצות" title="שאלות שעולות לפני שמקבלים החלטות חשובות" description="תשובות קצרות וברורות לנושאים שמעסיקים לקוחות בתחילת הדרך: גירושין, גישור, ילדים, רכוש, צוואות וייפוי כוח מתמשך." />
+      <SectionHeading eyebrow="שאלות נפוצות" title="שאלות שאנשים שואלים כשהם רוצים להבין מה נכון לעשות עכשיו" description="תשובות ראשוניות, קצרות וברורות, בנושאים שעולים הרבה בתחילת הדרך - לפני פגישה, לפני החלטה, ולפני צעד משפטי." />
       <FaqPreview />
     </div>
   </section>
@@ -186,7 +195,7 @@ const quickFacts = [
   .hero-copy {
     font-size: 1.08rem;
     line-height: 1.95;
-    max-width: 60ch;
+    max-width: 58ch;
     color: #565656;
   }
 
@@ -239,8 +248,8 @@ const quickFacts = [
   .hero-image-card:hover,
   .highlight-card:hover,
   .service-link-card:hover,
-  .mini-card:hover,
-  .process-card:hover {
+  .process-card:hover,
+  .warmth-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-strong);
     border-color: rgba(255, 182, 55, 0.28);
@@ -272,31 +281,22 @@ const quickFacts = [
     line-height: 1.7;
   }
 
-  .hero-facts {
+  .hero-credibility {
     display: grid;
-    gap: 0.8rem;
+    gap: 0.75rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
   }
 
-  .fact-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 0.8rem;
+  .credibility-row {
+    padding-bottom: 0.85rem;
     border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+    font-weight: 700;
+    color: #555;
   }
 
-  .fact-row:last-child {
+  .credibility-row:last-child {
     border-bottom: 0;
     padding-bottom: 0;
-  }
-
-  .fact-row span {
-    color: var(--color-muted);
-  }
-
-  .fact-row strong {
-    font-size: 1.05rem;
   }
 
   .trust-strip {
@@ -305,32 +305,39 @@ const quickFacts = [
 
   .trust-band {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 2rem;
     align-items: center;
     background: linear-gradient(120deg, #fff 0%, #fff8ea 100%);
   }
 
-  .trust-points,
+  .trust-copy p {
+    margin-bottom: 0;
+  }
+
+  .trust-proof-list,
   .highlight-grid,
-  .contact-mini-grid,
-  .process-cards {
+  .process-cards,
+  .service-links-grid {
     display: grid;
     gap: 1rem;
   }
 
-  .trust-points {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .trust-proof-item {
+    padding: 1rem 1.1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 182, 55, 0.24);
+    background: rgba(255, 255, 255, 0.88);
+    display: grid;
+    gap: 0.25rem;
   }
 
-  .trust-points span {
-    padding: 0.95rem 1rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 182, 55, 0.28);
-    background: rgba(255, 255, 255, 0.9);
-    font-weight: 700;
-    text-align: center;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  .trust-proof-item strong {
+    font-size: 1.05rem;
+  }
+
+  .trust-proof-item span {
+    color: var(--color-muted);
   }
 
   .highlight-grid {
@@ -339,7 +346,7 @@ const quickFacts = [
 
   .highlight-card,
   .story-card,
-  .contact-side-card,
+  .warmth-card,
   .process-card,
   .cta-banner {
     min-height: 100%;
@@ -349,44 +356,32 @@ const quickFacts = [
     background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
   }
 
-  .contact-side-card {
+  .warmth-card {
     background: linear-gradient(180deg, #ffffff 0%, #fff8ea 100%);
-  }
-
-  .contact-mini-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .mini-card {
     display: grid;
-    gap: 0.35rem;
-    padding: 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.88);
+    gap: 1rem;
+    align-content: start;
   }
 
-  .mini-card span {
-    color: var(--color-muted);
-    font-size: 0.95rem;
+  .warmth-list {
+    margin: 0;
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+    color: #5b5b5b;
   }
 
   .story-card p,
   .highlight-card p,
   .process-card p,
-  .cta-banner p {
+  .cta-banner p,
+  .warmth-card p {
     color: #595959;
     line-height: 1.9;
   }
 
-  .mini-card strong {
-    color: var(--color-text);
-    word-break: break-word;
-  }
-
   .areas-shell,
-  .faq-shell,
-  .service-links-grid {
+  .faq-shell {
     display: grid;
     gap: 1.5rem;
   }
@@ -397,12 +392,17 @@ const quickFacts = [
 
   .service-link-card {
     display: grid;
-    gap: 0.35rem;
+    gap: 0.45rem;
     background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.92) 100%);
   }
 
   .service-link-card span {
     color: var(--color-muted);
+  }
+
+  .areas-footer-link {
+    display: flex;
+    justify-content: center;
   }
 
   .process-shell {
@@ -443,15 +443,15 @@ const quickFacts = [
     color: white;
   }
 
+  .cta-banner .eyebrow {
+    color: #8a6513;
+    background: rgba(255, 182, 55, 0.18);
+  }
+
   .cta-banner .button-secondary {
     color: white;
     border-color: rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.08);
-  }
-
-  .cta-banner .eyebrow {
-    color: #8a6513;
-    background: rgba(255, 182, 55, 0.18);
   }
 
   .cta-actions {
@@ -464,9 +464,7 @@ const quickFacts = [
     .process-shell,
     .trust-band,
     .highlight-grid,
-    .contact-mini-grid,
     .process-cards,
-    .trust-points,
     .service-links-grid,
     .cta-banner {
       grid-template-columns: 1fr;
