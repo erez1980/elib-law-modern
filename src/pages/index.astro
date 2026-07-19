@@ -258,8 +258,10 @@ const featuredServices = [
   .hero-image-card img {
     width: 100%;
     aspect-ratio: 4 / 5;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center top;
     border-radius: 22px;
+    background: linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-card) 100%);
   }
 
   .hero-image-overlay {
