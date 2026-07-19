@@ -33,11 +33,30 @@ const heroImage = withBase(site.heroImage);
       </div>
     </div>
   </section>
+
+  <section class="section authority-section">
+    <div class="container authority-grid">
+      <article class="card authority-card">
+        <div class="eyebrow">למה לבחור במשרד</div>
+        <h2>ליווי אישי, ניסיון מקצועי וגישה שמחפשת את הדרך הנכונה לכל מקרה</h2>
+        <p>
+          המשרד משלב בין הבנה אנושית עמוקה של מצבים משפחתיים רגישים לבין עבודה משפטית מסודרת, מדויקת ומבוססת מטרה.
+        </p>
+      </article>
+      <article class="card authority-card">
+        <div class="eyebrow">אזורי שירות</div>
+        <p>
+          המשרד מלווה לקוחות מקדימה צורן, אזור השרון ומקומות נוספים בארץ, בפגישות מסודרות וליווי אישי לאורך הדרך.
+        </p>
+      </article>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
   .about-grid,
-  .values-grid {
+  .values-grid,
+  .authority-grid {
     display: grid;
     gap: 2rem;
   }
@@ -66,13 +85,18 @@ const heroImage = withBase(site.heroImage);
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .authority-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
   .value-card {
     min-height: 100%;
   }
 
   @media (max-width: 900px) {
     .about-grid,
-    .values-grid {
+    .values-grid,
+    .authority-grid {
       grid-template-columns: 1fr;
     }
   }

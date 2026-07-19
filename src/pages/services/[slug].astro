@@ -20,28 +20,74 @@ const relatedArticles = page.relatedArticles
 
   <section class="section service-section">
     <div class="container service-grid">
-      <div class="card service-main">
-        <p>{page.intro}</p>
-        <h2>מה כולל הליווי?</h2>
-        <ul>
-          {page.bullets.map((item: string) => <li>{item}</li>)}
-        </ul>
-        <p>
-          כל מקרה נבחן לפי הנסיבות הייחודיות שלו. במקרים מסוימים נכון לשאוף להסכם או לגישור,
-          ובמקרים אחרים נדרש ליווי משפטי ברור ונחוש. המטרה היא לבחור בדרך הנכונה ולא בדרך האוטומטית.
-        </p>
-        <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+      <div class="service-main-col">
+        <div class="card service-main">
+          <p>{page.intro}</p>
+          <h2>מה כולל הליווי?</h2>
+          <ul>
+            {page.bullets.map((item: string) => <li>{item}</li>)}
+          </ul>
+          <p>
+            כל מקרה נבחן לפי הנסיבות הייחודיות שלו. במקרים מסוימים נכון לשאוף להסכם או לגישור,
+            ובמקרים אחרים נדרש ליווי משפטי ברור ונחוש. המטרה היא לבחור בדרך הנכונה ולא בדרך האוטומטית.
+          </p>
+        </div>
+
+        <div class="card service-fit">
+          <h2>{page.fitTitle}</h2>
+          <ul>
+            {page.fitPoints.map((item: string) => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        <div class="card service-when">
+          <h2>{page.whenTitle}</h2>
+          <p>{page.whenText}</p>
+        </div>
+
+        <div class="card service-faq">
+          <h2>שאלות נפוצות בנושא</h2>
+          <div class="faq-list">
+            {page.faq.map((item: any) => (
+              <details>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        <div class="card service-cta">
+          <div>
+            <div class="eyebrow">פנייה ראשונה</div>
+            <h2>אפשר לקבל תמונה ראשונית, להבין את האפשרויות ולפעול בצורה שקולה</h2>
+            <p>פנייה מוקדמת עוזרת להפחית טעויות, להבין את המצב ולקבל החלטות בצורה רגועה ומדויקת יותר.</p>
+          </div>
+          <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+        </div>
       </div>
 
-      <aside class="card related-card">
-        <div class="eyebrow">מאמרים קשורים</div>
-        <div class="related-list">
-          {relatedArticles.map((article: any) => (
-            <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
-              <strong>{article.data.title}</strong>
-              <span>{article.data.excerpt}</span>
-            </a>
-          ))}
+      <aside class="service-side-col">
+        <div class="card related-card">
+          <div class="eyebrow">מאמרים קשורים</div>
+          <div class="related-list">
+            {relatedArticles.map((article: any) => (
+              <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
+                <strong>{article.data.title}</strong>
+                <span>{article.data.excerpt}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="card trust-card">
+          <div class="eyebrow">למה לפנות למשרד</div>
+          <ul>
+            <li>ליווי אישי וישיר</li>
+            <li>ניסיון בדיני משפחה מאז 2008</li>
+            <li>שילוב בין גישה גישורית לייצוג משפטי כשצריך</li>
+            <li>רגישות לצד חשיבה אסטרטגית</li>
+          </ul>
         </div>
       </aside>
     </div>
@@ -60,14 +106,19 @@ const relatedArticles = page.relatedArticles
     align-items: start;
   }
 
-  .service-main ul {
-    padding-right: 1.2rem;
-    margin: 0 0 1rem;
+  .service-main-col,
+  .service-side-col,
+  .related-list,
+  .faq-list {
+    display: grid;
+    gap: 1.5rem;
   }
 
-  .related-list {
-    display: grid;
-    gap: 1rem;
+  .service-main ul,
+  .service-fit ul,
+  .trust-card ul {
+    padding-right: 1.2rem;
+    margin: 0;
   }
 
   .related-list a {
@@ -87,9 +138,37 @@ const relatedArticles = page.relatedArticles
     font-size: 0.95rem;
   }
 
+  .service-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, #fff8ea 0%, #ffffff 100%);
+  }
+
+  details {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+  }
+
+  details:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
   @media (max-width: 900px) {
     .service-grid {
       grid-template-columns: 1fr;
+    }
+
+    .service-cta {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 </style>
