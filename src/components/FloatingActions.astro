@@ -58,16 +58,27 @@ const whatsappHref = site.whatsapp || phoneHref;
 
   @media (max-width: 900px) {
     .floating-actions {
-      left: 0.75rem;
-      right: 0.75rem;
-      bottom: 0.75rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
       flex-direction: row;
+      gap: 0;
+      padding: 0.65rem 0.75rem calc(0.65rem + env(safe-area-inset-bottom));
+      background: var(--color-header);
+      border-top: 1px solid var(--color-header-border);
+      backdrop-filter: blur(18px);
     }
 
     .floating-chip {
       flex: 1;
       min-width: 0;
       min-height: 52px;
+      border-radius: 16px;
+      box-shadow: none;
+    }
+
+    .floating-chip + .floating-chip {
+      margin-inline-start: 0.65rem;
     }
   }
 </style>

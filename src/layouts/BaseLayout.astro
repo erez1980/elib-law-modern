@@ -80,6 +80,16 @@ const jsonLd = {
             <span>{site.tagline}</span>
           </div>
         </a>
+        <details class="mobile-menu">
+          <summary>תפריט</summary>
+          <nav class="mobile-menu-panel" aria-label="ניווט מובייל">
+            {navigation.map((item) => {
+              const href = withBase(item.href);
+              const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+              return <a href={href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : ''}>{item.label}</a>;
+            })}
+          </nav>
+        </details>
         <nav class="nav" aria-label="ניווט ראשי">
           {navigation.map((item) => {
             const href = withBase(item.href);
@@ -394,6 +404,55 @@ const jsonLd = {
     justify-content: center;
   }
 
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-text);
+    font-weight: 800;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu-panel {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-card-strong);
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .mobile-menu-panel a {
+    padding: 0.75rem;
+    border-radius: 14px;
+    background: var(--color-surface-warm);
+    color: var(--color-text);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .mobile-menu-panel a.active {
+    background: var(--color-pill-bg);
+    color: var(--color-pill-text);
+  }
+
   .nav a {
     color: var(--color-muted);
     font-weight: 500;
@@ -530,46 +589,77 @@ const jsonLd = {
   }
 
   @media (max-width: 900px) {
+    body {
+      padding-bottom: 82px;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 8vw, 2.45rem);
+    }
+
+    h2 {
+      font-size: clamp(1.35rem, 6vw, 1.95rem);
+    }
+
+    .section {
+      padding: 3rem 0;
+    }
+
+    .card {
+      padding: 1.15rem;
+      border-radius: 18px;
+    }
+
     .header-inner {
       min-height: auto;
-      padding: 0.9rem 0 0.7rem;
-      grid-template-columns: 1fr;
-      align-items: stretch;
-      gap: 0.85rem;
+      padding: 0.75rem 0;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .brand {
-      justify-content: center;
-      text-align: center;
+      justify-content: flex-start;
+      text-align: right;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+    }
+
+    .brand strong {
+      font-size: 0.95rem;
+    }
+
+    .brand span {
+      font-size: 0.8rem;
     }
 
     .header-actions {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 0.75rem;
-      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
     }
 
     .header-actions .button-primary {
-      width: 100%;
+      display: none;
+    }
+
+    .theme-toggle {
+      width: 46px;
+      height: 46px;
     }
 
     .nav {
-      justify-content: flex-start;
-      overflow-x: auto;
-      padding: 0 0 0.15rem;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-      flex-wrap: nowrap;
-      gap: 0.6rem;
+      display: none;
     }
 
-    .nav a {
-      scroll-snap-align: start;
-      white-space: nowrap;
-      flex: 0 0 auto;
-      font-size: 0.95rem;
-      padding: 0.65rem 0.9rem;
+    .mobile-menu {
+      display: block;
+      grid-column: 1 / -1;
     }
 
     .footer-grid {

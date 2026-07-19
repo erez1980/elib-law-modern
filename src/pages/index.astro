@@ -476,5 +476,37 @@ const featuredServices = [
       flex-direction: column;
       align-items: stretch;
     }
+
+    .hero-shell {
+      padding-top: 1.75rem;
+    }
+
+    .hero-main {
+      padding-top: 0;
+    }
+
+    .hero-actions {
+      margin: 1.25rem 0;
+    }
+
+    .hero-actions .button {
+      width: 100%;
+    }
+
+    .hero-image-card img {
+      aspect-ratio: 16 / 12;
+    }
+
+    .hero-image-overlay {
+      position: static;
+      margin-top: 0.85rem;
+      background: var(--color-overlay);
+    }
+
+    .trust-proof-list,
+    .process-cards,
+    .service-links-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

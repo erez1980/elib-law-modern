@@ -52,4 +52,24 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
   .page-hero.center h1 {
     margin-inline: auto;
   }
+
+  @media (max-width: 900px) {
+    .page-hero {
+      padding: 1.6rem 0 0.5rem;
+    }
+
+    .page-hero-card {
+      padding: 1.25rem;
+      border-radius: 20px;
+    }
+
+    .page-hero h1 {
+      max-width: 100%;
+    }
+
+    .page-hero p {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+  }
 </style>
