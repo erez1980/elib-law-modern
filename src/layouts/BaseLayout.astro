@@ -15,7 +15,7 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, ''
 const homeHref = withBase('/');
 const contactHref = withBase('/contact');
 const logoHref = withBase(site.logo);
-const lightLogoHref = withBase('/images/logo-light.jpg');
+const lightLogoHref = withBase('/images/logo-light.png');
 const darkLogoHref = withBase('/images/logo-dark.jpg');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
@@ -379,13 +379,13 @@ const jsonLd = {
     display: inline-flex;
     align-items: center;
     font-size: 0.95rem;
-    width: min(420px, 100%);
+    width: min(560px, 100%);
   }
 
   .brand-full {
     width: 100%;
     height: auto;
-    max-height: 96px;
+    max-height: 122px;
     object-fit: contain;
     object-position: right center;
     display: block;
@@ -640,7 +640,7 @@ const jsonLd = {
     }
 
     .brand-full {
-      max-height: 64px;
+      max-height: 86px;
       width: 100%;
     }
 
