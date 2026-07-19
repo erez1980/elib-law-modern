@@ -109,7 +109,7 @@ const openingPoints = [
     padding-right: 1.2rem;
     display: grid;
     gap: 0.8rem;
-    color: #5b5b5b;
+    color: var(--color-soft-text);
   }
 
   .areas-grid {
@@ -189,5 +189,19 @@ const openingPoints = [
       flex-direction: column;
       align-items: stretch;
     }
+  }
+  /* Dark mode fixes: ensure visibility in dark theme */
+  :root[data-theme='dark'] .practice-hero-copy,
+  :root[data-theme='dark'] .practice-hero-side,
+  :root[data-theme='dark'] .area-card {
+    background: var(--color-card) !important;
+  }
+  :root[data-theme='dark'] .practice-hero-copy h2,
+  :root[data-theme='dark'] .practice-hero-copy p,
+  :root[data-theme='dark'] .practice-hero-side h2,
+  :root[data-theme='dark'] .practice-hero-side p,
+  :root[data-theme='dark'] .area-head h2,
+  :root[data-theme='dark'] .area-head p {
+    color: var(--color-text) !important;
   }
 </style>
