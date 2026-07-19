@@ -75,21 +75,11 @@ const jsonLd = {
       <div class="container header-inner">
         <a href={homeHref} class="brand">
           <img src={logoHref} alt={site.shortName} class="brand-logo" />
-          <div>
+          <div class="brand-text">
             <strong>{site.shortName}</strong>
             <span>{site.tagline}</span>
           </div>
         </a>
-        <details class="mobile-menu">
-          <summary>תפריט</summary>
-          <nav class="mobile-menu-panel" aria-label="ניווט מובייל">
-            {navigation.map((item) => {
-              const href = withBase(item.href);
-              const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
-              return <a href={href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : ''}>{item.label}</a>;
-            })}
-          </nav>
-        </details>
         <nav class="nav" aria-label="ניווט ראשי">
           {navigation.map((item) => {
             const href = withBase(item.href);
@@ -98,6 +88,16 @@ const jsonLd = {
           })}
         </nav>
         <div class="header-actions">
+          <details class="mobile-menu">
+            <summary aria-label="פתיחת תפריט">☰</summary>
+            <nav class="mobile-menu-panel" aria-label="ניווט מובייל">
+              {navigation.map((item) => {
+                const href = withBase(item.href);
+                const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+                return <a href={href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : ''}>{item.label}</a>;
+              })}
+            </nav>
+          </details>
           <button class="theme-toggle" type="button" aria-label="שינוי מצב תצוגה" title="שינוי מצב תצוגה">
             <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">☀</span>
             <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">☾</span>
@@ -406,6 +406,7 @@ const jsonLd = {
 
   .mobile-menu {
     display: none;
+    position: relative;
   }
 
   .mobile-menu summary {
@@ -414,13 +415,14 @@ const jsonLd = {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 46px;
-    padding: 0.7rem 1rem;
+    width: 48px;
+    height: 48px;
     border-radius: 999px;
     border: 1px solid var(--color-border);
     background: var(--color-card);
     color: var(--color-text);
     font-weight: 800;
+    box-shadow: var(--shadow-soft);
   }
 
   .mobile-menu summary::-webkit-details-marker {
@@ -428,7 +430,7 @@ const jsonLd = {
   }
 
   .mobile-menu-panel {
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
     padding: 0.75rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
@@ -437,6 +439,11 @@ const jsonLd = {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.55rem;
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    width: min(320px, calc(100vw - 2rem));
+    z-index: 30;
   }
 
   .mobile-menu-panel a {
@@ -612,18 +619,19 @@ const jsonLd = {
 
     .header-inner {
       min-height: auto;
-      padding: 0.4rem 0 0.3rem;
-      grid-template-columns: 1fr auto;
+      padding: 0.3rem 0;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.25rem;
     }
 
     .brand {
       justify-content: flex-start;
       text-align: right;
       min-width: 0;
-      gap: 0.5rem;
+      gap: 0.45rem;
       width: 100%;
+      flex: 1 1 auto;
     }
 
     .brand-logo {
@@ -659,8 +667,9 @@ const jsonLd = {
     .header-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 0.25rem;
+      gap: 0.22rem;
       align-items: center;
+      flex: 0 0 auto;
     }
 
     .header-actions .button-primary {
@@ -668,14 +677,14 @@ const jsonLd = {
     }
 
     .theme-toggle {
-      width: 34px;
-      height: 34px;
-      min-width: 34px;
-      min-height: 34px;
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      min-height: 30px;
     }
 
     .theme-toggle-icon {
-      font-size: 0.92rem;
+      font-size: 0.82rem;
     }
 
     .nav {
@@ -684,26 +693,26 @@ const jsonLd = {
 
     .mobile-menu {
       display: block;
-      grid-column: 1 / -1;
-      margin-top: 0.15rem;
     }
 
     .mobile-menu summary {
-      min-height: 34px;
-      padding: 0.42rem 0.75rem;
-      font-size: 0.84rem;
-      border-radius: 12px;
+      width: 30px;
+      height: 30px;
+      min-height: 30px;
+      padding: 0;
+      font-size: 0.82rem;
+      border-radius: 10px;
     }
 
     .mobile-menu-panel {
-      margin-top: 0.5rem;
-      padding: 0.55rem;
-      gap: 0.45rem;
+      margin-top: 0;
+      padding: 0.5rem;
+      gap: 0.4rem;
     }
 
     .mobile-menu-panel a {
-      padding: 0.62rem;
-      font-size: 0.88rem;
+      padding: 0.58rem;
+      font-size: 0.84rem;
     }
 
     .footer-grid {
