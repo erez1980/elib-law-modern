@@ -9,8 +9,9 @@ const whatsappHref = site.whatsapp || phoneHref;
 <div class="contact-actions-panel card">
   <div>
     <div class="eyebrow">יצירת קשר מהירה</div>
-    <h2>בחרו את הדרך הנוחה לפנייה</h2>
-    <p>אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. הפנייה תיענה בדיסקרטיות ובמקצועיות.</p>
+    <h2>בחרו את הדרך שנוחה לכם להתחיל בה</h2>
+    <p>אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. כל פנייה מתקבלת בדיסקרטיות, ברגישות ובמענה אישי.</p>
+    <p class="response-note">בדרך כלל אפשר להתחיל בשאלה קצרה, להבין את הכיוון, ורק אחר כך להחליט איך נכון להמשיך.</p>
   </div>
   <div class="contact-actions-grid">
     <a class="action-card action-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
@@ -68,6 +69,11 @@ const whatsappHref = site.whatsapp || phoneHref;
 
   .action-card strong {
     color: var(--color-text);
+  }
+
+  .response-note {
+    color: #6a6a6a;
+    margin-bottom: 0;
   }
 
   .action-whatsapp {

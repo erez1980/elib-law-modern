@@ -85,9 +85,16 @@ const jsonLd = {
     <FloatingActions />
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
+        <div class="footer-brand-col">
           <h3>{site.shortName}</h3>
           <p>{site.description}</p>
+          <p class="footer-note">ליווי אישי, דיסקרטי ושקול בדיני משפחה, גישור, צוואות, ירושות וייפוי כוח מתמשך.</p>
+        </div>
+        <div>
+          <h4>ניווט מהיר</h4>
+          <ul>
+            {navigation.map((item) => <li><a href={withBase(item.href)}>{item.label}</a></li>)}
+          </ul>
         </div>
         <div>
           <h4>יצירת קשר</h4>
@@ -95,12 +102,7 @@ const jsonLd = {
             <li><a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a></li>
             <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
             <li>{site.address}</li>
-          </ul>
-        </div>
-        <div>
-          <h4>שעות פעילות</h4>
-          <ul>
-            {site.hours.map((item) => <li>{item}</li>)}
+            <li>{site.hours[0]}</li>
           </ul>
         </div>
       </div>
@@ -335,6 +337,10 @@ const jsonLd = {
     color: rgba(255, 255, 255, 0.76);
   }
 
+  .footer-note {
+    max-width: 42ch;
+  }
+
   .footer-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -359,6 +365,13 @@ const jsonLd = {
       justify-content: flex-start;
       overflow-x: auto;
       padding-bottom: 0.25rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+
+    .nav a {
+      scroll-snap-align: start;
+      white-space: nowrap;
     }
 
     .footer-grid {

@@ -37,12 +37,17 @@ const whatsappHref = site.whatsapp || phoneHref;
     color: white;
     box-shadow: 0 16px 40px rgba(31, 31, 31, 0.18);
     font-weight: 700;
+    backdrop-filter: blur(10px);
   }
 
   .floating-chip--whatsapp {
     background: #ffffff;
     color: #128c4a;
     border: 1px solid rgba(37, 211, 102, 0.35);
+  }
+
+  .floating-chip:hover {
+    transform: translateY(-2px);
   }
 
   @media (max-width: 900px) {
