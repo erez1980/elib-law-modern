@@ -58,6 +58,16 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="he_IL" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      (() => {
+        const key = 'elib-theme';
+        const root = document.documentElement;
+        const saved = localStorage.getItem(key);
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (systemDark ? 'dark' : 'light');
+        root.dataset.theme = theme;
+      })();
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
   <body>
@@ -77,7 +87,13 @@ const jsonLd = {
             return <a href={href} aria-current={isActive ? 'page' : undefined} class={isActive ? 'active' : ''}>{item.label}</a>;
           })}
         </nav>
-        <a href={contactHref} class="button button-primary">לתיאום שיחת ייעוץ</a>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" aria-label="שינוי מצב תצוגה" title="שינוי מצב תצוגה">
+            <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">☀</span>
+            <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">☾</span>
+          </button>
+          <a href={contactHref} class="button button-primary">לתיאום שיחת ייעוץ</a>
+        </div>
       </div>
     </header>
     <main>
@@ -108,6 +124,25 @@ const jsonLd = {
         </div>
       </div>
     </footer>
+    <script is:inline>
+      (() => {
+        const key = 'elib-theme';
+        const root = document.documentElement;
+        const toggle = document.querySelector('.theme-toggle');
+        const applyTheme = (theme) => {
+          root.dataset.theme = theme;
+          localStorage.setItem(key, theme);
+          toggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+        };
+        if (toggle) {
+          toggle.addEventListener('click', () => {
+            const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+          });
+          toggle.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+        }
+      })();
+    </script>
   </body>
 </html>
 
@@ -168,6 +203,56 @@ const jsonLd = {
     }
   }
 
+  :root[data-theme='dark'] {
+    --color-primary: #f2b84b;
+    --color-primary-deep: #f0c978;
+    --color-text: #f3efe7;
+    --color-muted: #c0b8ab;
+    --color-surface: #121212;
+    --color-surface-warm: #171514;
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-white: #0f0f10;
+    --color-page-top: #151312;
+    --color-header: rgba(16, 16, 17, 0.82);
+    --color-header-border: rgba(255, 255, 255, 0.06);
+    --color-card: rgba(24, 24, 26, 0.92);
+    --color-card-strong: rgba(29, 29, 31, 0.96);
+    --color-overlay: rgba(10, 10, 11, 0.82);
+    --color-overlay-text: rgba(255, 255, 255, 0.86);
+    --color-pill-bg: rgba(242, 184, 75, 0.12);
+    --color-pill-text: #f1c975;
+    --color-soft-text: #ddd5ca;
+    --color-footer-bg-start: #0f0f10;
+    --color-footer-bg-end: #0a0a0b;
+    --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.32);
+    --shadow-strong: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  :root[data-theme='light'] {
+    --color-primary: #ffb637;
+    --color-primary-deep: #b88420;
+    --color-text: #2d2d2d;
+    --color-muted: #666666;
+    --color-surface: #f7f7f7;
+    --color-surface-warm: #fffaf1;
+    --color-border: #e6e6e6;
+    --color-white: #ffffff;
+    --color-page-top: #fffdf9;
+    --color-header: rgba(255, 255, 255, 0.88);
+    --color-header-border: rgba(230, 230, 230, 0.78);
+    --color-card: rgba(255, 255, 255, 0.92);
+    --color-card-strong: rgba(255,255,255,0.97);
+    --color-overlay: rgba(31, 31, 31, 0.78);
+    --color-overlay-text: rgba(255, 255, 255, 0.82);
+    --color-pill-bg: #fff7e6;
+    --color-pill-text: #8a6513;
+    --color-soft-text: #575757;
+    --color-footer-bg-start: #252525;
+    --color-footer-bg-end: #1b1b1b;
+    --shadow-soft: 0 18px 50px rgba(45, 45, 45, 0.08);
+    --shadow-strong: 0 30px 80px rgba(45, 45, 45, 0.14);
+  }
+
   html {
     font-family: 'Assistant', 'Heebo', Arial, sans-serif;
     color: var(--color-text);
@@ -219,6 +304,57 @@ const jsonLd = {
     align-items: center;
     gap: 1.25rem;
     min-height: 84px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .theme-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-text);
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .theme-toggle-icon {
+    position: absolute;
+    font-size: 1.2rem;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .theme-toggle-sun {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .theme-toggle-moon {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  :root[data-theme='dark'] .theme-toggle-sun {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  :root[data-theme='dark'] .theme-toggle-moon {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .brand {
@@ -399,6 +535,10 @@ const jsonLd = {
       padding: 1rem 0;
       grid-template-columns: 1fr;
       align-items: stretch;
+    }
+
+    .header-actions {
+      justify-content: space-between;
     }
 
     .nav {
