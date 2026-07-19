@@ -200,11 +200,24 @@ const relatedArticles = page.relatedArticles
   @media (max-width: 900px) {
     .service-grid {
       grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .service-cta {
       flex-direction: column;
       align-items: stretch;
+      gap: 1rem;
+    }
+
+    .service-main-col,
+    .service-side-col,
+    .related-list,
+    .faq-list {
+      gap: 1rem;
+    }
+
+    details {
+      padding-bottom: 0.8rem;
     }
   }
 </style>

@@ -149,9 +149,24 @@ const relatedArticles = allArticles.slice(0, 3);
   }
 
   @media (max-width: 900px) {
+    .article-shell {
+      gap: 1rem;
+    }
+
+    .article-body {
+      padding: 1.35rem;
+    }
+
+    .article-meta-row {
+      padding: 0.95rem 1rem;
+      gap: 0.45rem;
+      font-size: 0.92rem;
+    }
+
     .article-cta {
       flex-direction: column;
       align-items: stretch;
+      gap: 1rem;
     }
   }
 </style>
