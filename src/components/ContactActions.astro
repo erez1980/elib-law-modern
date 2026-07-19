@@ -10,12 +10,12 @@ const whatsappHref = site.whatsapp || phoneHref;
   <div>
     <div class="eyebrow">יצירת קשר מהירה</div>
     <h2>בחרו את הדרך שנוחה לכם להתחיל בה</h2>
-    <p>אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. כל פנייה מתקבלת בדיסקרטיות, ברגישות ובמענה אישי.</p>
+    <p class="contact-lead">אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. כל פנייה מתקבלת בדיסקרטיות, ברגישות ובמענה אישי.</p>
     <p class="response-note">בדרך כלל אפשר להתחיל בשאלה קצרה, להבין את הכיוון, ורק אחר כך להחליט איך נכון להמשיך.</p>
   </div>
   <div class="contact-actions-grid">
     <a class="action-card action-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
-      <WhatsappIcon size={32} />
+      <WhatsappIcon size={48} />
       <span>WhatsApp Business</span>
       <strong>שליחת הודעה</strong>
     </a>
@@ -35,8 +35,19 @@ const whatsappHref = site.whatsapp || phoneHref;
 <style>
   .contact-actions-panel {
     display: grid;
-    gap: 1.5rem;
+    gap: 1.75rem;
     background: linear-gradient(135deg, #ffffff 0%, #fff8ea 100%);
+  }
+
+  .contact-actions-panel h2 {
+    font-size: clamp(1.8rem, 2.5vw, 2.45rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-lead {
+    font-size: 1.12rem;
+    line-height: 1.95;
+    color: #585858;
   }
 
   .contact-actions-grid {
@@ -46,15 +57,15 @@ const whatsappHref = site.whatsapp || phoneHref;
   }
 
   .action-card {
-    min-height: 150px;
-    padding: 1.25rem;
-    border-radius: 18px;
+    min-height: 190px;
+    padding: 1.5rem;
+    border-radius: 20px;
     border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.92);
     display: grid;
     align-content: center;
     justify-items: start;
-    gap: 0.4rem;
+    gap: 0.55rem;
     transition: 180ms ease;
   }
 
@@ -65,15 +76,19 @@ const whatsappHref = site.whatsapp || phoneHref;
 
   .action-card span {
     color: var(--color-muted);
+    font-size: 1rem;
   }
 
   .action-card strong {
     color: var(--color-text);
+    font-size: 1.28rem;
+    line-height: 1.4;
   }
 
   .response-note {
     color: #6a6a6a;
     margin-bottom: 0;
+    font-size: 1.02rem;
   }
 
   .action-whatsapp {
@@ -82,14 +97,15 @@ const whatsappHref = site.whatsapp || phoneHref;
   }
 
   .action-icon {
-    width: 34px;
-    height: 34px;
+    width: 54px;
+    height: 54px;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #fff7e6;
     color: var(--color-primary-deep) !important;
     font-weight: 800;
+    font-size: 1.45rem !important;
   }
 
   @media (max-width: 900px) {
