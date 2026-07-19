@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import { seoPages } from '../../data/seo-pages';
+
+export async function getStaticPaths() {
+  return seoPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
+const { page } = Astro.props;
+const allArticles = await getCollection('articles');
+const relatedArticles = page.relatedArticles
+  .map((slug: string) => allArticles.find((article) => article.id.replace(/\.md$/, '') === slug))
+  .filter(Boolean);
+---
+<BaseLayout title={page.pageTitle} description={page.description}>
+  <PageHero eyebrow="שירות משפטי" title={page.title} description={page.description} />
+
+  <section class="section service-section">
+    <div class="container service-grid">
+      <div class="card service-main">
+        <p>{page.intro}</p>
+        <h2>מה כולל הליווי?</h2>
+        <ul>
+          {page.bullets.map((item: string) => <li>{item}</li>)}
+        </ul>
+        <p>
+          כל מקרה נבחן לפי הנסיבות הייחודיות שלו. במקרים מסוימים נכון לשאוף להסכם או לגישור,
+          ובמקרים אחרים נדרש ליווי משפטי ברור ונחוש. המטרה היא לבחור בדרך הנכונה ולא בדרך האוטומטית.
+        </p>
+        <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+      </div>
+
+      <aside class="card related-card">
+        <div class="eyebrow">מאמרים קשורים</div>
+        <div class="related-list">
+          {relatedArticles.map((article: any) => (
+            <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
+              <strong>{article.data.title}</strong>
+              <span>{article.data.excerpt}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .service-section {
+    padding-top: 1.5rem;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .service-main ul {
+    padding-right: 1.2rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .related-list a {
+    display: grid;
+    gap: 0.35rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(230, 230, 230, 0.9);
+  }
+
+  .related-list a:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .related-list span {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 900px) {
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

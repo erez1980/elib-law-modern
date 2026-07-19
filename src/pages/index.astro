@@ -117,6 +117,12 @@ const quickFacts = [
     <div class="container areas-shell">
       <SectionHeading eyebrow="תחומי עיסוק" title="מענה משפטי רחב בתוך התמחות אחת ברורה" description="דיני משפחה דורשים מבט רחב: משפט, רגש, הורות, רכוש ועתיד. לכן כל תחום מוצג כאן בצורה ברורה, נגישה ומכוונת פעולה." />
       <PracticeAreasPreview />
+      <div class="service-links-grid">
+        <a class="card service-link-card" href={withBase('/services/divorce-lawyer')}><strong>עורך דין גירושין</strong><span>מידע ממוקד על ליווי בהליך גירושין</span></a>
+        <a class="card service-link-card" href={withBase('/services/child-support-lawyer')}><strong>עורך דין מזונות</strong><span>הבנת הזכויות והאפשרויות בענייני מזונות</span></a>
+        <a class="card service-link-card" href={withBase('/services/custody-lawyer')}><strong>עורך דין משמורת והסדרי שהות</strong><span>הסדרה הורית מתוך ראייה מעשית ורגישה</span></a>
+        <a class="card service-link-card" href={withBase('/services/family-mediation')}><strong>גישור משפחתי</strong><span>מתי נכון ללכת להסכמות ואיך עושים זאת נכון</span></a>
+      </div>
     </div>
   </section>
 
@@ -357,9 +363,23 @@ const quickFacts = [
   }
 
   .areas-shell,
-  .faq-shell {
+  .faq-shell,
+  .service-links-grid {
     display: grid;
     gap: 1.5rem;
+  }
+
+  .service-links-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-link-card {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .service-link-card span {
+    color: var(--color-muted);
   }
 
   .process-shell {
@@ -422,6 +442,7 @@ const quickFacts = [
     .contact-mini-grid,
     .process-cards,
     .trust-points,
+    .service-links-grid,
     .cta-banner {
       grid-template-columns: 1fr;
       flex-direction: column;

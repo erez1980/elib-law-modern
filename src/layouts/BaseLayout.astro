@@ -26,6 +26,8 @@ const jsonLd = {
   image: ogImage,
   telephone: site.phone,
   email: site.email,
+  areaServed: ['קדימה צורן', 'אזור השרון', 'ישראל'],
+  sameAs: site.facebook ? [site.facebook] : [],
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address,
