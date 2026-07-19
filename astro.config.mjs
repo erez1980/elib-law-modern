@@ -3,9 +3,10 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://elib-law.co.il',
+  site: 'https://erez1980.github.io',
+  base: '/elib-law-modern',
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   integrations: [sitemap()],
   legacy: {
     collectionsBackwardsCompat: true,
