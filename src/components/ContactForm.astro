@@ -2,13 +2,15 @@
 import { site } from '../data/site';
 
 const endpoint = `https://formsubmit.co/${site.email}`;
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const whatsappHref = site.whatsapp || '';
+const thankYouUrl = `${site.domain}${withBase('/thank-you/')}`;
 ---
 <form class="card form-grid" action={endpoint} method="POST">
   <input type="hidden" name="_subject" value="פנייה חדשה מהאתר" />
   <input type="hidden" name="_captcha" value="false" />
   <input type="hidden" name="_template" value="table" />
-  <input type="hidden" name="_next" value={`${site.domain}/thank-you`} />
+  <input type="hidden" name="_next" value={thankYouUrl} />
   <label>
     שם מלא
     <input type="text" name="name" placeholder="איך נוכל לפנות אליך?" required />

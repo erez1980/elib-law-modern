@@ -7,6 +7,11 @@ interface Props {
 }
 
 const { title = site.title, description = site.description } = Astro.props;
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
+const homeHref = withBase('/');
+const contactHref = withBase('/contact');
+const logoHref = withBase(site.logo);
+const ogImage = new URL(withBase(site.heroImage), Astro.site ?? Astro.url).toString();
 ---
 <!doctype html>
 <html lang="he" dir="rtl">
@@ -17,19 +22,19 @@ const { title = site.title, description = site.description } = Astro.props;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#FFB637" />
-    <link rel="icon" type="image/png" href={site.logo} />
+    <link rel="icon" type="image/png" href={logoHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={site.domain + Astro.url.pathname} />
-    <meta property="og:image" content={site.heroImage} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString()} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a href="/" class="brand">
-          <img src={site.logo} alt={site.shortName} class="brand-logo" />
+        <a href={homeHref} class="brand">
+          <img src={logoHref} alt={site.shortName} class="brand-logo" />
           <div>
             <strong>{site.shortName}</strong>
             <span>{site.tagline}</span>
@@ -37,10 +42,10 @@ const { title = site.title, description = site.description } = Astro.props;
         </a>
         <nav class="nav" aria-label="ניווט ראשי">
           {navigation.map((item) => (
-            <a href={item.href}>{item.label}</a>
+            <a href={withBase(item.href)}>{item.label}</a>
           ))}
         </nav>
-        <a href="/contact" class="button button-primary">לתיאום שיחת ייעוץ</a>
+        <a href={contactHref} class="button button-primary">לתיאום שיחת ייעוץ</a>
       </div>
     </header>
     <main>

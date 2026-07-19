@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const homeHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
 <BaseLayout title="העמוד לא נמצא | עו״ד אליזבט ברזאני דדון">
   <section class="section">
@@ -7,7 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="eyebrow">404</div>
       <h1>העמוד שחיפשת לא נמצא</h1>
       <p>אפשר לחזור לדף הבית או ליצור קשר ולקבל מענה אישי.</p>
-      <a href="/" class="button button-primary">לדף הבית</a>
+      <a href={homeHref} class="button button-primary">לדף הבית</a>
     </div>
   </section>
 </BaseLayout>

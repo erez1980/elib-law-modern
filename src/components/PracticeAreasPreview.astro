@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
 ---
 <div class="grid areas-grid">
@@ -8,7 +9,7 @@ const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.da
     <article class="card area-card">
       <h3>{area.data.title}</h3>
       <p>{area.data.summary}</p>
-      <a href="/practice-areas" class="text-link">לפרטים נוספים</a>
+      <a href={withBase('/practice-areas')} class="text-link">לפרטים נוספים</a>
     </article>
   ))}
 </div>

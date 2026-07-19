@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { site } from '../data/site';
 import aboutPage from '../data/about-page.json';
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
+const heroImage = withBase(site.heroImage);
 ---
 <BaseLayout title="אודות | עו״ד אליזבט ברזאני דדון">
   <section class="section">
@@ -12,7 +15,7 @@ import aboutPage from '../data/about-page.json';
         {aboutPage.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
       <div class="card image-card">
-        <img src={site.heroImage} alt={site.shortName} />
+        <img src={heroImage} alt={site.shortName} />
       </div>
     </div>
   </section>

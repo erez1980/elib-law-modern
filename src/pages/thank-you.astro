@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const homeHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
 <BaseLayout title="תודה | עו״ד אליזבט ברזאני דדון">
   <section class="section">
@@ -7,7 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="eyebrow">הפנייה התקבלה</div>
       <h1>תודה, הפנייה נשלחה</h1>
       <p>נחזור בהקדם עם מענה אישי, מקצועי ודיסקרטי.</p>
-      <a href="/" class="button button-primary">חזרה לדף הבית</a>
+      <a href={homeHref} class="button button-primary">חזרה לדף הבית</a>
     </div>
   </section>
 </BaseLayout>

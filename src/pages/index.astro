@@ -5,6 +5,9 @@ import PracticeAreasPreview from '../components/PracticeAreasPreview.astro';
 import FaqPreview from '../components/FaqPreview.astro';
 import { contactCards, highlights, site } from '../data/site';
 import { homePage } from '../data/home';
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
+const heroImage = withBase(site.heroImage);
 ---
 <BaseLayout>
   <section class="section hero-shell">
@@ -14,8 +17,8 @@ import { homePage } from '../data/home';
         <h1>{homePage.hero.title}</h1>
         <p class="hero-copy">{homePage.hero.description}</p>
         <div class="hero-actions">
-          <a class="button button-primary" href={homePage.hero.primaryCta.href}>{homePage.hero.primaryCta.label}</a>
-          <a class="button button-secondary" href={homePage.hero.secondaryCta.href}>{homePage.hero.secondaryCta.label}</a>
+          <a class="button button-primary" href={withBase(homePage.hero.primaryCta.href)}>{homePage.hero.primaryCta.label}</a>
+          <a class="button button-secondary" href={withBase(homePage.hero.secondaryCta.href)}>{homePage.hero.secondaryCta.label}</a>
         </div>
         <ul class="hero-meta">
           <li>חברת לשכת עורכי הדין משנת 2008</li>
@@ -25,7 +28,7 @@ import { homePage } from '../data/home';
       </div>
       <div class="hero-visual-wrap">
         <div class="hero-visual card">
-          <img src={site.heroImage} alt={site.shortName} />
+          <img src={heroImage} alt={site.shortName} />
         </div>
         <div class="hero-floating-card card">
           <strong>זמינות גבוהה וליווי אישי</strong>
@@ -128,8 +131,8 @@ import { homePage } from '../data/home';
         <p>{homePage.cta.text}</p>
       </div>
       <div class="hero-actions">
-        <a class="button button-primary" href={homePage.cta.primary.href}>{homePage.cta.primary.label}</a>
-        <a class="button button-secondary" href={homePage.cta.secondary.href}>{homePage.cta.secondary.label}</a>
+        <a class="button button-primary" href={withBase(homePage.cta.primary.href)}>{homePage.cta.primary.label}</a>
+        <a class="button button-secondary" href={withBase(homePage.cta.secondary.href)}>{homePage.cta.secondary.label}</a>
       </div>
     </div>
   </section>
