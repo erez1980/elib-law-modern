@@ -8,6 +8,11 @@ import { homePage } from '../data/home';
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const heroImage = withBase(site.heroImage);
+const trustBadges = [
+  'חברת לשכת עורכי הדין משנת 2008',
+  'שירות אישי וישיר ללא מתמחים',
+  'ליווי דיסקרטי בדיני משפחה, צוואות וייפוי כוח מתמשך',
+];
 ---
 <BaseLayout>
   <section class="section hero-shell">
@@ -21,9 +26,7 @@ const heroImage = withBase(site.heroImage);
           <a class="button button-secondary" href={withBase(homePage.hero.secondaryCta.href)}>{homePage.hero.secondaryCta.label}</a>
         </div>
         <ul class="hero-meta">
-          <li>חברת לשכת עורכי הדין משנת 2008</li>
-          <li>שירות אישי, ישיר ודיסקרטי</li>
-          <li>דיני משפחה, גירושין, צוואות, ירושות וייפוי כוח מתמשך</li>
+          {trustBadges.map((badge) => <li>{badge}</li>)}
         </ul>
       </div>
       <div class="hero-visual-wrap">
@@ -42,16 +45,31 @@ const heroImage = withBase(site.heroImage);
     <div class="container stats-grid">
       <article class="stat-item">
         <strong>2008+</strong>
-        <span>ניסיון משפטי ממוקד</span>
+        <span>ותק מקצועי רציף</span>
       </article>
       <article class="stat-item">
         <strong>דיני משפחה</strong>
-        <span>מיקוד מקצועי ברור</span>
+        <span>התמחות ממוקדת ולא כללית</span>
       </article>
       <article class="stat-item">
-        <strong>ליווי אישי</strong>
-        <span>טיפול ישיר בכל תיק</span>
+        <strong>יחס אישי</strong>
+        <span>ליווי ישיר ושקול בכל שלב</span>
       </article>
+    </div>
+  </section>
+
+  <section class="section trust-strip">
+    <div class="container trust-strip-inner card">
+      <div>
+        <div class="eyebrow">אמון, בהירות ומקצועיות</div>
+        <h2>משרד שנועד לתת גם תשובה משפטית נכונה וגם תחושת יציבות</h2>
+      </div>
+      <div class="trust-points">
+        <span>ליווי אישי</span>
+        <span>דיסקרטיות מלאה</span>
+        <span>חשיבה אסטרטגית</span>
+        <span>שירות בגובה העיניים</span>
+      </div>
     </div>
   </section>
 
@@ -213,17 +231,43 @@ const heroImage = withBase(site.heroImage);
     padding-top: 2rem;
   }
 
+  .trust-strip {
+    padding-top: 0;
+  }
+
   .stats-grid,
   .highlight-grid,
   .contact-mini-grid,
   .process-grid,
-  .split-section {
+  .split-section,
+  .trust-points {
     display: grid;
     gap: 1.5rem;
   }
 
   .stats-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .trust-strip-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(120deg, #fff 0%, #fff8ea 100%);
+  }
+
+  .trust-points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trust-points span {
+    padding: 0.9rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 182, 55, 0.28);
+    background: rgba(255, 255, 255, 0.86);
+    font-weight: 700;
+    text-align: center;
   }
 
   .stat-item {
@@ -329,7 +373,9 @@ const heroImage = withBase(site.heroImage);
     .process-grid,
     .process-cards,
     .contact-mini-grid,
-    .cta-banner {
+    .cta-banner,
+    .trust-strip-inner,
+    .trust-points {
       grid-template-columns: 1fr;
       flex-direction: column;
       align-items: stretch;

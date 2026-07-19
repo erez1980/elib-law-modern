@@ -25,6 +25,10 @@ npm run build
 
 ## מה עוד נשאר
 - להחליף ללוגו המקורי כשתספק קובץ איכותי
-- להוסיף קישור WhatsApp בהגדרות `src/data/site-settings.json`
 - לשקול מעבר מטופס FormSubmit לשירות עם domain/email מותאם אישית בהמשך
-- לשפר את Decap CMS כדי לערוך גם `site settings` ו-`home` בצורה מלאה דרך JSON/YAML
+- להשלים auth נוח ל-Decap CMS עבור עריכה לא-טכנית אמיתית על GitHub Pages
+- לחבר את הדומיין הקיים
+
+## CMS / Editing
+קיים מסמך תפעולי נוסף:
+- `docs/CMS_SETUP.md`

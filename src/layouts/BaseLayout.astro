@@ -4,14 +4,32 @@ import { site, navigation } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  noIndex?: boolean;
 }
 
-const { title = site.title, description = site.description } = Astro.props;
+const { title = site.title, description = site.description, image = site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
 const contactHref = withBase('/contact');
 const logoHref = withBase(site.logo);
-const ogImage = new URL(withBase(site.heroImage), Astro.site ?? Astro.url).toString();
+const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: site.name,
+  description,
+  url: canonicalUrl,
+  image: ogImage,
+  telephone: site.phone,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address,
+    addressCountry: 'IL',
+  },
+};
 ---
 <!doctype html>
 <html lang="he" dir="rtl">
@@ -26,9 +44,13 @@ const ogImage = new URL(withBase(site.heroImage), Astro.site ?? Astro.url).toStr
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString()} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="he_IL" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
   <body>
     <header class="site-header">
