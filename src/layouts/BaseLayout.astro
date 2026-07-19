@@ -69,6 +69,13 @@ const jsonLd = {
         root.dataset.theme = theme;
       })();
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RD52L2GWWH"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RD52L2GWWH');
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
   <body>
