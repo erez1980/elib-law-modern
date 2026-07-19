@@ -24,7 +24,7 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
   }
 
   .page-hero-card {
-    padding: 2.25rem;
+    padding: 2rem 2.1rem;
     border-radius: 28px;
     border: 1px solid rgba(255, 182, 55, 0.24);
     background: linear-gradient(135deg, #fff7e6 0%, #ffffff 68%);
@@ -35,12 +35,21 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
     text-align: center;
   }
 
+  .page-hero h1 {
+    max-width: 18ch;
+    margin-bottom: 0.8rem;
+  }
+
   .page-hero p {
-    max-width: 70ch;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #5c5c5c;
+    max-width: 60ch;
     margin-bottom: 0;
   }
 
-  .page-hero.center p {
+  .page-hero.center p,
+  .page-hero.center h1 {
     margin-inline: auto;
   }
 </style>

@@ -22,7 +22,7 @@ const relatedArticles = page.relatedArticles
     <div class="container service-grid">
       <div class="service-main-col">
         <div class="card service-main">
-          <p>{page.intro}</p>
+          <p class="lead">{page.intro}</p>
           <h2>מה כולל הליווי?</h2>
           <ul>
             {page.bullets.map((item: string) => <li>{item}</li>)}
@@ -42,7 +42,7 @@ const relatedArticles = page.relatedArticles
 
         <div class="card service-when">
           <h2>{page.whenTitle}</h2>
-          <p>{page.whenText}</p>
+          <p class="lead-sm">{page.whenText}</p>
         </div>
 
         <div class="card service-faq">
@@ -61,7 +61,7 @@ const relatedArticles = page.relatedArticles
           <div>
             <div class="eyebrow">פנייה ראשונה</div>
             <h2>אפשר לקבל תמונה ראשונית, להבין את האפשרויות ולפעול בצורה שקולה</h2>
-            <p>פנייה מוקדמת עוזרת להפחית טעויות, להבין את המצב ולקבל החלטות בצורה רגועה ומדויקת יותר.</p>
+            <p class="lead-sm">פנייה מוקדמת עוזרת להפחית טעויות, להבין את המצב ולקבל החלטות בצורה רגועה, שקולה ובהירה יותר.</p>
           </div>
           <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
         </div>
@@ -121,6 +121,17 @@ const relatedArticles = page.relatedArticles
     margin: 0;
   }
 
+  .lead {
+    font-size: 1.08rem;
+    line-height: 1.95;
+    color: #555;
+  }
+
+  .lead-sm {
+    color: #5a5a5a;
+    line-height: 1.9;
+  }
+
   .related-list a {
     display: grid;
     gap: 0.35rem;
@@ -159,6 +170,7 @@ const relatedArticles = page.relatedArticles
   summary {
     cursor: pointer;
     font-weight: 700;
+    line-height: 1.6;
   }
 
   @media (max-width: 900px) {
