@@ -67,8 +67,8 @@ const featuredServices = [
     <div class="container trust-band card">
       <div class="trust-copy">
         <div class="eyebrow">אמון, בהירות וגישה אנושית</div>
-        <h2>משרד שמחבר בין הבנה אנושית עמוקה לבין עבודה משפטית שקולה ומדויקת</h2>
-        <p>לא כל מקרה צריך עימות. לא כל הסכמה היא הסכמה נכונה. המטרה היא להבין מה ישרת אותך באמת - ולבנות משם דרך פעולה נכונה.</p>
+        <h2>ליווי משפטי שמחבר בין הבנה אנושית עמוקה לבין חשיבה משפטית שקולה ומדויקת</h2>
+        <p>לא כל מקרה צריך עימות, ולא כל הסכמה היא בהכרח הסכמה נכונה. חשוב להבין מה ישרת אותך באמת, ולבנות משם דרך פעולה נכונה.</p>
       </div>
       <div class="trust-proof-list">
         <div class="trust-proof-item"><strong>18+</strong><span>שנות ניסיון מקצועי</span></div>
@@ -80,7 +80,7 @@ const featuredServices = [
 
   <section class="section section-alt">
     <div class="container">
-      <SectionHeading eyebrow="למה לבחור במשרד" title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
+      <SectionHeading eyebrow="למה לפנות אליי" title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
       <div class="grid highlight-grid">
         {highlights.map((item) => (
           <article class="card highlight-card">
@@ -95,7 +95,7 @@ const featuredServices = [
   <section class="section">
     <div class="container split-section">
       <div class="story-card card">
-        <SectionHeading eyebrow="אודות המשרד" title="עורכת דין ומגשרת שמלווה ברגישות, בנוכחות, ובחשיבה לטווח ארוך" description="כשיש מתח, בלבול או חוסר ודאות, חשוב לעבוד עם מי שיודעת גם להחזיק את הסיטואציה האנושית וגם להוביל את המהלך המשפטי בצורה מדויקת." />
+        <SectionHeading eyebrow="אודות" title="עורכת דין ומגשרת שמלווה ברגישות, בנוכחות, ובחשיבה לטווח ארוך" description="כשיש מתח, בלבול או חוסר ודאות, חשוב לעבוד עם מי שיודעת גם להחזיק את הסיטואציה האנושית וגם להוביל את המהלך המשפטי בצורה מדויקת." />
         <p>
           אני מלווה לקוחות בענייני גירושין, גישור משפחתי, משמורת, מזונות, חלוקת רכוש,
           צוואות, ירושות, ייפוי כוח מתמשך והסכמים - מתוך הקשבה אמיתית, סדר מחשבתי וראייה רחבה של התמונה כולה.
@@ -113,14 +113,14 @@ const featuredServices = [
           <li>רגישות כשאפשר, ונחישות כשצריך</li>
           <li>תחושת סדר ובהירות כבר מהשלבים הראשונים</li>
         </ul>
-        <a class="text-link" href={withBase('/about')}>לקריאה נוספת על המשרד</a>
+        <a class="text-link" href={withBase('/about')}>לקריאה נוספת</a>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container areas-shell">
-      <SectionHeading eyebrow="תחומי עיסוק" title="התחומים המרכזיים שבהם אני מלווה באופן אישי ומדויק" description="במקום להעמיס בדף הבית את כל שכבות התוכן, ריכזתי כאן את הנושאים המרכזיים שמעסיקים לקוחות בתחילת הדרך." />
+      <SectionHeading eyebrow="תחומי עיסוק" title="התחומים המרכזיים שבהם אני מלווה באופן אישי ומדויק" description="כאן אפשר למצוא את הנושאים המרכזיים שמעסיקים לקוחות בתחילת הדרך." />
       <div class="service-links-grid">
         {featuredServices.map((service) => (
           <a class="card service-link-card" href={withBase(service.href)}>
