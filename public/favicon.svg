@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
   <title id="title">עו״ד אליזבט ברזאני דדון</title>
-  <desc id="desc">מונוגרמה אלגנטית זמנית בגווני זהב עד להחלפת לוגו מקורי.</desc>
+  <desc id="desc">פאביקון בסגנון מונוגרמה EB בגווני זהב.</desc>
   <rect width="512" height="512" rx="72" fill="#fff8ea"/>
   <rect x="24" y="24" width="464" height="464" rx="56" fill="none" stroke="#FFB637" stroke-width="10"/>
-  <path d="M150 160h50v190h120v42H150z" fill="#2D2D2D"/>
-  <path d="M248 160h44l70 105 0-105h44v190h-42l-72-106 0 106h-44z" fill="#2D2D2D"/>
-  <circle cx="256" cy="106" r="16" fill="#FFB637"/>
+  <path d="M150 150h212c20 0 36 16 36 36v42c0 14-8 27-20 33 12 6 20 19 20 33v42c0 20-16 36-36 36H150z" fill="#2D2D2D"/>
+  <rect x="194" y="196" width="150" height="24" rx="12" fill="#fff8ea"/>
+  <rect x="194" y="248" width="118" height="24" rx="12" fill="#FFB637"/>
+  <rect x="194" y="300" width="150" height="24" rx="12" fill="#fff8ea"/>
 </svg>
