@@ -28,7 +28,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
     <input type="hidden" name="_next" value={thankYouUrl} />
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="_captcha" value="false" />
-    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <input type="text" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div class="form-row">
       <label>
@@ -68,6 +68,24 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
     </p>
   </form>
 </div>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('#callback-form form');
+    const submitBtn = form?.querySelector('.form-submit');
+    if (!form || !submitBtn) return;
+    let submitting = false;
+    form.addEventListener('submit', (event) => {
+      if (submitting) {
+        event.preventDefault();
+        return;
+      }
+      submitting = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'שולח...';
+    });
+  })();
+</script>
 
 <style>
   .contact-form-card {
@@ -145,6 +163,12 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
   .form-submit {
     justify-self: start;
     padding-inline: 2rem;
+  }
+
+  .form-submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none !important;
   }
 
   .form-privacy-note {
