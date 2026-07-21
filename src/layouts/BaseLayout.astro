@@ -13,7 +13,6 @@ interface Props {
 const { title = site.title, description = site.description, image = site.ogImage ?? site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
-const contactHref = withBase('/contact');
 const logoHref = withBase(site.logo);
 const faviconPngHref = withBase('/favicon.png');
 const faviconIcoHref = withBase('/favicon.ico');
@@ -120,7 +119,6 @@ const jsonLd = {
             <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">☀</span>
             <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">☾</span>
           </button>
-          <a href={contactHref} class="button button-primary">לתיאום פגישת ייעוץ</a>
         </div>
       </div>
     </header>
@@ -730,10 +728,6 @@ const jsonLd = {
       gap: 0.22rem;
       align-items: center;
       flex: 0 0 auto;
-    }
-
-    .header-actions .button-primary {
-      display: none;
     }
 
     .theme-toggle {
