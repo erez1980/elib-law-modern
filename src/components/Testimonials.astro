@@ -1,0 +1,73 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { testimonials } from '../data/testimonials';
+---
+{testimonials.length > 0 && (
+  <section class="section testimonials-section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="לקוחות מספרים"
+        title="מה אומרים אנשים שליוויתי"
+        description="מטעמי דיסקרטיות, ההמלצות מוצגות בשמות מקוצרים ובאישור הלקוחות."
+        align="center"
+      />
+      <div class="testimonials-grid">
+        {testimonials.map((item) => (
+          <figure class="card testimonial-card">
+            <span class="testimonial-mark" aria-hidden="true">”</span>
+            <blockquote>{item.quote}</blockquote>
+            <figcaption>
+              <strong>{item.author}</strong>
+              {item.context && <span>{item.context}</span>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .testimonial-card {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    position: relative;
+    padding-top: 2.2rem;
+  }
+
+  .testimonial-mark {
+    position: absolute;
+    top: 0.4rem;
+    right: 1.25rem;
+    font-size: 3.2rem;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.55;
+    font-family: Georgia, serif;
+  }
+
+  .testimonial-card blockquote {
+    margin: 0;
+    color: var(--color-soft-text);
+    line-height: 1.9;
+  }
+
+  .testimonial-card figcaption {
+    display: grid;
+    gap: 0.15rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.75rem;
+  }
+
+  .testimonial-card figcaption span {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+</style>

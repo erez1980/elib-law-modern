@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const updatedAt = 'יולי 2026';
+const features = [
+  'אפשרות להגדלה והקטנה של גודל הטקסט',
+  'מצב ניגודיות גבוהה',
+  'הדגשת קישורים',
+  'מעבר לגופן קריא',
+  'עצירת אנימציות ותנועה',
+  'תמיכה מלאה בניווט מקלדת ובקוראי מסך (תגיות ARIA וסימון אזורי ניווט)',
+  'מצב תצוגה בהיר וכהה לפי העדפת המשתמש',
+];
+---
+<BaseLayout title={`הצהרת נגישות | ${site.name}`} description="הצהרת הנגישות של האתר - האמצעים שננקטו להנגשת האתר ודרכי פנייה בנושאי נגישות.">
+  <PageHero eyebrow="נגישות" title="הצהרת נגישות" description="אנו רואים חשיבות רבה במתן שירות שוויוני ונגיש לכלל המבקרים באתר, לרבות אנשים עם מוגבלות." />
+
+  <section class="section legal-section">
+    <div class="container legal-container">
+      <div class="card legal-card">
+        <h2>מחויבות לנגישות</h2>
+        <p>
+          אתר זה שואף לעמוד בדרישות תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013,
+          ובהנחיות התקן הישראלי (ת״י 5568) לנגישות תכנים באינטרנט ברמת AA, בהתאם להנחיות WCAG 2.1.
+        </p>
+
+        <h2>התאמות הנגישות באתר</h2>
+        <p>באתר מוטמע רכיב נגישות (בפינת המסך) המאפשר, בין היתר:</p>
+        <ul>
+          {features.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2>סייגים</h2>
+        <p>
+          אנו פועלים באופן שוטף לשיפור נגישות האתר. ייתכן שחלקים מסוימים באתר טרם הונגשו במלואם,
+          או שטרם נמצא פתרון טכנולוגי מתאים עבורם. אם נתקלתם בקושי או בבעיה, נשמח שתיידעו אותנו ונפעל לתקן בהקדם.
+        </p>
+
+        <h2>פנייה בנושאי נגישות</h2>
+        <p>
+          לכל שאלה, בקשה או דיווח על בעיית נגישות באתר, ניתן לפנות אלינו:
+        </p>
+        <ul>
+          <li>טלפון: <a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a></li>
+          <li>דוא״ל: <a href={`mailto:${site.email}?subject=${encodeURIComponent('פנייה בנושא נגישות')}`}>{site.email}</a></li>
+          <li>כתובת: {site.address}</li>
+        </ul>
+
+        <p class="legal-updated">עודכן לאחרונה: {updatedAt}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-section {
+    padding-top: 1.5rem;
+  }
+
+  .legal-container {
+    max-width: 860px;
+  }
+
+  .legal-card h2 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+  }
+
+  .legal-card h2:first-child {
+    margin-top: 0;
+  }
+
+  .legal-card ul {
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--color-soft-text);
+    margin: 0 0 1rem;
+  }
+
+  .legal-updated {
+    margin-top: 2rem;
+    color: var(--color-muted);
+    font-size: 0.92rem;
+  }
+</style>

@@ -1,0 +1,171 @@
+---
+import { site } from '../data/site';
+
+const formAction = `https://formsubmit.co/${site.email}`;
+const thankYouUrl = new URL('/thank-you/', site.domain).toString();
+const topics = [
+  'גירושין',
+  'גישור משפחתי',
+  'מזונות ומשמורת',
+  'חלוקת רכוש',
+  'צוואות וירושות',
+  'ייפוי כוח מתמשך',
+  'הסכמים',
+  'אחר / עדיין לא בטוח·ה',
+];
+const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשעות אחר הצהריים / ערב', 'לא משנה לי'];
+---
+<div class="card contact-form-card" id="callback-form">
+  <div class="eyebrow">השארת פרטים דיסקרטית</div>
+  <h2>מעדיפים שנחזור אליכם? השאירו פרטים בשקט מלא</h2>
+  <p class="form-lead">
+    לא תמיד נוח להתקשר. אפשר להשאיר כאן פרטים - הפנייה מגיעה ישירות אליי בלבד,
+    נשמרת בדיסקרטיות מלאה, ואחזור אליכם בזמן שנוח לכם.
+  </p>
+
+  <form action={formAction} method="POST" class="contact-form">
+    <input type="hidden" name="_subject" value="פנייה חדשה מהאתר - טופס חזרה" />
+    <input type="hidden" name="_next" value={thankYouUrl} />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <div class="form-row">
+      <label>
+        <span>שם מלא <em>*</em></span>
+        <input type="text" name="name" required autocomplete="name" placeholder="איך לפנות אליך?" />
+      </label>
+      <label>
+        <span>טלפון <em>*</em></span>
+        <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" dir="ltr" placeholder="050-0000000" />
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label>
+        <span>הנושא</span>
+        <select name="topic">
+          {topics.map((topic) => <option value={topic}>{topic}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>מתי נוח שאחזור אליך?</span>
+        <select name="preferred_time">
+          {callTimes.map((time) => <option value={time}>{time}</option>)}
+        </select>
+      </label>
+    </div>
+
+    <label>
+      <span>כמה מילים על המצב (לא חובה)</span>
+      <textarea name="message" rows="4" placeholder="אפשר לתאר בקצרה את הסיטואציה, או להשאיר ריק - נדבר בטלפון."></textarea>
+    </label>
+
+    <button type="submit" class="button button-primary form-submit">שלחו לי חזרה טלפון</button>
+    <p class="form-privacy-note">
+      הפרטים משמשים אך ורק לחזרה אליך ואינם מועברים לאף גורם.
+      <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/privacy`}>מדיניות הפרטיות</a>
+    </p>
+  </form>
+</div>
+
+<style>
+  .contact-form-card {
+    background: linear-gradient(135deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .contact-form-card h2 {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-lead {
+    color: var(--color-soft-text);
+    line-height: 1.9;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+
+  .contact-form label {
+    display: grid;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  .contact-form label em {
+    color: var(--color-primary-deep);
+    font-style: normal;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    font: inherit;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    min-height: 48px;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+    width: 100%;
+  }
+
+  .contact-form textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.22);
+  }
+
+  .contact-form input[dir='ltr'] {
+    text-align: right;
+  }
+
+  .form-submit {
+    justify-self: start;
+    padding-inline: 2rem;
+  }
+
+  .form-privacy-note {
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  .form-privacy-note a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 700px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .form-submit {
+      justify-self: stretch;
+      width: 100%;
+    }
+  }
+</style>

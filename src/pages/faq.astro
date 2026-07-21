@@ -5,6 +5,15 @@ import { getCollection } from 'astro:content';
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.data.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.data.answer },
+  })),
+};
 const openingPoints = [
   'מתי נכון לפנות ולקבל ייעוץ',
   'מה אפשר להסדיר בהסכם ומה דורש טיפול אחר',
@@ -12,6 +21,7 @@ const openingPoints = [
 ];
 ---
 <BaseLayout title="שאלות נפוצות | עו״ד אליזבט ברזאני דדון">
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <PageHero eyebrow="שאלות נפוצות" title="מענה ברור לשאלות שעולות בתחילת הדרך" description="כאן אפשר למצוא תשובות ראשוניות לשאלות נפוצות שעולות בתחילת הדרך." />
 
   <section class="section faq-intro-section">
@@ -97,7 +107,7 @@ const openingPoints = [
   .faq-item:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-strong);
-    border-color: rgba(255, 182, 55, 0.28);
+    border-color: rgba(201, 162, 75, 0.28);
   }
 
   summary {

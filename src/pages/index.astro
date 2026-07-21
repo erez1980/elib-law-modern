@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import PracticeAreasPreview from '../components/PracticeAreasPreview.astro';
 import FaqPreview from '../components/FaqPreview.astro';
+import Testimonials from '../components/Testimonials.astro';
 import { highlights, site } from '../data/site';
 import { homePage } from '../data/home';
 
@@ -152,6 +153,8 @@ const featuredServices = [
     </div>
   </section>
 
+  <Testimonials />
+
   <section class="section section-alt">
     <div class="container faq-shell">
       <SectionHeading eyebrow="שאלות נפוצות" title="שאלות שאנשים שואלים כשהם רוצים להבין מה נכון לעשות עכשיו" description="תשובות ראשוניות, קצרות וברורות, בנושאים שעולים הרבה בתחילת הדרך - לפני פגישה, לפני החלטה, ולפני צעד משפטי." />
@@ -252,7 +255,7 @@ const featuredServices = [
   .warmth-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-strong);
-    border-color: rgba(255, 182, 55, 0.28);
+    border-color: rgba(201, 162, 75, 0.28);
   }
 
   .hero-image-card img {
@@ -333,7 +336,7 @@ const featuredServices = [
   .trust-proof-item {
     padding: 1rem 1.1rem;
     border-radius: 20px;
-    border: 1px solid rgba(255, 182, 55, 0.24);
+    border: 1px solid rgba(201, 162, 75, 0.24);
     background: var(--color-card);
     display: grid;
     gap: 0.25rem;
@@ -428,7 +431,7 @@ const featuredServices = [
     justify-content: center;
     border-radius: 50%;
     background: var(--color-pill-bg);
-    border: 1px solid rgba(255, 182, 55, 0.35);
+    border: 1px solid rgba(201, 162, 75, 0.35);
     color: var(--color-pill-text);
     margin-bottom: 1rem;
     font-weight: 700;
@@ -452,7 +455,7 @@ const featuredServices = [
 
   .cta-banner .eyebrow {
     color: var(--color-pill-text);
-    background: rgba(255, 182, 55, 0.18);
+    background: rgba(201, 162, 75, 0.18);
   }
 
   .cta-banner .button-secondary {
