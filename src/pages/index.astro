@@ -83,8 +83,9 @@ const featuredServices = [
     <div class="container">
       <SectionHeading eyebrow="למה לפנות אליי" title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
       <div class="grid highlight-grid">
-        {highlights.map((item) => (
-          <article class="card highlight-card">
+        {highlights.map((item, index) => (
+          <article class="highlight-card">
+            <span class="highlight-index" aria-hidden="true">0{index + 1}</span>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -249,7 +250,6 @@ const featuredServices = [
   }
 
   .hero-image-card:hover,
-  .highlight-card:hover,
   .service-link-card:hover,
   .process-card:hover,
   .warmth-card:hover {
@@ -325,21 +325,28 @@ const featuredServices = [
     margin-bottom: 0;
   }
 
-  .trust-proof-list,
-  .highlight-grid,
   .process-cards,
   .service-links-grid {
     display: grid;
     gap: 1rem;
   }
 
-  .trust-proof-item {
-    padding: 1rem 1.1rem;
-    border-radius: 20px;
-    border: 1px solid rgba(201, 162, 75, 0.24);
-    background: var(--color-card);
+  .trust-proof-list {
     display: grid;
-    gap: 0.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .trust-proof-item {
+    display: grid;
+    gap: 0.3rem;
+    padding-inline-start: 1.25rem;
+    border-inline-start: 2px solid rgba(201, 162, 75, 0.3);
+  }
+
+  .trust-proof-item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
   }
 
   .trust-proof-item strong {
@@ -352,9 +359,29 @@ const featuredServices = [
 
   .highlight-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 2rem;
   }
 
-  .highlight-card,
+  .highlight-card {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+
+  .highlight-index {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-pill-bg);
+    border: 1px solid rgba(201, 162, 75, 0.3);
+    color: var(--color-pill-text);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
   .story-card,
   .warmth-card,
   .process-card,
@@ -529,15 +556,15 @@ const featuredServices = [
       gap: 1rem;
     }
 
-    .trust-proof-item {
-      padding: 0.9rem 1rem;
-    }
-
     .trust-proof-list,
     .process-cards,
     .service-links-grid,
     .highlight-grid {
       grid-template-columns: 1fr;
+    }
+
+    .highlight-grid {
+      gap: 1.4rem;
     }
 
     .warmth-card {
