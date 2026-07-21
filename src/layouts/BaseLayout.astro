@@ -1,7 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import FloatingActions from '../components/FloatingActions.astro';
 import AccessibilityWidget from '../components/AccessibilityWidget.astro';
+import Icon from '../components/Icon.astro';
 import { site, navigation } from '../data/site';
+import logoLight from '../assets/images/logo-light.png';
+import logoDark from '../assets/images/logo-dark.jpg';
 
 interface Props {
   title?: string;
@@ -13,13 +17,10 @@ interface Props {
 const { title = site.title, description = site.description, image = site.ogImage ?? site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
-const logoHref = withBase(site.logo);
 const faviconPngHref = withBase('/favicon.png');
 const faviconIcoHref = withBase('/favicon.ico');
 const faviconSvgHref = withBase('/favicon.svg');
 const appleTouchIconHref = withBase('/apple-touch-icon.png');
-const lightLogoHref = withBase('/images/logo-light.png');
-const darkLogoHref = withBase('/images/logo-dark.jpg');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const currentPath = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
@@ -90,8 +91,8 @@ const jsonLd = {
     <header class="site-header">
       <div class="container header-inner">
         <a href={homeHref} class="brand">
-          <img src={lightLogoHref} alt={site.shortName} class="brand-logo brand-logo--light" />
-          <img src={darkLogoHref} alt={site.shortName} class="brand-logo brand-logo--dark" />
+          <Image src={logoLight} alt={site.shortName} width={160} format="webp" quality={82} class="brand-logo brand-logo--light" />
+          <Image src={logoDark} alt={site.shortName} width={160} format="webp" quality={82} class="brand-logo brand-logo--dark" />
           <div class="brand-text">
             <strong>{site.shortName}</strong>
             <span>{site.tagline}</span>
@@ -106,7 +107,7 @@ const jsonLd = {
         </nav>
         <div class="header-actions">
           <details class="mobile-menu">
-            <summary aria-label="פתיחת תפריט">☰</summary>
+            <summary aria-label="פתיחת תפריט"><Icon name="menu" size={20} /></summary>
             <nav class="mobile-menu-panel" aria-label="ניווט מובייל">
               {navigation.map((item) => {
                 const href = withBase(item.href);
@@ -116,8 +117,8 @@ const jsonLd = {
             </nav>
           </details>
           <button class="theme-toggle" type="button" aria-label="שינוי מצב תצוגה" title="שינוי מצב תצוגה">
-            <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">☀</span>
-            <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">☾</span>
+            <Icon name="sun" size={20} class="theme-toggle-icon theme-toggle-sun" />
+            <Icon name="moon" size={20} class="theme-toggle-icon theme-toggle-moon" />
           </button>
         </div>
       </div>
@@ -366,7 +367,6 @@ const jsonLd = {
 
   .theme-toggle-icon {
     position: absolute;
-    font-size: 1.2rem;
     transition: opacity 160ms ease, transform 160ms ease;
   }
 
@@ -738,7 +738,8 @@ const jsonLd = {
     }
 
     .theme-toggle-icon {
-      font-size: 0.82rem;
+      width: 15px;
+      height: 15px;
     }
 
     .nav {
@@ -754,8 +755,12 @@ const jsonLd = {
       height: 30px;
       min-height: 30px;
       padding: 0;
-      font-size: 0.82rem;
       border-radius: 10px;
+    }
+
+    .mobile-menu summary svg {
+      width: 16px;
+      height: 16px;
     }
 
     .mobile-menu-panel {

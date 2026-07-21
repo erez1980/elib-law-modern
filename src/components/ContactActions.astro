@@ -1,5 +1,6 @@
 ---
 import WhatsappIcon from './WhatsappIcon.astro';
+import Icon from './Icon.astro';
 import { site } from '../data/site';
 
 const phoneHref = `tel:${site.phone.replace(/-/g, '')}`;
@@ -20,12 +21,12 @@ const whatsappHref = site.whatsapp || phoneHref;
       <strong>שליחת הודעה</strong>
     </a>
     <a class="action-card" href={phoneHref}>
-      <span class="action-icon">☎</span>
+      <span class="action-icon"><Icon name="phone" size={24} /></span>
       <span>טלפון</span>
       <strong>{site.phone}</strong>
     </a>
     <a class="action-card" href={emailHref}>
-      <span class="action-icon">✉</span>
+      <span class="action-icon"><Icon name="mail" size={24} /></span>
       <span>אימייל</span>
       <strong>{site.email}</strong>
     </a>
@@ -104,9 +105,7 @@ const whatsappHref = site.whatsapp || phoneHref;
     place-items: center;
     border-radius: 50%;
     background: var(--color-pill-bg);
-    color: var(--color-primary-deep) !important;
-    font-weight: 800;
-    font-size: 1.45rem !important;
+    color: var(--color-primary-deep);
   }
 
   @media (max-width: 900px) {
