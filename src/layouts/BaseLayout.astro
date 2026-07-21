@@ -17,6 +17,8 @@ const contactHref = site.whatsappLink;
 const logoHref = withBase(site.logo);
 const faviconPngHref = withBase('/favicon.png');
 const faviconIcoHref = withBase('/favicon.ico');
+const faviconSvgHref = withBase('/favicon.svg');
+const appleTouchIconHref = withBase('/apple-touch-icon.png');
 const lightLogoHref = withBase('/images/logo-light.png');
 const darkLogoHref = withBase('/images/logo-dark.jpg');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
@@ -53,10 +55,10 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href={faviconPngHref} />
-    <link rel="icon" href={faviconIcoHref} sizes="any" />
-    <link rel="shortcut icon" href={faviconIcoHref} />
-    <link rel="apple-touch-icon" href={faviconPngHref} />
+    <link rel="icon" type="image/svg+xml" href={faviconSvgHref} />
+    <link rel="icon" type="image/png" sizes="512x512" href={faviconPngHref} />
+    <link rel="icon" href={faviconIcoHref} sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIconHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
