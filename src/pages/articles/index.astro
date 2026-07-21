@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
+import { formatHebrewDate } from '../../utils/format';
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const articles = (await getCollection('articles'))
@@ -30,7 +31,7 @@ const restArticles = articles.slice(1);
       {featuredArticle && (
         <a class="card featured-article" href={withBase(`/articles/${featuredArticle.id.replace(/\.md$/, '')}`)}>
           <div class="eyebrow">מאמר עדכני</div>
-          <p class="article-date">{featuredArticle.data.publishDate}</p>
+          <p class="article-date">{formatHebrewDate(featuredArticle.data.publishDate)}</p>
           <h2>{featuredArticle.data.title}</h2>
           <p>{featuredArticle.data.excerpt}</p>
           <span class="text-link">לעיון במאמר</span>
@@ -43,7 +44,7 @@ const restArticles = articles.slice(1);
     <div class="container articles-grid">
       {restArticles.map((article) => (
         <a class="card article-card" href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
-          <p class="article-date">{article.data.publishDate}</p>
+          <p class="article-date">{formatHebrewDate(article.data.publishDate)}</p>
           <h2>{article.data.title}</h2>
           <p>{article.data.excerpt}</p>
           <span class="text-link">לעיון במאמר</span>
@@ -102,7 +103,7 @@ const restArticles = articles.slice(1);
   .article-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-strong);
-    border-color: rgba(255, 182, 55, 0.28);
+    border-color: rgba(201, 162, 75, 0.28);
   }
 
   .articles-section {

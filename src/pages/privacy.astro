@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+
+const updatedAt = 'יולי 2026';
+---
+<BaseLayout title={`מדיניות פרטיות | ${site.name}`} description="מדיניות הפרטיות של האתר - איזה מידע נאסף, לאילו מטרות, ומהן הזכויות שלך.">
+  <PageHero eyebrow="פרטיות" title="מדיניות פרטיות" description="הפרטיות והדיסקרטיות של הפונים אלינו חשובות לנו. כאן מפורט איזה מידע נאסף באתר וכיצד הוא נשמר." />
+
+  <section class="section legal-section">
+    <div class="container legal-container">
+      <div class="card legal-card">
+        <h2>כללי</h2>
+        <p>
+          מדיניות זו מסבירה איזה מידע נאסף במסגרת השימוש באתר {site.name} («האתר»), כיצד נעשה בו שימוש,
+          ומהן זכויותיך בהתאם לחוק הגנת הפרטיות, התשמ״א-1981, על תיקוניו.
+        </p>
+
+        <h2>מידע שנמסר על ידך</h2>
+        <p>
+          כאשר את/ה פונה אלינו דרך טופס יצירת הקשר, WhatsApp, דוא״ל או טלפון, נשמרים הפרטים שמסרת
+          (כגון שם, טלפון, כתובת דוא״ל ותוכן הפנייה) לצורך מתן מענה לפנייתך בלבד.
+          המידע נשמר בדיסקרטיות מלאה, אינו מועבר לצדדים שלישיים, ואינו משמש לדיוור פרסומי ללא הסכמה מפורשת.
+        </p>
+
+        <h2>מידע שנאסף באופן אוטומטי</h2>
+        <p>
+          האתר עושה שימוש בכלי Google Analytics לצורך ניתוח סטטיסטי אנונימי של דפוסי שימוש באתר
+          (כגון עמודים נצפים, משך ביקור ומקור הגעה). כלי זה עשוי לעשות שימוש בקבצי Cookie.
+          המידע הנאסף הוא סטטיסטי במהותו ואינו מזהה אותך באופן אישי.
+        </p>
+
+        <h2>קבצי Cookie</h2>
+        <p>
+          ניתן לחסום או למחוק קבצי Cookie באמצעות הגדרות הדפדפן. חסימת הקבצים אינה פוגעת בשימוש באתר.
+          בנוסף, האתר שומר באחסון המקומי של הדפדפן העדפות תצוגה בלבד (כגון מצב כהה/בהיר והגדרות נגישות).
+        </p>
+
+        <h2>אבטחת מידע</h2>
+        <p>
+          האתר מוגש בפרוטוקול מאובטח (HTTPS). אנו נוקטים אמצעים סבירים ומקובלים לאבטחת המידע,
+          אולם אין באפשרותנו להבטיח חסינות מוחלטת מפני גישה בלתי מורשית.
+        </p>
+
+        <h2>זכויותיך</h2>
+        <p>
+          בהתאם לחוק הגנת הפרטיות, באפשרותך לבקש לעיין במידע שנשמר אודותיך, לתקנו או למחקו.
+          לצורך כך ניתן לפנות אלינו בדוא״ל: <a href={`mailto:${site.email}?subject=${encodeURIComponent('פנייה בנושא פרטיות')}`}>{site.email}</a>.
+        </p>
+
+        <h2>יצירת קשר</h2>
+        <ul>
+          <li>טלפון: <a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a></li>
+          <li>דוא״ל: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li>כתובת: {site.address}</li>
+        </ul>
+
+        <p class="legal-updated">עודכן לאחרונה: {updatedAt}</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-section {
+    padding-top: 1.5rem;
+  }
+
+  .legal-container {
+    max-width: 860px;
+  }
+
+  .legal-card h2 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+  }
+
+  .legal-card h2:first-child {
+    margin-top: 0;
+  }
+
+  .legal-card ul {
+    padding-right: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--color-soft-text);
+    margin: 0 0 1rem;
+  }
+
+  .legal-updated {
+    margin-top: 2rem;
+    color: var(--color-muted);
+    font-size: 0.92rem;
+  }
+</style>

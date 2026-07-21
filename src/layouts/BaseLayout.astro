@@ -10,13 +10,14 @@ interface Props {
   noIndex?: boolean;
 }
 
-const { title = site.title, description = site.description, image = site.heroImage, noIndex = false } = Astro.props;
+const { title = site.title, description = site.description, image = site.ogImage ?? site.heroImage, noIndex = false } = Astro.props;
 const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const homeHref = withBase('/');
-const contactHref = site.whatsappLink;
 const logoHref = withBase(site.logo);
 const faviconPngHref = withBase('/favicon.png');
 const faviconIcoHref = withBase('/favicon.ico');
+const faviconSvgHref = withBase('/favicon.svg');
+const appleTouchIconHref = withBase('/apple-touch-icon.png');
 const lightLogoHref = withBase('/images/logo-light.png');
 const darkLogoHref = withBase('/images/logo-dark.jpg');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
@@ -48,15 +49,15 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#FFB637" />
+    <meta name="theme-color" content="#c9a24b" />
     <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/png" href={faviconPngHref} />
-    <link rel="icon" href={faviconIcoHref} sizes="any" />
-    <link rel="shortcut icon" href={faviconIcoHref} />
-    <link rel="apple-touch-icon" href={faviconPngHref} />
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href={faviconSvgHref} />
+    <link rel="icon" type="image/png" sizes="512x512" href={faviconPngHref} />
+    <link rel="icon" href={faviconIcoHref} sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIconHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -118,7 +119,6 @@ const jsonLd = {
             <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">☀</span>
             <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">☾</span>
           </button>
-          <a href={contactHref} class="button button-primary">לתיאום פגישת ייעוץ</a>
         </div>
       </div>
     </header>
@@ -149,6 +149,13 @@ const jsonLd = {
           </ul>
         </div>
       </div>
+      <div class="container footer-legal">
+        <a href={withBase('/accessibility-statement')}>הצהרת נגישות</a>
+        <span aria-hidden="true">·</span>
+        <a href={withBase('/privacy')}>מדיניות פרטיות</a>
+        <span aria-hidden="true">·</span>
+        <span>© {new Date().getFullYear()} {site.shortName}. התוכן באתר הוא מידע כללי ואינו מהווה ייעוץ משפטי.</span>
+      </div>
     </footer>
     <script is:inline>
       (() => {
@@ -174,8 +181,8 @@ const jsonLd = {
 
 <style is:global>
   :root {
-    --color-primary: #ffb637;
-    --color-primary-deep: #b88420;
+    --color-primary: #c9a24b;
+    --color-primary-deep: #8f7130;
     --color-text: #2d2d2d;
     --color-muted: #666666;
     --color-surface: #f7f7f7;
@@ -190,7 +197,7 @@ const jsonLd = {
     --color-overlay: rgba(31, 31, 31, 0.78);
     --color-overlay-text: rgba(255, 255, 255, 0.82);
     --color-pill-bg: #fff7e6;
-    --color-pill-text: #8a6513;
+    --color-pill-text: #7a5f24;
     --color-soft-text: #575757;
     --color-footer-bg-start: #252525;
     --color-footer-bg-end: #1b1b1b;
@@ -204,8 +211,8 @@ const jsonLd = {
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --color-primary: #f2b84b;
-      --color-primary-deep: #f0c978;
+      --color-primary: #e5b34a;
+      --color-primary-deep: #e8c87e;
       --color-text: #f3efe7;
       --color-muted: #c0b8ab;
       --color-surface: #121212;
@@ -220,7 +227,7 @@ const jsonLd = {
       --color-overlay: rgba(10, 10, 11, 0.82);
       --color-overlay-text: rgba(255, 255, 255, 0.86);
       --color-pill-bg: rgba(242, 184, 75, 0.12);
-      --color-pill-text: #f1c975;
+      --color-pill-text: #e6c67c;
       --color-soft-text: #ddd5ca;
       --color-footer-bg-start: #0f0f10;
       --color-footer-bg-end: #0a0a0b;
@@ -230,8 +237,8 @@ const jsonLd = {
   }
 
   :root[data-theme='dark'] {
-    --color-primary: #f2b84b;
-    --color-primary-deep: #f0c978;
+    --color-primary: #e5b34a;
+    --color-primary-deep: #e8c87e;
     --color-text: #f3efe7;
     --color-muted: #c0b8ab;
     --color-surface: #121212;
@@ -246,7 +253,7 @@ const jsonLd = {
     --color-overlay: rgba(10, 10, 11, 0.82);
     --color-overlay-text: rgba(255, 255, 255, 0.86);
     --color-pill-bg: rgba(242, 184, 75, 0.12);
-    --color-pill-text: #f1c975;
+    --color-pill-text: #e6c67c;
     --color-soft-text: #ddd5ca;
     --color-footer-bg-start: #0f0f10;
     --color-footer-bg-end: #0a0a0b;
@@ -255,8 +262,8 @@ const jsonLd = {
   }
 
   :root[data-theme='light'] {
-    --color-primary: #ffb637;
-    --color-primary-deep: #b88420;
+    --color-primary: #c9a24b;
+    --color-primary-deep: #8f7130;
     --color-text: #2d2d2d;
     --color-muted: #666666;
     --color-surface: #f7f7f7;
@@ -271,7 +278,7 @@ const jsonLd = {
     --color-overlay: rgba(31, 31, 31, 0.78);
     --color-overlay-text: rgba(255, 255, 255, 0.82);
     --color-pill-bg: #fff7e6;
-    --color-pill-text: #8a6513;
+    --color-pill-text: #7a5f24;
     --color-soft-text: #575757;
     --color-footer-bg-start: #252525;
     --color-footer-bg-end: #1b1b1b;
@@ -291,7 +298,7 @@ const jsonLd = {
     line-height: 1.8;
     font-size: 1.04rem;
     background:
-      radial-gradient(circle at top right, rgba(255, 182, 55, 0.08), transparent 24%),
+      radial-gradient(circle at top right, rgba(201, 162, 75, 0.08), transparent 24%),
       linear-gradient(180deg, var(--color-page-top) 0%, var(--color-white) 22%);
   }
 
@@ -500,8 +507,8 @@ const jsonLd = {
   .nav a:hover,
   .nav a.active {
     color: var(--color-text);
-    background: rgba(255, 182, 55, 0.14);
-    box-shadow: inset 0 0 0 1px rgba(255, 182, 55, 0.16);
+    background: rgba(201, 162, 75, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(201, 162, 75, 0.16);
   }
 
   .button {
@@ -517,7 +524,7 @@ const jsonLd = {
   }
 
   .button-primary {
-    background: linear-gradient(135deg, #ffcf73 0%, var(--color-primary) 100%);
+    background: linear-gradient(135deg, #e0c17a 0%, var(--color-primary) 100%);
     color: var(--color-text);
     box-shadow: var(--shadow-soft);
   }
@@ -549,17 +556,17 @@ const jsonLd = {
     font-size: 0.9rem;
     color: var(--color-pill-text);
     background: var(--color-pill-bg);
-    border: 1px solid rgba(255, 182, 55, 0.35);
+    border: 1px solid rgba(201, 162, 75, 0.35);
     border-radius: 999px;
     padding: 0.45rem 0.85rem;
     margin-bottom: 1rem;
   }
 
   h1, h2, h3, h4 {
-    line-height: 1.22;
+    line-height: 1.24;
     margin: 0 0 1rem;
-    font-family: 'Heebo', 'Assistant', Arial, sans-serif;
-    letter-spacing: -0.01em;
+    font-family: 'Frank Ruhl Libre', 'Heebo', 'Assistant', Georgia, serif;
+    letter-spacing: 0;
   }
 
   h1 {
@@ -622,6 +629,28 @@ const jsonLd = {
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  .footer-legal {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .footer-legal a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-legal a:hover {
+    color: var(--color-primary);
   }
 
   @media (max-width: 900px) {
@@ -699,10 +728,6 @@ const jsonLd = {
       gap: 0.22rem;
       align-items: center;
       flex: 0 0 auto;
-    }
-
-    .header-actions .button-primary {
-      display: none;
     }
 
     .theme-toggle {

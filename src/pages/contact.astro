@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactActions from '../components/ContactActions.astro';
+import ContactForm from '../components/ContactForm.astro';
 import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 import contactPage from '../data/contact-page.json';
@@ -11,6 +12,7 @@ import contactPage from '../data/contact-page.json';
   <section class="section contact-shell">
     <div class="container contact-layout">
       <ContactActions />
+      <ContactForm />
       <div class="card hours-card">
         <h3>שעות פעילות</h3>
         <ul>

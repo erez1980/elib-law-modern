@@ -14,8 +14,18 @@ const allArticles = await getCollection('articles');
 const relatedArticles = page.relatedArticles
   .map((slug: string) => allArticles.find((article) => article.id.replace(/\.md$/, '') === slug))
   .filter(Boolean);
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: page.faq.map((item: { q: string; a: string }) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 <BaseLayout title={page.pageTitle} description={page.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <PageHero eyebrow="שירות משפטי" title={page.title} description={page.description} />
 
   <section class="section service-section">
@@ -174,7 +184,7 @@ const relatedArticles = page.relatedArticles
     justify-content: space-between;
     gap: 1.5rem;
     background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-card-strong) 100%);
-    border-color: rgba(255, 182, 55, 0.28);
+    border-color: rgba(201, 162, 75, 0.28);
   }
 
   details {
