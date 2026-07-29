@@ -6,8 +6,8 @@ import FaqPreview from '../components/FaqPreview.astro';
 import Testimonials from '../components/Testimonials.astro';
 import { highlights, site } from '../data/site';
 import { homePage } from '../data/home';
+import { withBase } from '../utils/url';
 
-const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const heroImage = withBase(site.heroImage);
 const trustBadges = [
   'חברת לשכת עורכי הדין משנת 2008',

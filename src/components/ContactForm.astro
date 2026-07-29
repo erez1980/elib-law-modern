@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../utils/url';
 
 const formAction = `https://formsubmit.co/${site.email}`;
 const thankYouUrl = new URL('/thank-you/', site.domain).toString();
@@ -64,7 +65,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
     <button type="submit" class="button button-primary form-submit">שלחו לי חזרה טלפון</button>
     <p class="form-privacy-note">
       הפרטים משמשים אך ורק לחזרה אליך ואינם מועברים לאף גורם.
-      <a href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/privacy`}>מדיניות הפרטיות</a>
+      <a href={withBase('/privacy')}>מדיניות הפרטיות</a>
     </p>
   </form>
 </div>

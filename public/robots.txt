@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Disallow: /thank-you/
 
 Sitemap: https://elib-law.co.il/sitemap-index.xml
