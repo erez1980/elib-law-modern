@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { withBase } from '../utils/url';
 
-const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
 ---
 <div class="grid areas-grid">

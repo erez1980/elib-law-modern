@@ -1,8 +1,9 @@
 ---
+import Icon from './Icon.astro';
 ---
 <div class="accessibility-widget" data-accessibility-widget>
   <button class="accessibility-toggle" type="button" aria-label="פתיחת אפשרויות נגישות" aria-expanded="false" data-accessibility-toggle>
-    <span aria-hidden="true">♿</span>
+    <Icon name="accessibility" size={26} />
   </button>
 
   <section class="accessibility-panel" aria-label="אפשרויות נגישות" data-accessibility-panel hidden>
@@ -128,7 +129,8 @@
   .accessibility-controls .reset { color: var(--color-primary-deep); }
   @media (max-width: 900px) {
     .accessibility-widget { right: 0.75rem; bottom: 5.9rem; }
-    .accessibility-toggle { width: 38px; height: 38px; font-size: 0.95rem; border-radius: 12px; }
+    .accessibility-toggle { width: 38px; height: 38px; border-radius: 12px; }
+    .accessibility-toggle svg { width: 20px; height: 20px; }
     .accessibility-panel { width: min(285px, calc(100vw - 1.5rem)); padding: 0.85rem; }
   }
 </style>

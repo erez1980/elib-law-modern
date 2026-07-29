@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection, render } from 'astro:content';
 import { formatHebrewDate } from '../../utils/format';
+import { withBase } from '../../utils/url';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const { article } = Astro.props;
 const { Content } = await render(article);
 const allArticles = (await getCollection('articles'))

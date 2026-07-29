@@ -3,8 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { site } from '../data/site';
 import aboutPage from '../data/about-page.json';
+import { withBase } from '../utils/url';
 
-const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}${path === '/' ? '/' : path}`;
 const heroImage = withBase(site.heroImage);
 const workStyle = [
   'להתחיל מסדר ובהירות, לא מלחץ ומהירות',
