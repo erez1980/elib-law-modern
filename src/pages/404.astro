@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const homeHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+import { withBase } from '../utils/url';
+const homeHref = withBase('/');
 ---
-<BaseLayout title="העמוד לא נמצא | עו״ד אליזבט ברזאני דדון">
+<BaseLayout title="העמוד לא נמצא | עו״ד אליזבט ברזאני דדון" noIndex={true}>
   <section class="section">
     <div class="container card" style="max-width: 720px; text-align: center;">
       <div class="eyebrow">404</div>

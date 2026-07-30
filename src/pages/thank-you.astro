@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const homeHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
+import { withBase } from '../utils/url';
+const homeHref = withBase('/');
 ---
 <BaseLayout title="תודה | עו״ד אליזבט ברזאני דדון" noIndex={true}>
   <section class="section">
