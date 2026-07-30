@@ -26,7 +26,6 @@ collections:
           - { label: דומיין, name: domain, widget: string }
           - { label: פייסבוק, name: facebook, widget: string, required: false }
           - { label: תמונת Hero, name: heroImage, widget: image }
-          - { label: לוגו, name: logo, widget: image }
           - { label: שורת משנה, name: tagline, widget: string }
 
       - file: src/data/home-page.json
