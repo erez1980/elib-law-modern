@@ -32,6 +32,7 @@ const featuredServices = [
       <div class="hero-main">
         <div class="eyebrow">{homePage.hero.kicker}</div>
         <h1>{homePage.hero.title}</h1>
+        <div class="hero-rule" aria-hidden="true"></div>
         <p class="hero-copy">{homePage.hero.description}</p>
 
         <div class="hero-actions">
@@ -45,7 +46,7 @@ const featuredServices = [
       </div>
 
       <aside class="hero-stack">
-        <div class="hero-image-card card">
+        <div class="hero-image-frame">
           <img src={heroImage} alt={site.shortName} />
           <div class="hero-image-overlay">
             <strong>ליווי מקצועי, אישי ודיסקרטי</strong>
@@ -53,7 +54,7 @@ const featuredServices = [
           </div>
         </div>
 
-        <div class="hero-credibility card">
+        <div class="hero-credibility">
           {credibilityPoints.map((point) => (
             <div class="credibility-row">
               <span>{point}</span>
@@ -72,7 +73,7 @@ const featuredServices = [
         <p>לא כל מקרה צריך עימות, ולא כל הסכמה היא בהכרח הסכמה נכונה. חשוב להבין מה ישרת אותך באמת, ולבנות משם דרך פעולה נכונה.</p>
       </div>
       <div class="trust-proof-list">
-        <div class="trust-proof-item"><strong>18+</strong><span>שנות ניסיון מקצועי</span></div>
+        <div class="trust-proof-item"><strong><span data-countup="18" data-suffix="+">18+</span></strong><span>שנות ניסיון מקצועי</span></div>
         <div class="trust-proof-item"><strong>גישור + משפט</strong><span>בחירת הדרך המתאימה לכל מקרה</span></div>
         <div class="trust-proof-item"><strong>יחס אישי</strong><span>טיפול ישיר, רגיש ודיסקרטי</span></div>
       </div>
@@ -179,8 +180,67 @@ const featuredServices = [
 </BaseLayout>
 
 <style>
+  /* Dark editorial hero — fixed charcoal+gold in both themes, echoing the logo */
   .hero-shell {
-    padding-top: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    padding: 4.25rem 0 4.75rem;
+    background:
+      radial-gradient(ellipse 55% 60% at 12% 0%, rgba(201, 162, 75, 0.16), transparent 70%),
+      linear-gradient(172deg, #151514 0%, #1d1a16 100%);
+  }
+
+  .hero-shell::after {
+    content: '';
+    position: absolute;
+    left: -3%;
+    bottom: -14%;
+    width: 480px;
+    height: 480px;
+    background: url('/images/eb-monogram.svg') no-repeat center / contain;
+    opacity: 0.055;
+    pointer-events: none;
+  }
+
+  .hero-shell .hero-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-shell h1 {
+    color: #f5f1e8;
+  }
+
+  .hero-shell .eyebrow {
+    background: rgba(201, 162, 75, 0.1);
+    border-color: rgba(201, 162, 75, 0.42);
+    color: #e5c47c;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-rule {
+    width: 76px;
+    height: 2px;
+    background: linear-gradient(to left, #c9a24b 0%, rgba(201, 162, 75, 0) 100%);
+    margin: 1.15rem 0 1.2rem;
+  }
+
+  .hero-shell .hero-copy {
+    color: rgba(245, 241, 232, 0.78);
+  }
+
+  .hero-shell .hero-meta {
+    color: rgba(245, 241, 232, 0.92);
+  }
+
+  .hero-shell .button-primary {
+    color: #221d13;
+  }
+
+  .hero-shell .button-secondary {
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #f5f1e8;
+    background: rgba(255, 255, 255, 0.04);
   }
 
   .hero-grid,
@@ -241,15 +301,6 @@ const featuredServices = [
     gap: 1rem;
   }
 
-  .hero-image-card {
-    position: relative;
-    overflow: hidden;
-    padding: 0.85rem;
-    border-radius: 28px;
-    background: linear-gradient(135deg, var(--color-pill-bg) 0%, var(--color-card-strong) 100%);
-  }
-
-  .hero-image-card:hover,
   .service-link-card:hover,
   .process-card:hover,
   .warmth-card:hover {
@@ -258,30 +309,46 @@ const featuredServices = [
     border-color: rgba(201, 162, 75, 0.28);
   }
 
-  .hero-image-card img {
+  .hero-image-frame {
+    position: relative;
+  }
+
+  .hero-image-frame::before {
+    content: '';
+    position: absolute;
+    inset: 16px -16px -16px 16px;
+    border: 1px solid rgba(201, 162, 75, 0.45);
+    border-radius: 20px;
+    pointer-events: none;
+  }
+
+  .hero-image-frame img {
     width: 100%;
     aspect-ratio: 4 / 5;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center top;
-    border-radius: 22px;
-    background: linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-card) 100%);
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
   }
 
   .hero-image-overlay {
     position: absolute;
-    right: 1.5rem;
-    left: 1.5rem;
-    bottom: 1.5rem;
-    padding: 1rem 1.1rem;
-    border-radius: 18px;
-    background: var(--color-overlay);
-    color: var(--color-text);
+    right: 1.1rem;
+    left: 1.1rem;
+    bottom: 1.1rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 14px;
+    background: rgba(16, 15, 14, 0.78);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(201, 162, 75, 0.28);
+    color: #f5f1e8;
     display: grid;
     gap: 0.35rem;
   }
 
   .hero-image-overlay span {
-    color: var(--color-overlay-text);
+    color: rgba(245, 241, 232, 0.75);
     font-size: 0.98rem;
     line-height: 1.7;
   }
@@ -289,19 +356,18 @@ const featuredServices = [
   .hero-credibility {
     display: grid;
     gap: 0.75rem;
-    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
-  }
-
-  .hero-credibility span,
-  .credibility-row {
-    color: var(--color-text);
+    padding: 1.2rem 1.4rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.045);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(6px);
   }
 
   .credibility-row {
     padding-bottom: 0.85rem;
-    border-bottom: 1px solid rgba(230, 230, 230, 0.9);
-    font-weight: 700;
-    color: #555;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    font-weight: 600;
+    color: rgba(245, 241, 232, 0.88);
   }
 
   .credibility-row:last-child {
@@ -510,7 +576,13 @@ const featuredServices = [
     }
 
     .hero-shell {
-      padding-top: 1.05rem;
+      padding: 2rem 0 2.5rem;
+    }
+
+    .hero-shell::after {
+      width: 300px;
+      height: 300px;
+      bottom: -8%;
     }
 
     .hero-main {
@@ -526,15 +598,20 @@ const featuredServices = [
       width: 100%;
     }
 
-    .hero-image-card img {
+    .hero-image-frame::before {
+      inset: 10px -10px -10px 10px;
+      border-radius: 16px;
+    }
+
+    .hero-image-frame img {
       aspect-ratio: 16 / 12;
+      border-radius: 16px;
     }
 
     .hero-image-overlay {
       position: static;
-      margin-top: 0.65rem;
+      margin-top: 1.4rem;
       padding: 0.85rem 0.9rem;
-      background: var(--color-overlay);
     }
 
     .hero-meta {

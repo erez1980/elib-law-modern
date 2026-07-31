@@ -177,6 +177,85 @@ const jsonLd = {
         }
       })();
     </script>
+    <script is:inline>
+      (() => {
+        const header = document.querySelector('.site-header');
+        const onScroll = () => header && header.classList.toggle('is-scrolled', window.scrollY > 24);
+        onScroll();
+        addEventListener('scroll', onScroll, { passive: true });
+
+        const reduce =
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          document.documentElement.hasAttribute('data-a11y-reduce-motion');
+        if (reduce) return;
+
+        const selector = '.section .card, .section .section-heading, .highlight-card, .testimonial-card, .featured-article, .page-hero-card';
+        const all = Array.from(document.querySelectorAll(selector));
+        const set = new Set(all);
+        const targets = all.filter((el) => {
+          let a = el.parentElement;
+          while (a) {
+            if (set.has(a)) return false;
+            a = a.parentElement;
+          }
+          return true;
+        });
+
+        const groups = new Map();
+        targets.forEach((el) => {
+          const parent = el.parentElement;
+          const i = groups.get(parent) || 0;
+          groups.set(parent, i + 1);
+          el.dataset.reveal = '';
+          el.style.transitionDelay = Math.min(i * 80, 320) + 'ms';
+        });
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
+        );
+
+        const vh = window.innerHeight;
+        targets.forEach((el) => {
+          if (el.getBoundingClientRect().top < vh * 0.92) {
+            el.classList.add('no-anim', 'is-revealed');
+          } else {
+            io.observe(el);
+          }
+        });
+
+        document.querySelectorAll('[data-countup]').forEach((el) => {
+          const end = parseFloat(el.dataset.countup);
+          const suffix = el.dataset.suffix || '';
+          if (!Number.isFinite(end)) return;
+          const cio = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                cio.disconnect();
+                const t0 = performance.now();
+                const duration = 1400;
+                const step = (t) => {
+                  const p = Math.min((t - t0) / duration, 1);
+                  el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suffix;
+                  if (p < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+              });
+            },
+            { threshold: 0.6 },
+          );
+          cio.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>
 
@@ -330,6 +409,11 @@ const jsonLd = {
     border-bottom: 1px solid var(--color-header-border);
     backdrop-filter: blur(18px);
     box-shadow: 0 8px 30px rgba(45, 45, 45, 0.04);
+    transition: box-shadow 250ms ease;
+  }
+
+  .site-header.is-scrolled {
+    box-shadow: 0 12px 34px rgba(20, 20, 20, 0.1);
   }
 
   .header-inner {
@@ -338,6 +422,17 @@ const jsonLd = {
     align-items: center;
     gap: 1.25rem;
     min-height: 84px;
+    transition: min-height 250ms ease;
+  }
+
+  .site-header.is-scrolled .header-inner {
+    min-height: 64px;
+  }
+
+  .site-header.is-scrolled .brand-logo {
+    width: 60px;
+    height: 60px;
+    transition: width 250ms ease, height 250ms ease;
   }
 
   .header-actions {
@@ -538,6 +633,80 @@ const jsonLd = {
   .button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-strong);
+  }
+
+  .button-primary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .button-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.38) 50%, transparent 60%);
+    transform: translateX(-140%);
+    pointer-events: none;
+  }
+
+  .button-primary:hover::after {
+    transform: translateX(140%);
+    transition: transform 650ms ease;
+  }
+
+  /* Cross-document page transitions (progressive enhancement) */
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+  }
+
+  /* Scroll-reveal: the [data-reveal] attribute is added by script, so
+     content is never hidden without JS */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal].no-anim {
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .button-primary::after {
+      display: none;
+    }
+
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+
+  :root[data-a11y-reduce-motion] [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  :root[data-a11y-reduce-motion] .button-primary::after {
+    display: none;
   }
 
   .section {

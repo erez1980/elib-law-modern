@@ -26,6 +26,7 @@ collections:
           - { label: דומיין, name: domain, widget: string }
           - { label: פייסבוק, name: facebook, widget: string, required: false }
           - { label: תמונת Hero, name: heroImage, widget: image }
+          - { label: תמונת שיתוף (WhatsApp/Facebook), name: ogImage, widget: image, required: false, hint: 'התמונה שמוצגת כששולחים קישור לאתר. מומלץ 1200x630' }
           - { label: שורת משנה, name: tagline, widget: string }
 
       - file: src/data/home-page.json
