@@ -189,7 +189,7 @@ const jsonLd = {
           document.documentElement.hasAttribute('data-a11y-reduce-motion');
         if (reduce) return;
 
-        const selector = '.section .card, .section .section-heading, .highlight-card, .testimonial-card, .featured-article, .page-hero-card';
+        const selector = '.section .card, .section .section-heading, .highlight-card, .testimonial-card, .featured-article';
         const all = Array.from(document.querySelectorAll(selector));
         const set = new Set(all);
         const targets = all.filter((el) => {

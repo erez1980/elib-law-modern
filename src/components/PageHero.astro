@@ -10,57 +10,93 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
 ---
 <section class={`page-hero ${align === 'center' ? 'center' : ''}`}>
   <div class="container">
-    <div class="page-hero-card">
+    <div class="page-hero-inner">
       {eyebrow && <div class="eyebrow">{eyebrow}</div>}
       <h1>{title}</h1>
+      <div class="page-hero-rule" aria-hidden="true"></div>
       {description && <p>{description}</p>}
     </div>
   </div>
 </section>
 
 <style>
+  /* Dark editorial band matching the homepage hero — fixed charcoal+gold in both themes */
   .page-hero {
-    padding: 2.5rem 0 1rem;
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 0 3.4rem;
+    background:
+      radial-gradient(ellipse 50% 65% at 12% 0%, rgba(201, 162, 75, 0.15), transparent 70%),
+      linear-gradient(172deg, #151514 0%, #1d1a16 100%);
   }
 
-  .page-hero-card {
-    padding: 2rem 2.1rem;
-    border-radius: 28px;
-    border: 1px solid rgba(201, 162, 75, 0.24);
-    background: linear-gradient(135deg, var(--color-pill-bg) 0%, var(--color-card-strong) 68%);
-    box-shadow: var(--shadow-soft);
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    bottom: -34%;
+    width: 330px;
+    height: 330px;
+    background: url('/images/eb-monogram.svg') no-repeat center / contain;
+    opacity: 0.05;
+    pointer-events: none;
   }
 
-  .page-hero.center .page-hero-card {
-    text-align: center;
+  .page-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero .eyebrow {
+    background: rgba(201, 162, 75, 0.1);
+    border-color: rgba(201, 162, 75, 0.42);
+    color: #e5c47c;
   }
 
   .page-hero h1 {
-    max-width: 18ch;
-    margin-bottom: 0.8rem;
+    color: #f5f1e8;
+    max-width: 22ch;
+    margin-bottom: 0.85rem;
+  }
+
+  .page-hero-rule {
+    width: 76px;
+    height: 2px;
+    background: linear-gradient(to left, #c9a24b 0%, rgba(201, 162, 75, 0) 100%);
+    margin: 0 0 1.05rem;
   }
 
   .page-hero p {
     font-size: 1.05rem;
     line-height: 1.9;
-    color: var(--color-soft-text);
+    color: rgba(245, 241, 232, 0.78);
     max-width: 60ch;
     margin-bottom: 0;
   }
 
-  .page-hero.center p,
-  .page-hero.center h1 {
+  .page-hero.center .page-hero-inner {
+    text-align: center;
+  }
+
+  .page-hero.center h1,
+  .page-hero.center p {
     margin-inline: auto;
+  }
+
+  .page-hero.center .page-hero-rule {
+    margin-inline: auto;
+    background: linear-gradient(to left, rgba(201, 162, 75, 0) 0%, #c9a24b 50%, rgba(201, 162, 75, 0) 100%);
   }
 
   @media (max-width: 900px) {
     .page-hero {
-      padding: 1rem 0 0.35rem;
+      padding: 1.8rem 0 2.1rem;
     }
 
-    .page-hero-card {
-      padding: 1.05rem;
-      border-radius: 20px;
+    .page-hero::after {
+      width: 220px;
+      height: 220px;
+      bottom: -24%;
     }
 
     .page-hero h1 {
@@ -69,7 +105,7 @@ const { eyebrow, title, description, align = 'right' } = Astro.props;
 
     .page-hero p {
       font-size: 0.98rem;
-      line-height: 1.68;
+      line-height: 1.7;
     }
   }
 </style>
