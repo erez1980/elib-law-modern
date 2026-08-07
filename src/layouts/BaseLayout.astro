@@ -23,20 +23,45 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toStri
 const currentPath = (Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/').replace(/(.)\/$/, '$1');
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LegalService',
+  '@type': ['LegalService', 'Attorney'],
+  '@id': 'https://elib-law.co.il/#office',
   name: site.name,
   description,
   url: canonicalUrl,
   image: ogImage,
   telephone: site.phone,
   email: site.email,
-  areaServed: ['קדימה צורן', 'אזור השרון', 'ישראל'],
+  areaServed: [
+    { '@type': 'City', name: 'קדימה צורן' },
+    { '@type': 'City', name: 'נתניה' },
+    { '@type': 'City', name: 'כפר סבא' },
+    { '@type': 'City', name: 'רעננה' },
+    { '@type': 'City', name: 'הוד השרון' },
+    { '@type': 'AdministrativeArea', name: 'השרון' },
+  ],
   sameAs: site.facebook ? [site.facebook] : [],
   address: {
     '@type': 'PostalAddress',
-    streetAddress: site.address,
+    streetAddress: 'רחוב ראשי שדות 16',
+    addressLocality: 'קדימה צורן',
+    postalCode: '6092000',
     addressCountry: 'IL',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 32.2781,
+    longitude: 34.9169,
+  },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '09:00', closes: '18:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '08:00', closes: '13:00' },
+  ],
+  founder: {
+    '@type': 'Person',
+    name: 'אליזבט ברזאני דדון',
+    jobTitle: 'עורכת דין ומגשרת',
+  },
+  knowsAbout: ['דיני משפחה', 'גירושין', 'גישור משפחתי', 'מזונות ילדים', 'משמורת והסדרי שהות', 'חלוקת רכוש', 'צוואות וירושות', 'ייפוי כוח מתמשך', 'הסכמי ממון'],
 };
 ---
 <!doctype html>
