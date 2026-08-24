@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { locations } from '../../data/locations';
+import { site } from '../../data/site';
+import { withBase } from '../../utils/url';
+---
+<BaseLayout
+  title="אזורי שירות | עו״ד אליזבט ברזאני דדון"
+  description="המשרד מלווה לקוחות מקדימה צורן ומרחבי השרון: נתניה, כפר סבא, רעננה והוד השרון. ליווי אישי בדיני משפחה, גירושין, גישור, צוואות וייפוי כוח מתמשך."
+>
+  <PageHero
+    eyebrow="אזורי שירות"
+    title="ליווי משפטי בקדימה צורן ובאזור השרון"
+    description="המשרד ממוקם בקדימה צורן ומלווה לקוחות מהיישובים שסביבו. לכל אזור יש דגשים משלו — כאן אפשר לקרוא עליהם."
+  />
+  <Breadcrumbs items={[{ label: 'אזורי שירות' }]} />
+
+  <section class="section areas-index">
+    <div class="container">
+      <div class="areas-grid">
+        {locations.map((location) => (
+          <a class="card area-card" href={withBase(`/areas/${location.slug}`)}>
+            <strong>{location.city}</strong>
+            <span>{location.heroTitle}</span>
+            <em>לפרטים</em>
+          </a>
+        ))}
+      </div>
+
+      <div class="card home-note soft-card">
+        <div class="eyebrow">מחוץ לרשימה?</div>
+        <p>
+          המשרד ממוקם ב{site.address} ומלווה גם לקוחות מיישובים נוספים בשרון ומחוצה לו.
+          חלק ניכר מהתהליך אפשר לנהל בטלפון ובווידאו, כך שמרחק אינו בהכרח מכשול.
+        </p>
+        <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .areas-index {
+    padding-top: 1.5rem;
+  }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .area-card {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .area-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+    border-color: rgba(201, 162, 75, 0.28);
+  }
+
+  .area-card strong {
+    font-size: 1.3rem;
+    font-family: 'Frank Ruhl Libre', 'Assistant', Georgia, serif;
+  }
+
+  .area-card span {
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+
+  .area-card em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--color-pill-text);
+  }
+
+  .soft-card {
+    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
+  }
+
+  .home-note {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .home-note p {
+    margin-bottom: 0.5rem;
+  }
+</style>

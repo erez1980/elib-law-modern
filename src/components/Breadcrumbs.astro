@@ -1,0 +1,77 @@
+---
+import { withBase } from '../utils/url';
+
+export interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const site = Astro.site ?? new URL('https://elib-law.co.il');
+const trail: Crumb[] = [{ label: 'ראשי', href: '/' }, ...items];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.label,
+    ...(crumb.href ? { item: new URL(withBase(crumb.href), site).toString() } : {}),
+  })),
+};
+---
+<nav class="breadcrumbs" aria-label="מיקום באתר">
+  <div class="container">
+    <ol>
+      {trail.map((crumb, index) => (
+        <li>
+          {crumb.href && index < trail.length - 1 ? (
+            <a href={withBase(crumb.href)}>{crumb.label}</a>
+          ) : (
+            <span aria-current="page">{crumb.label}</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<style>
+  .breadcrumbs {
+    padding: 0.9rem 0 0;
+    font-size: 0.88rem;
+  }
+
+  .breadcrumbs ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    color: var(--color-muted);
+  }
+
+  .breadcrumbs li + li::before {
+    content: '‹';
+    margin-inline-end: 0.4rem;
+    opacity: 0.55;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--color-primary-deep);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+</style>

@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 import { seoPages } from '../../data/seo-pages';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { site } from '../../data/site';
 import { withBase } from '../../utils/url';
 
 export async function getStaticPaths() {
@@ -14,6 +16,23 @@ const allArticles = await getCollection('articles');
 const relatedArticles = page.relatedArticles
   .map((slug: string) => allArticles.find((article) => article.id.replace(/\.md$/, '') === slug))
   .filter(Boolean);
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: page.title,
+  description: page.description,
+  serviceType: page.title,
+  inLanguage: 'he-IL',
+  provider: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
+  areaServed: [
+    { '@type': 'City', name: 'קדימה צורן' },
+    { '@type': 'City', name: 'נתניה' },
+    { '@type': 'City', name: 'כפר סבא' },
+    { '@type': 'City', name: 'רעננה' },
+    { '@type': 'City', name: 'הוד השרון' },
+    { '@type': 'AdministrativeArea', name: 'השרון' },
+  ],
+};
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -26,7 +45,9 @@ const faqJsonLd = {
 ---
 <BaseLayout title={page.pageTitle} description={page.description}>
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
   <PageHero eyebrow="שירות משפטי" title={page.title} description={page.description} />
+  <Breadcrumbs items={[{ label: 'תחומי עיסוק', href: '/practice-areas' }, { label: page.title }]} />
 
   <section class="section service-section">
     <div class="container service-grid">

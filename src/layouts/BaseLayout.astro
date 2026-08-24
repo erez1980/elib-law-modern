@@ -1,4 +1,19 @@
 ---
+// Self-hosted fonts: the Google Fonts stylesheet was the single biggest
+// render blocker (750ms for the CSS alone, before any font file). Serving
+// them from our own origin removes that request and two extra connections.
+// Only the subsets and weights actually rendered are imported.
+import '@fontsource/assistant/hebrew-400.css';
+import '@fontsource/assistant/hebrew-500.css';
+import '@fontsource/assistant/hebrew-600.css';
+import '@fontsource/assistant/hebrew-700.css';
+import '@fontsource/assistant/latin-400.css';
+import '@fontsource/assistant/latin-700.css';
+import '@fontsource/frank-ruhl-libre/hebrew-700.css';
+// The two faces that paint above the fold, preloaded so they are fetched
+// alongside the CSS instead of after it parses.
+import assistantBody from '@fontsource/assistant/files/assistant-hebrew-400-normal.woff2?url';
+import headingFace from '@fontsource/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-700-normal.woff2?url';
 import FloatingActions from '../components/FloatingActions.astro';
 import AccessibilityWidget from '../components/AccessibilityWidget.astro';
 import Icon from '../components/Icon.astro';
@@ -74,9 +89,8 @@ const jsonLd = {
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#c9a24b" />
     <meta name="color-scheme" content="light dark" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="font" type="font/woff2" href={headingFace} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={assistantBody} crossorigin="anonymous" />
     <link rel="icon" type="image/svg+xml" href={faviconSvgHref} />
     <link rel="icon" type="image/png" sizes="512x512" href={faviconPngHref} />
     <link rel="icon" href={faviconIcoHref} sizes="32x32" />
@@ -100,12 +114,20 @@ const jsonLd = {
         root.dataset.theme = theme;
       })();
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RD52L2GWWH"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-RD52L2GWWH');
+      // gtag.js is 161KB and nothing on the page depends on it, so fetch it
+      // only once the page has loaded. Calls made before then sit in
+      // dataLayer and are processed as soon as the tag arrives.
+      addEventListener('load', () => {
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RD52L2GWWH';
+        document.head.appendChild(s);
+      }, { once: true });
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
@@ -172,6 +194,8 @@ const jsonLd = {
         </div>
       </div>
       <div class="container footer-legal">
+        <a href={withBase('/areas')}>אזורי שירות</a>
+        <span aria-hidden="true">·</span>
         <a href={withBase('/accessibility-statement')}>הצהרת נגישות</a>
         <span aria-hidden="true">·</span>
         <a href={withBase('/privacy')}>מדיניות פרטיות</a>
@@ -222,14 +246,10 @@ const jsonLd = {
           return true;
         });
 
-        const groups = new Map();
-        targets.forEach((el) => {
-          const parent = el.parentElement;
-          const i = groups.get(parent) || 0;
-          groups.set(parent, i + 1);
-          el.dataset.reveal = '';
-          el.style.transitionDelay = Math.min(i * 80, 320) + 'ms';
-        });
+        // Read every geometry value up front, then write. Interleaving the
+        // two forces a layout recalculation per element (a forced reflow).
+        const vh = window.innerHeight;
+        const tops = targets.map((el) => el.getBoundingClientRect().top);
 
         const io = new IntersectionObserver(
           (entries) => {
@@ -243,9 +263,14 @@ const jsonLd = {
           { threshold: 0.12, rootMargin: '0px 0px -5% 0px' },
         );
 
-        const vh = window.innerHeight;
-        targets.forEach((el) => {
-          if (el.getBoundingClientRect().top < vh * 0.92) {
+        const groups = new Map();
+        targets.forEach((el, index) => {
+          const parent = el.parentElement;
+          const i = groups.get(parent) || 0;
+          groups.set(parent, i + 1);
+          el.dataset.reveal = '';
+          el.style.transitionDelay = Math.min(i * 80, 320) + 'ms';
+          if (tops[index] < vh * 0.92) {
             el.classList.add('no-anim', 'is-revealed');
           } else {
             io.observe(el);
@@ -388,7 +413,7 @@ const jsonLd = {
   }
 
   html {
-    font-family: 'Assistant', 'Heebo', Arial, sans-serif;
+    font-family: 'Assistant', Arial, sans-serif;
     color: var(--color-text);
     background: var(--color-white);
     scroll-behavior: smooth;
@@ -514,7 +539,7 @@ const jsonLd = {
   .brand strong {
     display: block;
     font-size: 1.12rem;
-    font-family: 'Frank Ruhl Libre', 'Heebo', 'Assistant', Georgia, serif;
+    font-family: 'Frank Ruhl Libre', 'Assistant', Georgia, serif;
   }
 
   .brand span {
@@ -736,7 +761,7 @@ const jsonLd = {
   h1, h2, h3, h4 {
     line-height: 1.24;
     margin: 0 0 1rem;
-    font-family: 'Frank Ruhl Libre', 'Heebo', 'Assistant', Georgia, serif;
+    font-family: 'Frank Ruhl Libre', 'Assistant', Georgia, serif;
     letter-spacing: 0;
   }
 
