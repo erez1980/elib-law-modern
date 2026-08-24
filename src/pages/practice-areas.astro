@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getCollection, render } from 'astro:content';
 import { withBase } from '../utils/url';
 
@@ -25,11 +27,21 @@ const openingPoints = [
   'צריך לבחור את הדרך הנכונה לפי המציאות שלך',
 ];
 ---
-<BaseLayout title="תחומי עיסוק | עו״ד אליזבט ברזאני דדון">
+<BaseLayout
+  title="תחומי עיסוק בדיני משפחה | עו״ד אליזבט ברזאני דדון"
+  description="תחומי הליווי של המשרד: גירושין, גישור משפחתי, מזונות, משמורת והסדרי שהות, חלוקת רכוש, צוואות, ירושות וייפוי כוח מתמשך."
+>
+  <PageHero
+    eyebrow="תחומי עיסוק"
+    title="הנושאים המרכזיים שבהם אני מלווה, מייעצת ופועלת באופן אישי ומדויק"
+    description="דיני משפחה כוללים שאלות משפטיות, רגשיות וכלכליות שמשפיעות על החיים עצמם. לכן חשוב לבחור לא רק תחום, אלא גם דרך פעולה שמתאימה באמת למקרה."
+  />
+  <Breadcrumbs items={[{ label: 'תחומי עיסוק' }]} />
+
   <section class="section practice-hero">
     <div class="container practice-hero-grid">
       <div class="practice-hero-copy card">
-        <SectionHeading eyebrow="תחומי עיסוק" title="הנושאים המרכזיים שבהם אני מלווה, מייעצת ופועלת באופן אישי ומדויק" description="דיני משפחה כוללים שאלות משפטיות, רגשיות וכלכליות שמשפיעות על החיים עצמם. לכן חשוב לבחור לא רק תחום, אלא גם דרך פעולה שמתאימה באמת למקרה." />
+        <div class="eyebrow">מה חשוב לדעת</div>
         <ul class="opening-points">
           {openingPoints.map((point) => <li>{point}</li>)}
         </ul>

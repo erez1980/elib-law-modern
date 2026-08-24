@@ -6,7 +6,10 @@ import PageHero from '../components/PageHero.astro';
 import { site } from '../data/site';
 import contactPage from '../data/contact-page.json';
 ---
-<BaseLayout title="צור קשר | עו״ד אליזבט ברזאני דדון">
+<BaseLayout
+  title="צור קשר | עו״ד אליזבט ברזאני דדון"
+  description="ליצירת קשר עם עו״ד אליזבט ברזאני דדון: טלפון, WhatsApp, מייל או השארת פרטים לחזרה. משרד בקדימה צורן, כל פנייה מקבלת מענה אישי ודיסקרטי."
+>
   <PageHero eyebrow="צור קשר" title={contactPage.title} description={contactPage.description} />
 
   <section class="section contact-shell">

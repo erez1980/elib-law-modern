@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { withBase } from '../utils/url';
 const homeHref = withBase('/');
 ---
-<BaseLayout title="תודה | עו״ד אליזבט ברזאני דדון" noIndex={true}>
+<BaseLayout title="תודה | עו״ד אליזבט ברזאני דדון" description="הפנייה התקבלה. נחזור אליך בהקדם עם מענה אישי ודיסקרטי." noIndex={true}>
   <section class="section">
-    <div class="container card" style="max-width: 720px; text-align: center;">
+    <div class="container card notice-card">
       <div class="eyebrow">הפנייה התקבלה</div>
       <h1>תודה, הפנייה נשלחה</h1>
       <p>נחזור בהקדם עם מענה אישי, מקצועי ודיסקרטי.</p>
@@ -13,3 +13,10 @@ const homeHref = withBase('/');
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .notice-card {
+    max-width: 720px;
+    text-align: center;
+  }
+</style>

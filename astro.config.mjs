@@ -19,4 +19,33 @@ export default defineConfig({
   legacy: {
     collectionsBackwardsCompat: true,
   },
+  security: {
+    // GitHub Pages cannot send response headers, so the Content-Security-Policy
+    // ships as a <meta http-equiv> instead. Astro hashes every inline script and
+    // style at build time, which keeps the policy strict — no 'unsafe-inline'.
+    //
+    // Two directives cannot work from a meta tag and still need a real header:
+    // frame-ancestors (X-Frame-Options) and Strict-Transport-Security. Same for
+    // X-Content-Type-Options and Permissions-Policy. Putting the site behind a
+    // proxy that can set headers is the only way to close those.
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "object-src 'none'",
+        // The contact form posts to FormSubmit.
+        "form-action 'self' https://formsubmit.co",
+        "img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com",
+        "font-src 'self'",
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
+      ],
+      scriptDirective: {
+        // gtag.js is injected on the load event.
+        resources: ["'self'", 'https://www.googletagmanager.com'],
+      },
+      styleDirective: {
+        resources: ["'self'"],
+      },
+    },
+  },
 });

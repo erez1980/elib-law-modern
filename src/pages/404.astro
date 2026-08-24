@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { withBase } from '../utils/url';
 const homeHref = withBase('/');
 ---
-<BaseLayout title="העמוד לא נמצא | עו״ד אליזבט ברזאני דדון" noIndex={true}>
+<BaseLayout title="העמוד לא נמצא | עו״ד אליזבט ברזאני דדון" description="העמוד המבוקש לא נמצא. אפשר לחזור לדף הבית או ליצור קשר." noIndex={true}>
   <section class="section">
-    <div class="container card" style="max-width: 720px; text-align: center;">
+    <div class="container card notice-card">
       <div class="eyebrow">404</div>
       <h1>העמוד שחיפשת לא נמצא</h1>
       <p>אפשר לחזור לדף הבית או ליצור קשר ולקבל מענה אישי.</p>
@@ -13,3 +13,10 @@ const homeHref = withBase('/');
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .notice-card {
+    max-width: 720px;
+    text-align: center;
+  }
+</style>
