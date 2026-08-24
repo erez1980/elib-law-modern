@@ -1,0 +1,11 @@
+# Security contact for elib-law.co.il — RFC 9116
+# Please report vulnerabilities privately to the address below before
+# disclosing them publicly. Reports in Hebrew or English are both fine.
+#
+# Note: Expires must stay in the future for this file to be considered
+# valid. Refresh the date when it approaches.
+
+Contact: mailto:elib.law@gmail.com
+Expires: 2027-08-24T00:00:00.000Z
+Preferred-Languages: he, en
+Canonical: https://elib-law.co.il/.well-known/security.txt

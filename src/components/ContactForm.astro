@@ -29,7 +29,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
     <input type="hidden" name="_next" value={thankYouUrl} />
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="_captcha" value="false" />
-    <input type="text" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <input type="text" name="_honeypot" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div class="form-row">
       <label>
@@ -62,15 +62,24 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
       <textarea name="message" rows="4" placeholder="אפשר לתאר בקצרה את הסיטואציה, או להשאיר ריק - נדבר בטלפון."></textarea>
     </label>
 
+    <label class="consent">
+      <input type="checkbox" name="consent" value="אישר/ה" required />
+      <span>
+        אני מאשר/ת שהפרטים שמסרתי ישמשו ליצירת קשר איתי בלבד, ומודע/ת לכך שהטופס
+        מועבר באמצעות שירות חיצוני (FormSubmit) לצורך שליחת ההודעה למשרד.
+        <a href={withBase('/privacy')}>מדיניות הפרטיות</a>
+      </span>
+    </label>
+
     <button type="submit" class="button button-primary form-submit">שלחו לי חזרה טלפון</button>
     <p class="form-privacy-note">
-      הפרטים משמשים אך ורק לחזרה אליך ואינם מועברים לאף גורם.
-      <a href={withBase('/privacy')}>מדיניות הפרטיות</a>
+      נא לא לכלול כאן מסמכים או פרטים רגישים במיוחד. לשיחה חסויה אפשר
+      <a href={`tel:${site.phone.replace(/-/g, '')}`}>להתקשר ישירות</a>.
     </p>
   </form>
 </div>
 
-<script is:inline>
+<script>
   (() => {
     const form = document.querySelector('#callback-form form');
     const submitBtn = form?.querySelector('.form-submit');
@@ -89,6 +98,10 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
 </script>
 
 <style>
+  .honeypot {
+    display: none;
+  }
+
   .contact-form-card {
     background: linear-gradient(135deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
     display: grid;
@@ -159,6 +172,31 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
 
   .contact-form input[dir='ltr'] {
     text-align: right;
+  }
+
+  .consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem;
+    align-items: start;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-soft-text);
+  }
+
+  .consent input {
+    width: 20px;
+    min-height: 20px;
+    height: 20px;
+    margin-top: 0.2rem;
+    padding: 0;
+    accent-color: var(--color-primary);
+  }
+
+  .consent a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .form-submit {
