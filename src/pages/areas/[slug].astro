@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { locations } from '../../data/locations';
+import { site } from '../../data/site';
+import { withBase } from '../../utils/url';
+
+export async function getStaticPaths() {
+  return locations.map((location) => ({ params: { slug: location.slug }, props: { location } }));
+}
+
+const { location } = Astro.props;
+const services = [
+  { label: 'גירושין', href: '/services/divorce-lawyer' },
+  { label: 'גישור משפחתי', href: '/services/family-mediation' },
+  { label: 'מזונות', href: '/services/child-support-lawyer' },
+  { label: 'משמורת והסדרי שהות', href: '/services/custody-lawyer' },
+  { label: 'צוואות וירושות', href: '/services/will-lawyer' },
+  { label: 'ייפוי כוח מתמשך', href: '/services/lasting-power-attorney-lawyer' },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: location.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<BaseLayout title={location.pageTitle} description={location.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  <PageHero eyebrow={`אזור שירות · ${location.city}`} title={location.heroTitle} description={location.description} />
+  <Breadcrumbs items={[{ label: 'אזורי שירות', href: '/areas' }, { label: location.city }]} />
+
+  <section class="section area-section">
+    <div class="container area-grid">
+      <div class="area-main">
+        <div class="card area-intro">
+          <p class="lead">{location.intro}</p>
+          <div class="micro-divider"></div>
+          <h2>הגעה ופגישות</h2>
+          <p>{location.access}</p>
+        </div>
+
+        <div class="area-focus">
+          <h2>נושאים שעולים הרבה אצל פונים מ{location.city}</h2>
+          {location.focus.map((item, index) => (
+            <article class="focus-item">
+              <span class="focus-index" aria-hidden="true">0{index + 1}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="card area-note soft-card">
+          <div class="eyebrow">טוב לדעת</div>
+          <p>{location.localNote}</p>
+        </div>
+
+        <div class="card area-faq">
+          <h2>שאלות נפוצות מתושבי {location.city}</h2>
+          <div class="faq-list">
+            {location.faq.map((item) => (
+              <details>
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        <div class="card area-cta">
+          <div>
+            <div class="eyebrow">שיחה ראשונה</div>
+            <h2>אפשר להתחיל בשיחה קצרה ולהבין מה נכון לבדוק</h2>
+            <p class="lead-sm">לא צריך להגיע עם שאלה מנוסחת. אפשר לתאר את המצב, ומשם נבין יחד מה רלוונטי ואיך נכון להתקדם.</p>
+          </div>
+          <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+        </div>
+      </div>
+
+      <aside class="area-side">
+        <div class="card soft-card">
+          <div class="eyebrow">תחומי הליווי</div>
+          <ul class="service-links">
+            {services.map((service) => (
+              <li><a href={withBase(service.href)}>{service.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card soft-card">
+          <div class="eyebrow">פרטי המשרד</div>
+          <p class="office-line">{site.address}</p>
+          <p class="office-line"><a href={`tel:${site.phone.replace(/-/g, '')}`}>{site.phone}</a></p>
+          <p class="office-line">{site.hours[0]}</p>
+          <p class="office-line">{site.hours[1]}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .area-section {
+    padding-top: 1.5rem;
+  }
+
+  .area-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .area-main,
+  .area-side,
+  .faq-list {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .soft-card {
+    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
+  }
+
+  .micro-divider {
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
+    margin: 1.25rem 0;
+  }
+
+  .lead {
+    font-size: 1.08rem;
+    line-height: 1.95;
+    color: var(--color-soft-text);
+  }
+
+  .lead-sm {
+    color: var(--color-muted);
+    line-height: 1.9;
+  }
+
+  .area-focus {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .focus-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .focus-index {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-pill-bg);
+    border: 1px solid rgba(201, 162, 75, 0.3);
+    color: var(--color-pill-text);
+    font-weight: 700;
+  }
+
+  .focus-item h3 {
+    margin-bottom: 0.45rem;
+  }
+
+  .focus-item p {
+    color: var(--color-soft-text);
+    line-height: 1.9;
+    margin-bottom: 0;
+  }
+
+  .service-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .service-links a {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .service-links a:hover {
+    color: var(--color-primary-deep);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .office-line {
+    margin-bottom: 0.4rem;
+    color: var(--color-soft-text);
+  }
+
+  .area-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, var(--color-surface-warm) 0%, var(--color-card-strong) 100%);
+    border-color: rgba(201, 162, 75, 0.28);
+  }
+
+  details {
+    padding: 0 0 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  details:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  details p {
+    margin-top: 0.7rem;
+    margin-bottom: 0;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .area-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .area-main,
+    .area-side,
+    .faq-list {
+      gap: 1rem;
+    }
+
+    .area-cta {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+  }
+</style>
