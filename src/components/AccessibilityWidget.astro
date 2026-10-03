@@ -2,11 +2,11 @@
 import Icon from './Icon.astro';
 ---
 <div class="accessibility-widget" data-accessibility-widget>
-  <button class="accessibility-toggle" type="button" aria-label="פתיחת אפשרויות נגישות" aria-expanded="false" data-accessibility-toggle>
+  <button class="accessibility-toggle" type="button" aria-label="פתיחת אפשרויות נגישות" aria-expanded="false" aria-controls="a11y-panel" data-accessibility-toggle>
     <Icon name="accessibility" size={26} />
   </button>
 
-  <section class="accessibility-panel" aria-label="אפשרויות נגישות" data-accessibility-panel hidden>
+  <section class="accessibility-panel" id="a11y-panel" aria-label="אפשרויות נגישות" data-accessibility-panel hidden>
     <div class="accessibility-panel-head">
       <strong>אפשרויות נגישות</strong>
       <button type="button" aria-label="סגירת אפשרויות נגישות" data-accessibility-close>×</button>
@@ -15,10 +15,10 @@ import Icon from './Icon.astro';
     <div class="accessibility-controls">
       <button type="button" data-a11y-action="font-plus">הגדלת טקסט</button>
       <button type="button" data-a11y-action="font-minus">הקטנת טקסט</button>
-      <button type="button" data-a11y-action="contrast">ניגודיות גבוהה</button>
-      <button type="button" data-a11y-action="links">הדגשת קישורים</button>
-      <button type="button" data-a11y-action="readable-font">גופן קריא</button>
-      <button type="button" data-a11y-action="motion">עצירת אנימציות</button>
+      <button type="button" data-a11y-action="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+      <button type="button" data-a11y-action="links" aria-pressed="false">הדגשת קישורים</button>
+      <button type="button" data-a11y-action="readable-font" aria-pressed="false">גופן קריא</button>
+      <button type="button" data-a11y-action="motion" aria-pressed="false">עצירת אנימציות</button>
       <button type="button" data-a11y-action="reset" class="reset">איפוס</button>
     </div>
   </section>
@@ -47,14 +47,22 @@ import Icon from './Icon.astro';
       root.toggleAttribute('data-a11y-links', !!state.links);
       root.toggleAttribute('data-a11y-readable-font', !!state.readableFont);
       root.toggleAttribute('data-a11y-reduce-motion', !!state.motion);
+      const pressed = { contrast: state.contrast, links: state.links, 'readable-font': state.readableFont, motion: state.motion };
+      Object.entries(pressed).forEach(([action, on]) => {
+        panel.querySelector(`[data-a11y-action="${action}"]`)?.setAttribute('aria-pressed', String(!!on));
+      });
     };
     const setPanel = (open) => {
+      // Hiding the panel while focus is inside it drops keyboard users at the
+      // top of the document; hand focus back to the button that opened it.
+      const hadFocus = panel.contains(document.activeElement);
       panel.hidden = !open;
       toggle.setAttribute('aria-expanded', String(open));
+      if (!open && hadFocus) toggle.focus();
     };
     toggle.addEventListener('click', () => setPanel(panel.hidden));
     close?.addEventListener('click', () => setPanel(false));
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setPanel(false); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !panel.hidden) setPanel(false); });
     widget.addEventListener('click', (event) => {
       const target = event.target.closest('[data-a11y-action]');
       if (!target) return;
@@ -126,6 +134,8 @@ import Icon from './Icon.astro';
     min-height: 42px; border-radius: 12px; border: 1px solid var(--color-border); background: var(--color-card);
     color: var(--color-text); font-weight: 700; cursor: pointer; text-align: right; padding: 0.65rem 0.8rem;
   }
+  .accessibility-controls button[aria-pressed='true'] { border-color: var(--color-primary); background: var(--color-pill-bg); }
+  .accessibility-controls button[aria-pressed='true']::after { content: ' ✓'; color: var(--color-primary-deep); }
   .accessibility-controls .reset { color: var(--color-primary-deep); }
   @media (max-width: 900px) {
     .accessibility-widget { right: 0.75rem; bottom: 5.9rem; }

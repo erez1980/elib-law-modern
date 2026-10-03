@@ -15,7 +15,7 @@ export const seoPages = [
       { q: 'מה כדאי להכין לפגישה ראשונה?', a: 'מידע בסיסי על הילדים, הכנסות, רכוש, חובות וכל מסמך משפטי שכבר קיים.' },
       { q: 'האם גישור יכול להתאים גם בגירושין?', a: 'כן, במקרים רבים גישור הוא דרך יעילה ונכונה, כל עוד קיימת אפשרות לשיח ולהסכמות.' },
     ],
-    relatedArticles: ['divorce-first-steps', 'mediation-family-law', 'property-division'],
+    relatedArticles: ['divorce-first-steps', 'divorce-cost-israel', 'property-division'],
   },
   {
     slug: 'child-support-lawyer',
@@ -33,7 +33,7 @@ export const seoPages = [
       { q: 'האם אפשר לשנות מזונות בעתיד?', a: 'במקרים מסוימים כן, במיוחד כאשר חל שינוי נסיבות מהותי.' },
       { q: 'האם תמיד מגיעים לבית משפט?', a: 'לא. במקרים רבים ניתן להגיע להסדר מסודר גם מחוץ להליך משפטי מלא.' },
     ],
-    relatedArticles: ['child-support-basics', 'custody-parenting-time'],
+    relatedArticles: ['child-support-calculation', 'child-support-basics', 'custody-parenting-time'],
   },
   {
     slug: 'custody-lawyer',
@@ -87,7 +87,7 @@ export const seoPages = [
       { q: 'מה קורה אם יש מחלוקת על צוואה?', a: 'יש לבחון את המסמכים, הנסיבות והמועדים, ולפעול בהתאם למקרה הספציפי.' },
       { q: 'מתי כדאי לעדכן צוואה?', a: 'לאחר שינויים משפחתיים או כלכליים משמעותיים, כמו נישואין, גירושין, ילדים או רכישת נכסים.' },
     ],
-    relatedArticles: ['wills-importance', 'inheritance-disputes', 'welcome'],
+    relatedArticles: ['wills-importance', 'inheritance-disputes', 'lasting-power-attorney-guide'],
   },
   {
     slug: 'lasting-power-attorney-lawyer',
@@ -102,9 +102,9 @@ export const seoPages = [
     whenText: 'ייפוי כוח מתמשך נערך כאשר האדם כשיר ומבין היטב את החלטותיו. לכן חשוב להסדיר אותו בזמן, ולא לחכות לרגע שבו היכולת לקבל החלטות כבר נפגעת.',
     faq: [
       { q: 'האם זה מתאים רק לאנשים מבוגרים?', a: 'לא. זהו כלי תכנוני חשוב לכל אדם בוגר שרוצה ודאות ושליטה עתידית.' },
-      { q: 'מה ההבדל בין ייפוי כוח מתמשך לצוואה?', a: 'צוואה עוסקת לאחר הפטירה, בעוד ייפוי כוח מתמשך עוסק בחיים עצמם ובתקופות של חוסר יכולת לקבל החלטות.' },
+      { q: 'מה ההבדל בין ייפוי כוח מתמשך לצוואה?', a: 'צוואה עוסקת במה שיקרה לאחר הפטירה, בעוד ייפוי כוח מתמשך עוסק בחיים עצמם ובתקופות של חוסר יכולת לקבל החלטות.' },
       { q: 'אפשר להתאים את המסמך אישית?', a: 'כן. המסמך נבנה לפי הצרכים, המשפחה והרצונות של האדם.' },
     ],
-    relatedArticles: ['lasting-power-attorney', 'welcome'],
+    relatedArticles: ['lasting-power-attorney-guide', 'lasting-power-attorney', 'wills-importance'],
   },
 ];

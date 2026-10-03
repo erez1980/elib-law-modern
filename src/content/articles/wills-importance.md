@@ -9,6 +9,10 @@ tags:
 seoTitle: "למה חשוב לערוך צוואה בזמן | עו״ד ברזאני דדון"
 seoDescription: "צוואה ברורה ומדויקת מאפשרת לאדם לקבוע את רצונו ולצמצם סיכוי למחלוקות בין בני משפחה."
 coverImage: "/images/elib-profile.jpg"
+related:
+  - "inheritance-disputes"
+  - "lasting-power-attorney-guide"
+  - "cohabitation-agreement"
 ---
 צוואה היא לא רק מסמך משפטי. במקרים רבים היא הדרך של אדם לקבוע איך ייראה הסדר אחרי לכתו, למנוע חוסר בהירות ולצמצם מתחים מיותרים בין בני משפחה.
 

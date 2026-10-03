@@ -17,10 +17,24 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const allArticles = (await getCollection('articles'))
+const slugOf = (id: string) => id.replace(/\.md$/, '');
+const otherArticles = (await getCollection('articles'))
   .filter((item) => !item.data.draft && item.id !== article.id)
   .sort((a, b) => b.data.publishDate.localeCompare(a.data.publishDate));
-const relatedArticles = allArticles.slice(0, 3);
+// Editorial picks first (the `related` field), then fill the remaining slots
+// by shared topic tags. 'דיני משפחה' is on nearly every article, so it says
+// nothing about relevance and is left out of the match.
+const picked = article.data.related
+  .map((slug) => otherArticles.find((item) => slugOf(item.id) === slug))
+  .filter((item) => item !== undefined);
+const topicTags = new Set(article.data.tags.filter((tag) => tag !== 'דיני משפחה'));
+const sharedTags = (item: (typeof otherArticles)[number]) => item.data.tags.filter((tag) => topicTags.has(tag)).length;
+const byTopic = otherArticles
+  .filter((item) => !picked.includes(item))
+  .map((item) => ({ item, score: sharedTags(item) }))
+  .sort((a, b) => b.score - a.score)
+  .map(({ item }) => item);
+const relatedArticles = [...picked, ...byTopic].slice(0, 3);
 const pageUrl = new URL(withBase(`/articles/${article.id.replace(/\.md$/, '')}`), Astro.site ?? Astro.url).toString();
 const articleJsonLd = {
   '@context': 'https://schema.org',
@@ -37,7 +51,7 @@ const articleJsonLd = {
   publisher: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
 };
 ---
-<BaseLayout title={article.data.seoTitle ?? `${article.data.title} | עו״ד אליזבט ברזאני דדון`} description={article.data.seoDescription ?? article.data.excerpt}>
+<BaseLayout title={article.data.seoTitle ?? `${article.data.title} | עו״ד אליזבט ברזאני דדון`} description={article.data.seoDescription ?? article.data.excerpt} ogType="article">
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <PageHero eyebrow="מאמר" title={article.data.title} description={article.data.excerpt} />
   <Breadcrumbs items={[{ label: 'מאמרים', href: '/articles' }, { label: article.data.title }]} />

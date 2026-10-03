@@ -3,7 +3,8 @@ import { site } from '../data/site';
 import { withBase } from '../utils/url';
 
 const formAction = `https://formsubmit.co/${site.email}`;
-const thankYouUrl = new URL('/thank-you/', site.domain).toString();
+// FormSubmit needs an absolute URL to redirect to after sending.
+const thankYouUrl = new URL(withBase('/thank-you'), site.domain).toString();
 const topics = [
   'גירושין',
   'גישור משפחתי',
@@ -20,8 +21,8 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
   <div class="eyebrow">השארת פרטים דיסקרטית</div>
   <h2>מעדיפים שנחזור אליכם? השאירו פרטים בשקט מלא</h2>
   <p class="form-lead">
-    לא תמיד נוח להתקשר. אפשר להשאיר כאן פרטים - הפנייה מגיעה ישירות אליי בלבד,
-    נשמרת בדיסקרטיות מלאה, ואחזור אליכם בזמן שנוח לכם.
+    לא תמיד נוח להתקשר. אפשר להשאיר כאן פרטים - הם נשלחים לתיבת הדואר של המשרד
+    ומטופלים בדיסקרטיות, ואחזור אליכם בזמן שנוח לכם.
   </p>
 
   <form action={formAction} method="POST" class="contact-form">
@@ -38,7 +39,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
       </label>
       <label>
         <span>טלפון <em>*</em></span>
-        <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" dir="ltr" placeholder="050-0000000" />
+        <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" dir="ltr" placeholder="050-0000000" pattern="\+?[0-9\s\-]{9,18}" />
       </label>
     </div>
 
@@ -71,7 +72,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
       </span>
     </label>
 
-    <button type="submit" class="button button-primary form-submit">שלחו לי חזרה טלפון</button>
+    <button type="submit" class="button button-primary form-submit">חזרו אליי בטלפון</button>
     <p class="form-privacy-note">
       נא לא לכלול כאן מסמכים או פרטים רגישים במיוחד. לשיחה חסויה אפשר
       <a href={`tel:${site.phone.replace(/-/g, '')}`}>להתקשר ישירות</a>.
@@ -83,8 +84,25 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
   (() => {
     const form = document.querySelector('#callback-form form');
     const submitBtn = form?.querySelector('.form-submit');
+    const phone = form?.querySelector('input[name="phone"]');
     if (!form || !submitBtn) return;
+    const idleLabel = submitBtn.textContent;
     let submitting = false;
+
+    // type="tel" accepts any text; the pattern catches typos, this explains why.
+    phone?.addEventListener('invalid', () => {
+      if (phone.validity.patternMismatch) phone.setCustomValidity('נא להזין מספר טלפון תקין, למשל 050-1234567');
+    });
+    phone?.addEventListener('input', () => phone.setCustomValidity(''));
+
+    // Coming back with the browser's Back button restores the page from cache
+    // with the button still disabled; re-arm it.
+    addEventListener('pageshow', (event) => {
+      if (!event.persisted) return;
+      submitting = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = idleLabel;
+    });
     form.addEventListener('submit', (event) => {
       if (submitting) {
         event.preventDefault();

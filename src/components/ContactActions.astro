@@ -13,6 +13,7 @@ const whatsappHref = site.whatsapp || phoneHref;
     <h2>בחרו את הדרך שנוחה לכם להתחיל בה</h2>
     <p class="contact-lead">אפשר להתקשר, לשלוח הודעת WhatsApp או לפנות במייל. כל פנייה מתקבלת בדיסקרטיות, ברגישות ובמענה אישי.</p>
     <p class="response-note">בדרך כלל אפשר להתחיל בשאלה קצרה, להבין את הכיוון, ורק אחר כך להחליט איך נכון להמשיך.</p>
+    <a class="callback-jump" href="#callback-form">מעדיפים שנחזור אליכם? השאירו פרטים ↓</a>
   </div>
   <div class="contact-actions-grid">
     <a class="action-card action-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
@@ -98,6 +99,15 @@ const whatsappHref = site.whatsapp || phoneHref;
     background: linear-gradient(135deg, rgba(37, 211, 102, 0.14), var(--color-card-strong));
   }
 
+  .callback-jump {
+    display: inline-block;
+    margin-top: 0.85rem;
+    color: var(--color-pill-text);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
   .action-icon {
     width: 54px;
     height: 54px;
@@ -113,9 +123,39 @@ const whatsappHref = site.whatsapp || phoneHref;
       grid-template-columns: 1fr;
     }
 
+    .contact-actions-grid {
+      gap: 0.6rem;
+    }
+
     .action-card {
-      min-height: 150px;
-      padding: 1.15rem;
+      min-height: 0;
+      padding: 0.8rem 1rem;
+      grid-template-columns: auto 1fr;
+      grid-template-areas: 'icon label' 'icon value';
+      justify-items: start;
+      text-align: start;
+      column-gap: 0.85rem;
+      row-gap: 0;
+    }
+
+    .action-card > :first-child {
+      grid-area: icon;
+      width: 44px;
+      height: 44px;
+    }
+
+    .action-card > span:not(.action-icon) {
+      grid-area: label;
+      font-size: 0.92rem;
+    }
+
+    .action-card strong {
+      grid-area: value;
+      font-size: 1.08rem;
+    }
+
+    .response-note {
+      display: none;
     }
 
     .contact-actions-panel {
