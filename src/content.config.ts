@@ -32,6 +32,7 @@ const articles = defineCollection({
     updatedDate: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'updatedDate must be YYYY-MM-DD')
+      .refine((value) => !Number.isNaN(Date.parse(value)), 'updatedDate is not a real date')
       .optional(),
     draft: z.boolean().default(false),
     seoTitle: z.string().optional(),
