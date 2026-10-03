@@ -5,6 +5,7 @@ import { getCollection, render } from 'astro:content';
 import { formatHebrewDate } from '../../utils/format';
 import { withBase } from '../../utils/url';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AreaLinks from '../../components/AreaLinks.astro';
 import { site } from '../../data/site';
 
 export async function getStaticPaths() {
@@ -42,7 +43,7 @@ const articleJsonLd = {
   headline: article.data.title,
   description: article.data.excerpt,
   datePublished: article.data.publishDate,
-  dateModified: article.data.publishDate,
+  dateModified: article.data.updatedDate ?? article.data.publishDate,
   inLanguage: 'he-IL',
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   image: new URL(withBase(article.data.coverImage ?? site.ogImage), Astro.site ?? Astro.url).toString(),
@@ -59,7 +60,10 @@ const articleJsonLd = {
   <section class="section article-section">
     <div class="container article-shell">
       <div class="article-meta-row card">
-        <span>תאריך פרסום: {formatHebrewDate(article.data.publishDate)}</span>
+        <span>תאריך פרסום: <time datetime={article.data.publishDate}>{formatHebrewDate(article.data.publishDate)}</time></span>
+        {article.data.updatedDate && article.data.updatedDate !== article.data.publishDate && (
+          <span>עודכן: <time datetime={article.data.updatedDate}>{formatHebrewDate(article.data.updatedDate)}</time></span>
+        )}
         <span>נושא: {(article.data.tags || []).join(' · ')}</span>
       </div>
 
@@ -84,6 +88,7 @@ const articleJsonLd = {
           <div class="eyebrow">רוצים להבין איך זה רלוונטי למקרה שלכם?</div>
           <h2>אפשר לפנות ולקבל תמונה ראשונית, בשפה ברורה ובלי לחץ מיותר</h2>
           <p>כל מקרה נראה קצת אחרת. שיחה ראשונה טובה יכולה לעזור להבין מה נכון לבדוק, מה לא למהר לעשות, ואיך להתקדם בצורה רגועה יותר.</p>
+          <AreaLinks />
         </div>
         <div class="article-cta-actions">
           <a class="button button-primary" href={withBase('/contact')}>לפנייה וייעוץ ראשוני</a>

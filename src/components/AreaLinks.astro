@@ -1,0 +1,62 @@
+---
+// Internal-link strip pointing at the local landing pages with descriptive
+// anchor text. These pages had almost no in-content inbound links, which kept
+// the Netanya / Sharon queries stuck on page 3 of Google.
+import { locations } from '../data/locations';
+import { withBase } from '../utils/url';
+
+interface Props {
+  lead?: string;
+  prefix?: string;
+}
+
+const { lead = 'ליווי בדיני משפחה גם לתושבי:', prefix = 'עורך דין משפחה ב' } = Astro.props;
+---
+<nav class="area-links" aria-label="אזורי שירות">
+  <span class="area-links-lead">{lead}</span>
+  <ul>
+    {locations.map((location) => (
+      <li><a href={withBase(`/areas/${location.slug}/`)}>{prefix}{location.city}</a></li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .area-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 0.9rem;
+    margin-top: 1.25rem;
+  }
+
+  .area-links-lead {
+    font-weight: 700;
+    color: var(--color-soft-text);
+  }
+
+  .area-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .area-links a {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(201, 162, 75, 0.35);
+    border-radius: 999px;
+    color: var(--color-pill-text);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .area-links a:hover,
+  .area-links a:focus-visible {
+    background: var(--color-pill-bg);
+  }
+</style>
