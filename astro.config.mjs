@@ -10,8 +10,12 @@ export default defineConfig({
   // and currently 404 — redirect them so their equity flows to the new pages.
   redirects: {
     '/ראשי': '/',
-    '/אודות': '/about',
-    '/צרו-קשר': '/contact',
+    '/אודות': '/about/',
+    '/צרו-קשר': '/contact/',
+    // Merged thin duplicates into their full guides (keyword cannibalization).
+    '/articles/lasting-power-attorney': '/articles/lasting-power-attorney-guide/',
+    '/articles/child-support-basics': '/articles/child-support-calculation/',
+    '/articles/welcome': '/articles/',
   },
   // /thank-you/ is a post-submit utility page carrying <meta robots="noindex">;
   // listing it in the sitemap only invites Search Console to flag it.

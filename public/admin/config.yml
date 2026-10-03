@@ -130,6 +130,7 @@ collections:
       - { label: כותרת, name: title, widget: string }
       - { label: תקציר, name: excerpt, widget: text }
       - { label: תאריך פרסום, name: publishDate, widget: datetime, format: 'YYYY-MM-DD' }
+      - { label: תאריך עדכון, name: updatedDate, widget: datetime, format: 'YYYY-MM-DD', required: false, hint: 'למלא רק כשהתוכן עודכן מהותית' }
       - { label: טיוטה, name: draft, widget: boolean, default: false }
       - { label: SEO Title, name: seoTitle, widget: string, required: false }
       - { label: SEO Description, name: seoDescription, widget: text, required: false }

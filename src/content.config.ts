@@ -27,6 +27,13 @@ const articles = defineCollection({
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'publishDate must be YYYY-MM-DD')
       .refine((value) => !Number.isNaN(Date.parse(value)), 'publishDate is not a real date'),
+    // Set only when the content is materially revised; feeds dateModified in
+    // the BlogPosting JSON-LD and the visible "updated" line.
+    updatedDate: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, 'updatedDate must be YYYY-MM-DD')
+      .refine((value) => !Number.isNaN(Date.parse(value)), 'updatedDate is not a real date')
+      .optional(),
     draft: z.boolean().default(false),
     seoTitle: z.string().optional(),
     seoDescription: z.string().optional(),

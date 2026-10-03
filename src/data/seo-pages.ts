@@ -33,7 +33,7 @@ export const seoPages = [
       { q: 'האם אפשר לשנות מזונות בעתיד?', a: 'במקרים מסוימים כן, במיוחד כאשר חל שינוי נסיבות מהותי.' },
       { q: 'האם תמיד מגיעים לבית משפט?', a: 'לא. במקרים רבים ניתן להגיע להסדר מסודר גם מחוץ להליך משפטי מלא.' },
     ],
-    relatedArticles: ['child-support-calculation', 'child-support-basics', 'custody-parenting-time'],
+    relatedArticles: ['child-support-calculation', 'custody-parenting-time', 'divorce-cost-israel'],
   },
   {
     slug: 'custody-lawyer',
@@ -51,7 +51,7 @@ export const seoPages = [
       { q: 'האם אפשר לשנות הסדרים בעתיד?', a: 'כן, במצבים של שינוי נסיבות או כאשר ההסדר הקיים אינו מתאים עוד.' },
       { q: 'האם גישור יכול לעזור גם בנושאי ילדים?', a: 'כן, כאשר יש יכולת לשיח, גישור יכול לעזור להגיע להסכמות יציבות ומכבדות.' },
     ],
-    relatedArticles: ['custody-parenting-time', 'child-support-basics', 'mediation-family-law'],
+    relatedArticles: ['custody-parenting-time', 'child-support-calculation', 'mediation-family-law'],
   },
   {
     slug: 'family-mediation',
@@ -105,6 +105,6 @@ export const seoPages = [
       { q: 'מה ההבדל בין ייפוי כוח מתמשך לצוואה?', a: 'צוואה עוסקת במה שיקרה לאחר הפטירה, בעוד ייפוי כוח מתמשך עוסק בחיים עצמם ובתקופות של חוסר יכולת לקבל החלטות.' },
       { q: 'אפשר להתאים את המסמך אישית?', a: 'כן. המסמך נבנה לפי הצרכים, המשפחה והרצונות של האדם.' },
     ],
-    relatedArticles: ['lasting-power-attorney-guide', 'lasting-power-attorney', 'wills-importance'],
+    relatedArticles: ['lasting-power-attorney-guide', 'wills-importance', 'inheritance-disputes'],
   },
 ];

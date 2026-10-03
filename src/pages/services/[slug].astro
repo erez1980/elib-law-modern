@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 import { seoPages } from '../../data/seo-pages';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AreaLinks from '../../components/AreaLinks.astro';
 import { site } from '../../data/site';
 import { withBase } from '../../utils/url';
 
@@ -68,6 +69,7 @@ const faqJsonLd = {
             כל מקרה נבחן לפי הנסיבות הייחודיות שלו. במקרים מסוימים נכון לשאוף להסכם או לגישור,
             ובמקרים אחרים נדרש ליווי משפטי ברור ונחוש. המטרה היא לבחור בדרך הנכונה ולא בדרך האוטומטית.
           </p>
+          <AreaLinks lead="זמין גם לתושבי:" prefix={`${page.title} ב`} />
         </div>
 
         <div class="card service-fit soft-card">
