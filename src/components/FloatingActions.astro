@@ -46,6 +46,11 @@ const whatsappHref = site.whatsapp || phoneHref;
     border: 1px solid rgba(37, 211, 102, 0.35);
   }
 
+  /* #128c4a is ~3.9:1 on the dark card; this lighter green clears 4.5:1 */
+  :root[data-theme='dark'] .floating-chip--whatsapp {
+    color: #4ccf83;
+  }
+
   :root[data-theme='dark'] .floating-chip:not(.floating-chip--whatsapp) {
     background: var(--color-card-strong);
     color: var(--color-text);

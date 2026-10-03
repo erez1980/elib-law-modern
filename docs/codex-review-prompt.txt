@@ -1,0 +1,166 @@
+You are performing a full, read-only review of a production website. **Do not change
+any files, do not commit, do not open a PR.** Your single deliverable is a written
+review report.
+
+## The project
+
+`elib-law.co.il` — the website of **Elizabeth Barazani-Dadon**, an Israeli family-law
+attorney and mediator based in Kadima-Zoran. The site is in **Hebrew, RTL**
+(`lang="he" dir="rtl"`). Its job is to get a stressed person in the middle of a
+divorce or family dispute to pick up the phone or send the contact form.
+
+Stack and facts you should verify rather than assume:
+
+- Astro 7.1.1, `output: 'static'`, `trailingSlash: 'always'`
+- Deployed to **GitHub Pages** via `.github/workflows/deploy.yml` (push to `main`)
+- Decap CMS (git-gateway) at `/admin`, `media_folder: public/images`
+- CSP is configured in `astro.config.mjs` under `security.csp` (stable Astro 7 API,
+  not `experimental.csp`) and is emitted as a `<meta>` tag with generated hashes
+- Fonts are self-hosted via `@fontsource` (Assistant + Frank Ruhl Libre, Hebrew subsets)
+- ~14 page files producing ~35 built routes (dynamic: `articles/[slug]`,
+  `services/[slug]`, `areas/[slug]`), 14 articles, 21 FAQ entries
+- Global CSS and the sitewide JSON-LD live in `src/layouts/BaseLayout.astro`
+- Internal links must go through `withBase()` in `src/utils/url.ts`
+
+Start by running `npm ci && npm run build` and reading `dist/` — review the **rendered
+HTML**, not only the source. There are no tests and no lint config; say so if that
+matters to a finding.
+
+## Deliberate decisions — do NOT recommend reverting these
+
+Each of these was decided on purpose, some after a bug. Treat them as constraints.
+If you think one is genuinely wrong, you may argue against it, but you must
+acknowledge it was intentional and address the original reason.
+
+1. **No new `is:inline` scripts and no inline `style=""` attributes.** Astro's CSP
+   does not hash `is:inline` blocks, and style hashes do not cover style attributes.
+   Enabling CSP already broke the site once this way (17 violations, dead theme
+   toggle). The one `is:inline` tag that exists carries only a `src`.
+2. **`public/js/prefs-init.js` is render-blocking on purpose** — it restores the
+   theme and a11y prefs before first paint to avoid a flash. It is external (not
+   inline) so CSP hashes don't need re-registering on every edit. Do not suggest
+   `defer`/`async` or inlining it.
+3. **HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy and
+   Permissions-Policy are impossible** — GitHub Pages does not let you set response
+   headers, and its cache TTL is fixed at 10 minutes. These need a CDN (Cloudflare)
+   in front. You may note the gap once; do not file it repeatedly per page.
+4. **`src/data/testimonials.ts` is deliberately empty** and the component renders
+   nothing when it is. Inventing client quotes for a lawyer is deceptive and a bar
+   association exposure. Never propose placeholder or sample testimonials.
+5. **Court jurisdiction is deliberately absent from `src/data/locations.ts`** (see
+   the header comment) — it could not be verified. Do not propose adding it.
+6. The hero photo stays in `public/images` (not `src/assets`) because Decap CMS
+   edits it, so it cannot go through Astro's image pipeline. Suggest other wins
+   instead.
+7. The Heebo font was removed on purpose. Do not propose adding fonts.
+8. `trailingSlash: 'always'` plus `withBase()` is load-bearing — it fixed a Search
+   Console "Page with redirect" problem across 24 internal links.
+
+## What to review
+
+### 1. Code
+
+- Correctness and dead code. In particular check whether `src/components/Welcome.astro`
+  is referenced anywhere, and flag any other unused component, data field, CSS
+  variable, or image.
+- Any internal link, canonical, sitemap entry or JSON-LD `url` that bypasses
+  `withBase()` or lacks a trailing slash.
+- Duplication across pages — the page files repeat a lot of scoped CSS and layout
+  structure. Say which repetition is worth extracting and which is fine.
+- Accessibility in the markup itself: heading order, landmarks, focus visibility,
+  `aria-*` correctness on the accessibility widget, mobile menu and `<details>`
+  FAQs, keyboard traps, contrast of the gold on dark in both light and dark theme,
+  and whether `prefers-reduced-motion` actually disables every animation.
+- Build warnings, TypeScript looseness (there are several `any`s in the dynamic
+  routes), and the content-collection schema in `src/content.config.ts`.
+- Performance of the built output: CSS/JS weight, render-blocking resources,
+  LCP element, image dimensions and formats, layout shift risk. The last mobile
+  PageSpeed score was 85 — say where the remaining points are.
+
+### 2. Content (Hebrew)
+
+- Read the 14 articles, the 21 FAQ entries, the 6 service pages and the 4 city
+  pages. Judge them as a prospective client would, not as a word count.
+- Flag: text that is vague or interchangeable between pages, promises or outcome
+  guarantees a lawyer must not make, missing or inadequate legal disclaimers,
+  anything that reads as legal advice rather than general information, inconsistent
+  terminology, and Hebrew typos or grammatical errors.
+- These are legal claims published under a named attorney. **Flag problems and
+  quote the exact sentence — do not rewrite legal substance yourself.** Suggested
+  wording is fine for marketing copy; for anything describing the law, say what is
+  wrong and let the attorney decide.
+- Check consistency of NAP (name, address, phone, email, hours) across the site,
+  the footer, the JSON-LD and `src/data/site.ts`.
+
+### 3. SEO
+
+- Per-page `<title>` and meta description: uniqueness, length (titles were
+  previously running to 92 chars), keyword placement, and whether they would earn
+  a click in Hebrew SERPs.
+- One `<h1>` per page, sensible H2/H3 structure.
+- JSON-LD validity: `Attorney`/`LegalService` sitewide, `BlogPosting`, `Service`,
+  `FAQPage`, `BreadcrumbList`. Check required properties, that `@id` references
+  resolve, and that FAQ markup matches visible on-page text.
+- `robots.txt`, `sitemap-index.xml` (`/thank-you/` is filtered out on purpose),
+  canonicals, OG/Twitter tags, `hreflang`/`lang`, 404 handling, the legacy
+  redirects in `astro.config.mjs`.
+- Internal linking: which pages are orphaned or more than three clicks from the
+  homepage, and where contextual links are missing between articles, service
+  pages and city pages.
+- Local SEO for Kadima-Zoran, Netanya, Kfar Saba, Ra'anana, Hod Hasharon — are the
+  city pages substantive enough to rank, or do they read as doorway pages?
+- Keyword gaps: name the Hebrew family-law queries this site should rank for and
+  currently has no page addressing. The site gets roughly 5 visits a day; be
+  concrete about what would move that.
+
+### 4. UX / UI design
+
+- Open the built site in a browser at **390px (mobile) and 1440px (desktop)** and
+  look at it. Chromium is available for Playwright.
+- The brief for the design was "hybrid luxury, subtle and elegant motion". Judge
+  whether it reads as a premium law firm or as a generic template — be specific
+  about what creates or breaks that impression.
+- Conversion path: how many steps and how much scrolling from landing to contact?
+  Is the primary CTA obvious without being repeated into noise (CTA duplication was
+  cut once already — check it hasn't crept back)?
+- The contact form: field count, labels, error states, the required consent
+  checkbox, the FormSubmit third-party notice, what happens after submit.
+- Visual hierarchy, typographic scale, spacing rhythm, and RTL correctness —
+  especially icons, arrows, breadcrumbs, and anything using `left`/`right` instead
+  of `start`/`end`.
+- The header logo and the mobile menu; dark mode across every page, not just the
+  homepage.
+- Any element that is decorative but costs attention, and any place where the
+  motion system is noticeable rather than subtle.
+
+## Output
+
+Write the report to `docs/review-YYYY-MM-DD.md` (that is the only file you may
+create). Write it **in Hebrew**, with code identifiers, file paths and English SEO
+terms left in English.
+
+Structure:
+
+1. **Executive summary** — 5–8 sentences. Overall verdict and the single biggest
+   opportunity.
+2. **Findings**, grouped by the four areas above. For each finding:
+   - severity: 🔴 critical / 🟠 important / 🟡 worth doing / 🔵 nice to have
+   - the exact `file:line` or URL
+   - what is wrong and *why it matters to this business*
+   - the concrete fix (a diff sketch is welcome; do not apply it)
+   - effort: S / M / L
+3. **Prioritized action list** — the 10 highest-value items in order, each with its
+   severity and effort.
+4. **What I checked and found healthy** — short, so the attorney knows the scope.
+5. **Open questions** — anything you could not verify (external services, live
+   headers, Search Console data, anything behind the network proxy).
+
+Rules for the report:
+
+- Every finding must point at real code or real rendered output you read. No
+  generic best-practice filler — "add alt text" is useless, "`src/pages/about.astro:42`
+  has `alt=""` on the attorney's portrait, which is the page's LCP and primary
+  E-E-A-T signal" is useful.
+- If you cannot verify something (the live site, external headers, analytics),
+  say so under Open questions instead of guessing.
+- Do not pad the list. Twelve real findings beat forty recycled ones.

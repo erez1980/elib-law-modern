@@ -29,10 +29,3 @@ export const highlights = [
     text: 'אני מסבירה את האפשרויות בצורה ברורה, כדי לייצר סדר, כיוון וביטחון כבר מהשלבים הראשונים.',
   },
 ];
-
-export const contactCards = [
-  { label: 'טלפון', value: site.phone, href: `tel:${site.phone.replace(/-/g, '')}` },
-  { label: 'אימייל', value: site.email, href: `mailto:${site.email}` },
-  { label: 'כתובת', value: 'רחוב ראשי שדות 16, קדימה צורן', href: 'https://maps.google.com/?q=רחוב+ראשי+שדות+16,+קדימה+צורן' },
-  { label: 'WhatsApp', value: 'שליחת הודעה', href: site.whatsapp || '/contact' },
-];

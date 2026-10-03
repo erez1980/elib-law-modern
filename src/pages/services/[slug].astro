@@ -12,10 +12,15 @@ export async function getStaticPaths() {
 }
 
 const { page } = Astro.props;
-const allArticles = await getCollection('articles');
+const allArticles = await getCollection('articles', (article) => !article.data.draft);
 const relatedArticles = page.relatedArticles
-  .map((slug: string) => allArticles.find((article) => article.id.replace(/\.md$/, '') === slug))
-  .filter(Boolean);
+  .map((slug) => allArticles.find((article) => article.id.replace(/\.md$/, '') === slug))
+  .filter((article) => article !== undefined);
+const missing = page.relatedArticles.filter((slug) => !allArticles.some((article) => article.id.replace(/\.md$/, '') === slug));
+if (missing.length) {
+  // A renamed, deleted or drafted article would otherwise just vanish from the sidebar.
+  throw new Error(`services/${page.slug}: relatedArticles not found or draft: ${missing.join(', ')}`);
+}
 const serviceJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -36,7 +41,7 @@ const serviceJsonLd = {
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: page.faq.map((item: { q: string; a: string }) => ({
+  mainEntity: page.faq.map((item) => ({
     '@type': 'Question',
     name: item.q,
     acceptedAnswer: { '@type': 'Answer', text: item.a },
@@ -57,7 +62,7 @@ const faqJsonLd = {
           <div class="micro-divider"></div>
           <h2>מה כולל הליווי?</h2>
           <ul>
-            {page.bullets.map((item: string) => <li>{item}</li>)}
+            {page.bullets.map((item) => <li>{item}</li>)}
           </ul>
           <p>
             כל מקרה נבחן לפי הנסיבות הייחודיות שלו. במקרים מסוימים נכון לשאוף להסכם או לגישור,
@@ -68,7 +73,7 @@ const faqJsonLd = {
         <div class="card service-fit soft-card">
           <h2>{page.fitTitle}</h2>
           <ul>
-            {page.fitPoints.map((item: string) => <li>{item}</li>)}
+            {page.fitPoints.map((item) => <li>{item}</li>)}
           </ul>
         </div>
 
@@ -80,7 +85,7 @@ const faqJsonLd = {
         <div class="card service-faq">
           <h2>שאלות שעולות הרבה בתחילת הדרך</h2>
           <div class="faq-list">
-            {page.faq.map((item: any) => (
+            {page.faq.map((item) => (
               <details>
                 <summary>{item.q}</summary>
                 <p>{item.a}</p>
@@ -103,7 +108,7 @@ const faqJsonLd = {
         <div class="card related-card soft-card">
           <div class="eyebrow">מאמרים קשורים</div>
           <div class="related-list">
-            {relatedArticles.map((article: any) => (
+            {relatedArticles.map((article) => (
               <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
                 <strong>{article.data.title}</strong>
                 <span>{article.data.excerpt}</span>
