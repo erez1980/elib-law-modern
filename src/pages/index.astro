@@ -9,15 +9,17 @@ import { homePage } from '../data/home';
 import { withBase } from '../utils/url';
 
 const heroImage = withBase(site.heroImage);
-const trustBadges = [
-  'חברת לשכת עורכי הדין משנת 2008',
-  'ליווי אישי וישיר בכל תיק',
-  'גישה משפטית וגישורית לפי מה שנכון למקרה',
+const phoneHref = `tel:${site.phone.replace(/-/g, '')}`;
+const facts = [
+  { term: 'משנת 2008', text: 'חברת לשכת עורכי הדין' },
+  { term: 'משפט וגישור', text: 'הדרך נבחרת לפי המקרה, לא לפי נוסחה' },
+  { term: 'קדימה צורן', text: 'משרד בוטיק לתושבי נתניה והשרון' },
 ];
-const credibilityPoints = [
-  'עו״ד ומגשרת לדיני משפחה',
-  'סטנדרט מקצועי גבוה וליווי מוקפד',
-  'רגישות, דיסקרטיות ושיקול דעת',
+const warmth = [
+  'שיחה ברורה, בלי מילים משפטיות שמעמיסות סתם',
+  'בחינה אמיתית של האפשרויות, לא תגובה אוטומטית',
+  'רגישות כשאפשר, ונחישות כשצריך',
+  'תחושת סדר ובהירות כבר מהשלבים הראשונים',
 ];
 const featuredServices = [
   { title: 'גירושין', text: 'ליווי משפטי מדויק בתחילת הדרך, במו״מ, בגישור או בהליך משפטי.', href: '/services/divorce-lawyer' },
@@ -25,69 +27,54 @@ const featuredServices = [
   { title: 'צוואות וירושות', text: 'עריכת צוואות, ליווי בירושות וטיפול במחלוקות משפחתיות רגישות.', href: '/services/will-lawyer' },
   { title: 'ייפוי כוח מתמשך', text: 'תכנון משפטי אחראי שנותן שקט נפשי לעתיד.', href: '/services/lasting-power-attorney-lawyer' },
 ];
+// Hebrew letters as step ordinals, the way Hebrew documents number clauses.
+const ordinals = ['א', 'ב', 'ג'];
 ---
+
 <BaseLayout>
-  <section class="section hero-shell">
+  <section class="hero">
     <div class="container hero-grid">
       <div class="hero-main">
         <!-- The keyword-bearing kicker is the H1; the slogan keeps the large visual treatment as a <p>. -->
         <h1 class="eyebrow hero-kicker">{homePage.hero.kicker}</h1>
         <p class="hero-title">{homePage.hero.title}</p>
-        <div class="hero-rule" aria-hidden="true"></div>
         <p class="hero-copy">{homePage.hero.description}</p>
 
         <div class="hero-actions">
           <a class="button button-primary" href={withBase(homePage.hero.primaryCta.href)}>{homePage.hero.primaryCta.label}</a>
-          <a class="button button-secondary" href={withBase(homePage.hero.secondaryCta.href)}>{homePage.hero.secondaryCta.label}</a>
+          <a class="hero-phone" href={phoneHref}>או בטלפון <span>{site.phone}</span></a>
         </div>
-
-        <ul class="hero-meta">
-          {trustBadges.map((badge) => <li>{badge}</li>)}
-        </ul>
       </div>
 
-      <aside class="hero-stack">
-        <div class="hero-image-frame">
-          <img src={heroImage} alt={site.shortName} width="800" height="1200" fetchpriority="high" decoding="async" />
-          <div class="hero-image-overlay">
-            <strong>ליווי מקצועי, אישי ודיסקרטי</strong>
-            <span>במצבים שבהם צריך גם בהירות משפטית וגם יד יציבה ורגישה</span>
-          </div>
+      <figure class="hero-portrait">
+        <div class="arch">
+          <img src={heroImage} alt={`עו״ד ${site.shortName}`} width="800" height="1200" fetchpriority="high" decoding="async" />
         </div>
-
-        <div class="hero-credibility">
-          {credibilityPoints.map((point) => (
-            <div class="credibility-row">
-              <span>{point}</span>
-            </div>
-          ))}
-        </div>
-      </aside>
+        <figcaption>
+          <strong>{site.shortName}</strong>
+          <span>עורכת דין ומגשרת לענייני משפחה</span>
+        </figcaption>
+      </figure>
     </div>
-  </section>
 
-  <section class="section trust-strip">
-    <div class="container trust-band card">
-      <div class="trust-copy">
-        <div class="eyebrow">אמון, בהירות וגישה אנושית</div>
-        <h2>ליווי משפטי שמחבר בין הבנה אנושית עמוקה לבין חשיבה משפטית שקולה ומדויקת</h2>
-        <p>לא כל מקרה צריך עימות, ולא כל הסכמה היא בהכרח הסכמה נכונה. חשוב להבין מה ישרת אותך באמת, ולבנות משם דרך פעולה נכונה.</p>
-      </div>
-      <div class="trust-proof-list">
-        <div class="trust-proof-item"><strong><span data-countup="18" data-suffix="+">18+</span></strong><span>שנות ניסיון מקצועי</span></div>
-        <div class="trust-proof-item"><strong>גישור + משפט</strong><span>בחירת הדרך המתאימה לכל מקרה</span></div>
-        <div class="trust-proof-item"><strong>יחס אישי</strong><span>טיפול ישיר, רגיש ודיסקרטי</span></div>
-      </div>
+    <div class="container">
+      <dl class="facts">
+        {facts.map((fact) => (
+          <div>
+            <dt>{fact.term}</dt>
+            <dd>{fact.text}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <SectionHeading eyebrow="למה לפנות אליי" title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
-      <div class="grid highlight-grid">
-        {highlights.map((item, index) => (
-          <article class="highlight-card">
-            <span class="highlight-index" aria-hidden="true">0{index + 1}</span>
+      <SectionHeading title="ליווי שמוריד עומס, מייצר בהירות, ועוזר לקבל החלטות טובות יותר" description={homePage.intro} />
+      <div class="highlight-grid">
+        {highlights.map((item) => (
+          <article class="highlight">
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -97,586 +84,594 @@ const featuredServices = [
   </section>
 
   <section class="section">
-    <div class="container split-section">
-      <div class="story-card card">
-        <SectionHeading eyebrow="אודות" title="עורכת דין ומגשרת שמלווה ברגישות, בנוכחות, ובחשיבה לטווח ארוך" description="כשיש מתח, בלבול או חוסר ודאות, חשוב לעבוד עם מי שיודעת גם להחזיק את הסיטואציה האנושית וגם להוביל את המהלך המשפטי בצורה מדויקת." />
+    <div class="container about">
+      <blockquote class="about-quote">
+        <p>לא כל מקרה צריך עימות, ולא כל הסכמה היא בהכרח הסכמה נכונה.</p>
+      </blockquote>
+      <div class="about-body">
+        <h2>עורכת דין ומגשרת שמלווה ברגישות, בנוכחות ובחשיבה לטווח ארוך</h2>
         <p>
           אני מלווה לקוחות בענייני גירושין, גישור משפחתי, משמורת, מזונות, חלוקת רכוש,
-          צוואות, ירושות, ייפוי כוח מתמשך והסכמים - מתוך הקשבה אמיתית, סדר מחשבתי וראייה רחבה של התמונה כולה.
+          צוואות, ירושות, ייפוי כוח מתמשך והסכמים, מתוך הקשבה אמיתית, סדר מחשבתי וראייה רחבה של התמונה כולה.
         </p>
         <p>
-          הליווי נעשה באופן אישי וישיר, עם מטרה כפולה: גם להגן על האינטרסים המשפטיים שלך, וגם להפחית ככל האפשר רעש,
+          הליווי נעשה באופן אישי וישיר, עם מטרה כפולה: להגן על האינטרסים המשפטיים שלך, ולהפחית ככל האפשר רעש,
           בלבול ועומס בתקופה שהיא ממילא רגישה ומורכבת.
         </p>
-      </div>
-      <div class="card warmth-card">
-        <div class="eyebrow">איך זה מרגיש בפועל</div>
         <ul class="warmth-list">
-          <li>שיחה ברורה, בלי מילים משפטיות שמעמיסות סתם</li>
-          <li>בחינה אמיתית של האפשרויות, לא תגובה אוטומטית</li>
-          <li>רגישות כשאפשר, ונחישות כשצריך</li>
-          <li>תחושת סדר ובהירות כבר מהשלבים הראשונים</li>
+          {warmth.map((line) => <li>{line}</li>)}
         </ul>
-        <a class="text-link" href={withBase('/about')}>לקריאה נוספת</a>
+        <a class="text-link" href={withBase('/about')}>עוד על המשרד ועל הדרך שלי</a>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt">
-    <div class="container areas-shell">
-      <SectionHeading eyebrow="תחומי עיסוק" title="התחומים המרכזיים שבהם אני מלווה באופן אישי ומדויק" description="כאן אפשר למצוא את הנושאים המרכזיים שמעסיקים לקוחות בתחילת הדרך." />
-      <div class="service-links-grid">
+  <section class="section services">
+    <div class="container">
+      <div class="services-head">
+        <h2>תחומי עיסוק</h2>
+        <p>הנושאים שמעסיקים לקוחות בתחילת הדרך. כל אחד מהם מקבל ליווי אישי, מההתייעצות הראשונה ועד הסיום.</p>
+      </div>
+      <ul class="service-list">
         {featuredServices.map((service) => (
-          <a class="card service-link-card" href={withBase(service.href)}>
-            <strong>{service.title}</strong>
-            <span>{service.text}</span>
-          </a>
+          <li>
+            <a href={withBase(service.href)}>
+              <strong>{service.title}</strong>
+              <span>{service.text}</span>
+            </a>
+          </li>
         ))}
+      </ul>
+      <div class="services-foot">
+        <a class="button button-secondary" href={withBase('/practice-areas')}>כל תחומי העיסוק</a>
+        <AreaLinks lead="המשרד בקדימה צורן מלווה גם את תושבי הסביבה:" />
       </div>
-      <div class="areas-footer-link">
-        <a class="button button-secondary" href={withBase('/practice-areas')}>לכל תחומי הליווי</a>
-      </div>
-      <AreaLinks lead="המשרד בקדימה צורן מלווה גם את תושבי הסביבה:" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container process-shell">
-      <div class="process-intro">
-        <SectionHeading eyebrow="תהליך העבודה" title="כך נראה תהליך נכון, מסודר ורגוע יותר" description="הצעד הראשון הוא לא לרוץ - אלא להבין. משם אפשר לבחור דרך פעולה מדויקת יותר, עם פחות טעויות ויותר שקט." />
-      </div>
-      <div class="grid process-cards">
+    <div class="container">
+      <SectionHeading title="כך נראה תהליך נכון, מסודר ורגוע יותר" description="הצעד הראשון הוא לא לרוץ, אלא להבין. משם אפשר לבחור דרך פעולה מדויקת יותר, עם פחות טעויות ויותר שקט." />
+      <ol class="steps">
         {homePage.process.map((step, index) => (
-          <article class="card process-card">
-            <span class="step-index">0{index + 1}</span>
+          <li>
+            <span class="step-letter" aria-hidden="true">{ordinals[index]}</span>
             <h3>{step.title}</h3>
             <p>{step.text}</p>
-          </article>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 
   <Testimonials />
 
   <section class="section section-alt">
-    <div class="container faq-shell">
-      <SectionHeading eyebrow="שאלות נפוצות" title="שאלות שאנשים שואלים כשהם רוצים להבין מה נכון לעשות עכשיו" description="תשובות ראשוניות, קצרות וברורות, בנושאים שעולים הרבה בתחילת הדרך - לפני פגישה, לפני החלטה, ולפני צעד משפטי." />
+    <div class="container">
+      <SectionHeading title="שאלות שעולות לפני פגישה, לפני החלטה ולפני צעד משפטי" description="תשובות ראשוניות, קצרות וברורות, בנושאים שעולים הרבה בתחילת הדרך." />
       <FaqPreview />
+      <a class="text-link faq-more" href={withBase('/faq')}>לכל השאלות הנפוצות</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container cta-banner card">
+  <section class="closing">
+    <div class="container closing-inner">
       <div>
-        <div class="eyebrow">יצירת קשר</div>
         <h2>{homePage.cta.title}</h2>
         <p>{homePage.cta.text}</p>
       </div>
-      <div class="hero-actions cta-actions">
-        <a class="button button-primary" href={withBase(homePage.cta.primary.href)}>{homePage.cta.primary.label}</a>
-        <a class="button button-secondary" href={withBase(homePage.cta.secondary.href)}>{homePage.cta.secondary.label}</a>
+      <div class="closing-actions">
+        <a class="closing-phone" href={phoneHref}>{site.phone}</a>
+        <a class="button button-gold" href={withBase(homePage.cta.primary.href)}>{homePage.cta.primary.label}</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Dark editorial hero — fixed charcoal+gold in both themes, echoing the logo */
-  .hero-shell {
-    position: relative;
-    overflow: hidden;
-    padding: 4.25rem 0 4.75rem;
-    background:
-      radial-gradient(ellipse 55% 60% at 12% 0%, rgba(201, 162, 75, 0.16), transparent 70%),
-      linear-gradient(172deg, #151514 0%, #1d1a16 100%);
+  /* Hero: paper background, a large display slogan, and the portrait set in
+     an arch, the way a window frames a room. The arch's gold outline is the
+     page's one load-time motion. */
+  .hero {
+    padding: 4.5rem 0 0;
   }
 
-  .hero-shell::after {
-    content: '';
-    position: absolute;
-    left: -3%;
-    bottom: -14%;
-    width: 480px;
-    height: 480px;
-    background: url('/images/eb-monogram.svg') no-repeat center / contain;
-    opacity: 0.055;
-    pointer-events: none;
-  }
-
-  .hero-shell .hero-grid {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-shell h1 {
-    color: #f5f1e8;
-  }
-
-  /* H1 rendered as the small pill; reset the global h1 typography. */
-  .hero-shell .hero-kicker {
-    font-family: inherit;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    border-radius: 1.2rem;
-  }
-
-  /* Visual twin of the global h1 style, applied to the slogan paragraph. */
-  .hero-title {
-    font-family: 'Frank Ruhl Libre', 'Assistant', Georgia, serif;
-    font-size: clamp(2rem, 3.1vw, 3.4rem);
-    font-weight: 700;
-    line-height: 1.24;
-    letter-spacing: 0;
-    margin: 0 0 1rem;
-    color: #f5f1e8;
-  }
-
-  @media (max-width: 900px) {
-    .hero-title {
-      font-size: clamp(1.75rem, 8vw, 2.45rem);
-    }
-  }
-
-  .hero-shell .eyebrow {
-    background: rgba(201, 162, 75, 0.1);
-    border-color: rgba(201, 162, 75, 0.42);
-    color: #e5c47c;
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-rule {
-    width: 76px;
-    height: 2px;
-    background: linear-gradient(to left, #c9a24b 0%, rgba(201, 162, 75, 0) 100%);
-    margin: 1.15rem 0 1.2rem;
-  }
-
-  .hero-shell .hero-copy {
-    color: rgba(245, 241, 232, 0.78);
-  }
-
-  .hero-shell .hero-meta {
-    color: rgba(245, 241, 232, 0.92);
-  }
-
-  .hero-shell .button-primary {
-    color: #221d13;
-  }
-
-  .hero-shell .button-secondary {
-    border-color: rgba(255, 255, 255, 0.28);
-    color: #f5f1e8;
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .hero-grid,
-  .split-section,
-  .process-shell {
+  .hero-grid {
     display: grid;
-    grid-template-columns: 1.08fr 0.92fr;
-    gap: 2rem;
-    align-items: start;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.8fr);
+    gap: 4.5rem;
+    align-items: end;
   }
 
   .hero-main {
-    padding-top: 1rem;
+    padding-bottom: 2.5rem;
+  }
+
+  /* H1 shown as the small context line; reset the global h1 type. */
+  .hero .hero-kicker {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--color-text);
+    max-width: 17ch;
+    margin: 0 0 1.75rem;
+    text-wrap: balance;
   }
 
   .hero-copy {
-    font-size: 1.08rem;
-    line-height: 1.95;
-    max-width: 58ch;
-    color: var(--color-soft-text);
+    font-size: 1.12rem;
+    line-height: 1.9;
+    max-width: 54ch;
   }
 
   .hero-actions {
     display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
-    margin: 1.75rem 0;
-  }
-
-  .hero-meta {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.9rem;
-    color: var(--color-text);
-    font-weight: 500;
-  }
-
-  .hero-meta li {
-    position: relative;
-    padding-right: 1.2rem;
-  }
-
-  .hero-meta li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    position: absolute;
-    right: 0;
-    top: 0.65rem;
-  }
-
-  .hero-stack {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .service-link-card:hover,
-  .process-card:hover,
-  .warmth-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-strong);
-    border-color: rgba(201, 162, 75, 0.28);
-  }
-
-  .hero-image-frame {
-    position: relative;
-  }
-
-  .hero-image-frame::before {
-    content: '';
-    position: absolute;
-    inset: 16px -16px -16px 16px;
-    border: 1px solid rgba(201, 162, 75, 0.45);
-    border-radius: 20px;
-    pointer-events: none;
-  }
-
-  .hero-image-frame img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 20px;
-    position: relative;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
-  }
-
-  .hero-image-overlay {
-    position: absolute;
-    right: 1.1rem;
-    left: 1.1rem;
-    bottom: 1.1rem;
-    padding: 0.95rem 1.1rem;
-    border-radius: 14px;
-    background: rgba(16, 15, 14, 0.78);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(201, 162, 75, 0.28);
-    color: #f5f1e8;
-    display: grid;
-    gap: 0.35rem;
-  }
-
-  .hero-image-overlay span {
-    color: rgba(245, 241, 232, 0.75);
-    font-size: 0.98rem;
-    line-height: 1.7;
-  }
-
-  .hero-credibility {
-    display: grid;
-    gap: 0.75rem;
-    padding: 1.2rem 1.4rem;
-    border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(6px);
-  }
-
-  .credibility-row {
-    padding-bottom: 0.85rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-    font-weight: 600;
-    color: rgba(245, 241, 232, 0.88);
-  }
-
-  .credibility-row:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .trust-strip {
-    padding-top: 1rem;
-  }
-
-  .trust-band {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 2rem;
     align-items: center;
-    background: linear-gradient(120deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
+    gap: 1rem 1.75rem;
+    margin-top: 2.25rem;
   }
 
-  .trust-copy p {
-    margin-bottom: 0;
-  }
-
-  .process-cards,
-  .service-links-grid {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .trust-proof-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
-  }
-
-  .trust-proof-item {
-    display: grid;
-    gap: 0.3rem;
-    padding-inline-start: 1.25rem;
-    border-inline-start: 2px solid rgba(201, 162, 75, 0.3);
-  }
-
-  .trust-proof-item:first-child {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
-
-  .trust-proof-item strong {
-    font-size: 1.05rem;
-  }
-
-  .trust-proof-item span {
+  .hero-phone {
     color: var(--color-muted);
   }
 
+  .hero-phone span {
+    direction: ltr;
+    display: inline-block;
+    color: var(--color-text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-primary);
+    margin-inline-start: 0.35rem;
+  }
+
+  .hero-portrait {
+    margin: 0;
+  }
+
+  .arch {
+    position: relative;
+    padding: 14px;
+  }
+
+  .arch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-primary);
+    border-radius: 999px 999px 0 0;
+    animation: arch-draw 1400ms cubic-bezier(0.65, 0, 0.35, 1) 200ms both;
+  }
+
+  @keyframes arch-draw {
+    from { clip-path: inset(100% 0 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  :root[data-a11y-reduce-motion] .arch::before {
+    animation: none;
+  }
+
+  .arch img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center 12%;
+    border-radius: 999px 999px 0 0;
+  }
+
+  .hero-portrait figcaption {
+    display: grid;
+    padding: 1rem 0 0;
+  }
+
+  .hero-portrait figcaption strong {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.35rem;
+  }
+
+  .hero-portrait figcaption span {
+    color: var(--color-muted);
+    font-size: 0.92rem;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 3.5rem 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .facts div {
+    padding: 1.5rem 0 1.75rem;
+    padding-inline-end: 1.5rem;
+  }
+
+  .facts div + div {
+    padding-inline-start: 1.5rem;
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .facts dt {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  .facts dd {
+    margin: 0.2rem 0 0;
+    color: var(--color-muted);
+  }
+
+  /* Highlights: a gold hairline over each, no boxes. */
   .highlight-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem 2rem;
-  }
-
-  .highlight-card {
     display: grid;
-    gap: 0.5rem;
-    align-content: start;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin-top: 1rem;
   }
 
-  .highlight-index {
-    display: inline-flex;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--color-pill-bg);
-    border: 1px solid rgba(201, 162, 75, 0.3);
+  .highlight {
+    border-top: 1px solid var(--color-primary);
+    padding-top: 1.25rem;
+  }
+
+  .highlight p {
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  /* About */
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-quote {
+    margin: 0;
+    position: sticky;
+    top: 8rem;
+  }
+
+  .about-quote p {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.4vw, 3.2rem);
+    line-height: 1.2;
     color: var(--color-pill-text);
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+    max-width: 14ch;
   }
 
-  .story-card,
-  .warmth-card,
-  .process-card,
-  .cta-banner {
-    min-height: 100%;
-  }
-
-  .story-card {
-    background: linear-gradient(180deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
-  }
-
-  .warmth-card {
-    background: linear-gradient(180deg, var(--color-card-strong) 0%, var(--color-surface-warm) 100%);
-    display: grid;
-    gap: 1rem;
-    align-content: start;
+  .about-body h2 {
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    margin-bottom: 1.5rem;
   }
 
   .warmth-list {
-    margin: 0;
-    padding-right: 1.2rem;
-    display: grid;
-    gap: 0.7rem;
-    color: var(--color-soft-text);
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border);
   }
 
-  .story-card p,
-  .highlight-card p,
-  .process-card p,
-  .cta-banner p,
-  .warmth-card p {
-    color: var(--color-soft-text);
-    line-height: 1.9;
+  .warmth-list li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
   }
 
-  .areas-shell,
-  .faq-shell {
-    display: grid;
-    gap: 1.5rem;
+  .text-link {
+    color: var(--color-text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-primary);
+    padding-bottom: 0.15rem;
   }
 
-  .service-links-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .service-link-card {
-    display: grid;
-    gap: 0.45rem;
-    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
-  }
-
-  .service-link-card span {
-    color: var(--color-muted);
-  }
-
-  .areas-footer-link {
-    display: flex;
-    justify-content: center;
-  }
-
-  .process-shell {
-    grid-template-columns: 0.92fr 1.08fr;
-  }
-
-  .process-cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .step-index {
-    display: inline-flex;
-    width: 44px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--color-pill-bg);
-    border: 1px solid rgba(201, 162, 75, 0.35);
+  .text-link:hover {
     color: var(--color-pill-text);
-    margin-bottom: 1rem;
-    font-weight: 700;
   }
 
-  .cta-banner {
+  /* Practice areas: the one dark band on the page. */
+  .services {
+    background: var(--color-deep);
+    color: var(--color-deep-text);
+  }
+
+  .services-head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 5rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .services-head h2 {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+  }
+
+  .services-head p,
+  .service-list span {
+    color: var(--color-deep-muted);
+    margin: 0;
+  }
+
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(232, 236, 230, 0.18);
+  }
+
+  .service-list a {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 5rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid rgba(232, 236, 230, 0.18);
+    transition: padding 200ms ease;
+  }
+
+  .service-list strong {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    line-height: 1.2;
+    transition: color 160ms ease;
+  }
+
+  .service-list a:hover strong,
+  .service-list a:focus-visible strong {
+    color: #e5c47c;
+  }
+
+  .service-list a:hover {
+    padding-inline-start: 0.75rem;
+  }
+
+  .services-foot {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
-    background: linear-gradient(120deg, #1f1f1f 0%, #2b2b2b 100%);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 24px 70px rgba(31,31,31,0.2);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
   }
 
-  .cta-banner p,
-  .cta-banner h2 {
-    color: white;
+  .services .button-secondary {
+    color: var(--color-deep-text);
   }
 
-  .cta-banner .eyebrow {
-    color: var(--color-pill-text);
-    background: rgba(201, 162, 75, 0.18);
-  }
-
-  .cta-banner .button-secondary {
-    color: white;
-    border-color: rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  .cta-actions {
+  .services-foot :global(.area-links) {
     margin: 0;
   }
 
-  @media (max-width: 980px) {
-    .hero-grid,
-    .split-section,
-    .process-shell,
-    .trust-band,
-    .highlight-grid,
-    .process-cards,
-    .service-links-grid,
-    .cta-banner {
+  .services-foot :global(.area-links-lead) {
+    color: var(--color-deep-muted);
+    font-weight: 400;
+  }
+
+  .services-foot :global(.area-links a) {
+    color: var(--color-deep-text);
+    border-color: rgba(229, 179, 74, 0.45);
+  }
+
+  .services-foot :global(.area-links a:hover) {
+    background: rgba(229, 179, 74, 0.12);
+  }
+
+  /* Process: a real sequence, numbered with Hebrew letters. */
+  .steps {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+    counter-reset: none;
+  }
+
+  .steps li {
+    position: relative;
+  }
+
+  .step-letter {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 4.2rem;
+    line-height: 1;
+    color: var(--color-primary);
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .steps p {
+    margin: 0;
+  }
+
+  .faq-more {
+    display: inline-block;
+    margin-top: 2rem;
+  }
+
+  /* Closing call */
+  .closing {
+    background: var(--color-deep);
+    color: var(--color-deep-text);
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(232, 236, 230, 0.1);
+  }
+
+  .closing-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) auto;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .closing h2 {
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    max-width: 18ch;
+  }
+
+  .closing p {
+    color: var(--color-deep-muted);
+    margin: 0;
+  }
+
+  .closing-actions {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+  }
+
+  .closing-phone {
+    direction: ltr;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+    line-height: 1;
+    color: #e5c47c;
+  }
+
+  .button-gold {
+    background: #e5b34a;
+    color: #1a1408;
+  }
+
+  .button-gold:hover {
+    background: #f0c869;
+  }
+
+  @media (max-width: 1080px) {
+    .highlight-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      padding-top: 2rem;
+    }
+
+    .hero-grid {
       grid-template-columns: 1fr;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .hero-shell {
-      padding: 2rem 0 2.5rem;
-    }
-
-    .hero-shell::after {
-      width: 300px;
-      height: 300px;
-      bottom: -8%;
+      gap: 2rem;
     }
 
     .hero-main {
-      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .hero .hero-kicker {
+      font-size: 0.92rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 9vw, 2.7rem);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-copy {
+      font-size: 1rem;
+      line-height: 1.8;
     }
 
     .hero-actions {
-      margin: 0.9rem 0 1rem;
-      gap: 0.75rem;
+      margin-top: 1.5rem;
     }
 
     .hero-actions .button {
       width: 100%;
     }
 
-    .hero-image-frame::before {
-      inset: 10px -10px -10px 10px;
-      border-radius: 16px;
+    .hero-portrait {
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 1.1rem;
+      align-items: end;
     }
 
-    .hero-image-frame img {
-      aspect-ratio: 16 / 12;
-      border-radius: 16px;
+    .arch {
+      padding: 7px;
     }
 
-    .hero-image-overlay {
-      position: static;
-      margin-top: 1.4rem;
-      padding: 0.85rem 0.9rem;
+    .hero-portrait figcaption {
+      padding: 0 0 0.4rem;
     }
 
-    .hero-meta {
-      gap: 0.7rem;
-    }
-
-    .hero-meta li {
-      padding-right: 1rem;
-    }
-
-    .trust-strip {
-      padding-top: 0.4rem;
-    }
-
-    .trust-band,
-    .areas-shell,
-    .faq-shell,
-    .process-shell {
-      gap: 1rem;
-    }
-
-    .trust-proof-list,
-    .process-cards,
-    .service-links-grid,
-    .highlight-grid {
+    .facts {
       grid-template-columns: 1fr;
+      margin-top: 2rem;
     }
 
-    .highlight-grid {
-      gap: 1.4rem;
+    .facts div,
+    .facts div + div {
+      padding: 1rem 0;
+      border-inline-start: 0;
     }
 
-    .warmth-card {
-      gap: 0.8rem;
+    .facts div + div {
+      border-top: 1px solid var(--color-border);
     }
 
-    .cta-banner {
+    .facts dt {
+      font-size: 1.35rem;
+    }
+
+    .highlight-grid,
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .about,
+    .services-head,
+    .service-list a,
+    .closing-inner {
+      grid-template-columns: 1fr;
       gap: 1rem;
+    }
+
+    .about-quote {
+      position: static;
+    }
+
+    .service-list a {
+      gap: 0.35rem;
+      padding: 1.25rem 0;
+    }
+
+    .service-list a:hover {
+      padding-inline-start: 0;
+    }
+
+    .services-head {
+      margin-bottom: 2rem;
+    }
+
+    .step-letter {
+      font-size: 3.2rem;
+    }
+
+    .closing {
+      padding: 3.5rem 0;
+    }
+
+    .closing-actions .button {
+      width: 100%;
     }
   }
 </style>
