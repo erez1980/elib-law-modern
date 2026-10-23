@@ -110,7 +110,9 @@ const jsonLd = {
     <script is:inline src={withBase("/js/prefs-init.js")}></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      const gtag = (...args) => window.dataLayer.push(args);
+      // gtag.js only processes Arguments objects; an array pushed by a rest
+      // parameter is silently ignored and no hit is ever sent.
+      function gtag() { window.dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', 'G-RD52L2GWWH');
       // gtag.js is 161KB and nothing on the page depends on it, so fetch it
@@ -122,6 +124,24 @@ const jsonLd = {
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RD52L2GWWH';
         document.head.appendChild(s);
       }, { once: true });
+      // Contact intent as GA4 events, so calls, WhatsApp, email and the form
+      // can be marked as key events. Only the channel is sent, never the
+      // number, address or anything typed into the form.
+      addEventListener('click', (event) => {
+        const link = event.target instanceof Element && event.target.closest('a[href]');
+        if (!link) return;
+        const href = link.getAttribute('href') || '';
+        const method = href.startsWith('tel:') ? 'phone'
+          : href.startsWith('mailto:') ? 'email'
+          : /wa\.me|whatsapp/i.test(href) ? 'whatsapp'
+          : null;
+        if (method) gtag('event', 'contact_click', { method });
+      });
+      addEventListener('submit', (event) => {
+        if (event.target instanceof HTMLFormElement && event.target.matches('.contact-form')) {
+          gtag('event', 'generate_lead', { method: 'contact_form' });
+        }
+      });
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>

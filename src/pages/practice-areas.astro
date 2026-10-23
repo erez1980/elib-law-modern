@@ -13,6 +13,8 @@ const seoServiceMap: Record<string, string> = {
   'צוואות וירושות': '/services/will-lawyer',
   'ייפוי כוח מתמשך': '/services/lasting-power-attorney-lawyer',
   'גישור משפחתי': '/services/family-mediation',
+  'חלוקת רכוש': '/services/property-division-lawyer',
+  'הסכמים וידועים בציבור': '/services/prenup-lawyer',
 };
 const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order);
 const renderedAreas = await Promise.all(

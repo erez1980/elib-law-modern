@@ -1,6 +1,21 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { readdirSync, readFileSync } from 'node:fs';
+
+// Real last-modified dates for the sitemap, taken from each article's
+// updatedDate (or publishDate). Other pages get no lastmod rather than a
+// made-up one, which Google would learn to ignore.
+const articleLastmod = Object.fromEntries(
+  readdirSync('./src/content/articles')
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => {
+      const source = readFileSync(`./src/content/articles/${file}`, 'utf8');
+      const date = (source.match(/^updatedDate:\s*"?(\d{4}-\d{2}-\d{2})/m) ?? source.match(/^publishDate:\s*"?(\d{4}-\d{2}-\d{2})/m))?.[1];
+      return [`https://elib-law.co.il/articles/${file.replace(/\.md$/, '')}/`, date];
+    })
+    .filter(([, date]) => date),
+);
 
 export default defineConfig({
   site: 'https://elib-law.co.il',
@@ -19,7 +34,12 @@ export default defineConfig({
   },
   // /thank-you/ is a post-submit utility page carrying <meta robots="noindex">;
   // listing it in the sitemap only invites Search Console to flag it.
-  integrations: [sitemap({ filter: (page) => !page.endsWith('/thank-you/') })],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.endsWith('/thank-you/'),
+      serialize: (item) => (articleLastmod[item.url] ? { ...item, lastmod: articleLastmod[item.url] } : item),
+    }),
+  ],
   legacy: {
     collectionsBackwardsCompat: true,
   },
