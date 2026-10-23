@@ -7,6 +7,15 @@
 // edit. It is deliberately render-blocking — deferring it is what causes the
 // flash it exists to prevent. Keep it small.
 (() => {
+  // www.elib-law.co.il serves the same pages instead of redirecting (GitHub
+  // Pages cannot send a 301 for it unless DNS is set up that way), and Search
+  // Console reports it as a separate site. Send visitors and Google to the
+  // canonical host; Google follows a JS redirect like a server one.
+  if (location.hostname === 'www.elib-law.co.il') {
+    location.replace(`https://elib-law.co.il${location.pathname}${location.search}${location.hash}`);
+    return;
+  }
+
   const root = document.documentElement;
 
   try {
