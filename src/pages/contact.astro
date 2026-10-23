@@ -23,12 +23,29 @@ import contactPage from '../data/contact-page.json';
         </ul>
         <h3>כתובת</h3>
         <p>{site.address}</p>
+        <p class="map-links">
+          <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`} target="_blank" rel="noopener">פתיחה ב־Google Maps</a>
+          <a href={`https://waze.com/ul?q=${encodeURIComponent(site.address)}&navigate=yes`} target="_blank" rel="noopener">ניווט ב־Waze</a>
+        </p>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .map-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+  }
+
+  .map-links a {
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-primary);
+  }
+
   .contact-shell {
     padding-top: 1.5rem;
   }

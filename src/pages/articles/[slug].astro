@@ -48,7 +48,7 @@ const articleJsonLd = {
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   image: new URL(withBase(article.data.coverImage ?? site.ogImage), Astro.site ?? Astro.url).toString(),
   keywords: (article.data.tags || []).join(', '),
-  author: { '@type': 'Person', name: 'אליזבט ברזאני דדון', jobTitle: 'עורכת דין ומגשרת', url: new URL(withBase('/about'), Astro.site ?? Astro.url).toString() },
+  author: { '@type': 'Person', '@id': 'https://elib-law.co.il/#elizabeth', name: 'אליזבט ברזאני דדון', jobTitle: 'עורכת דין ומגשרת', url: new URL(withBase('/about'), Astro.site ?? Astro.url).toString() },
   publisher: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
 };
 ---

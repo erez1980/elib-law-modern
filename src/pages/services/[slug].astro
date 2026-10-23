@@ -52,7 +52,9 @@ const faqJsonLd = {
 <BaseLayout title={page.pageTitle} description={page.description}>
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
-  <PageHero eyebrow="שירות משפטי" title={page.title} description={page.description} />
+  {/* The H1 carries the region too: "עורך דין גירושין בשרון" is how people
+      search, and the bare service name gave Google no location signal. */}
+  <PageHero eyebrow="שירות משפטי" title={`${page.title} בשרון`} description={page.description} />
   <Breadcrumbs items={[{ label: 'תחומי עיסוק', href: '/practice-areas' }, { label: page.title }]} />
 
   <section class="section service-section">
