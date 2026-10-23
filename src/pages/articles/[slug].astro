@@ -36,7 +36,7 @@ const byTopic = otherArticles
   .sort((a, b) => b.score - a.score)
   .map(({ item }) => item);
 const relatedArticles = [...picked, ...byTopic].slice(0, 3);
-const pageUrl = new URL(withBase(`/articles/${article.id.replace(/\.md$/, '')}`), Astro.site ?? Astro.url).toString();
+const pageUrl = new URL(withBase(`/articles/${article.id.replace(/\.md$/, '')}/`), Astro.site ?? Astro.url).toString();
 const articleJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -48,14 +48,14 @@ const articleJsonLd = {
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   image: new URL(withBase(article.data.coverImage ?? site.ogImage), Astro.site ?? Astro.url).toString(),
   keywords: (article.data.tags || []).join(', '),
-  author: { '@type': 'Person', '@id': 'https://elib-law.co.il/#elizabeth', name: 'אליזבט ברזאני דדון', jobTitle: 'עורכת דין ומגשרת', url: new URL(withBase('/about'), Astro.site ?? Astro.url).toString() },
+  author: { '@type': 'Person', '@id': 'https://elib-law.co.il/#elizabeth', name: 'אליזבט ברזאני דדון', jobTitle: 'עורכת דין ומגשרת', url: new URL(withBase('/about/'), Astro.site ?? Astro.url).toString() },
   publisher: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
 };
 ---
 <BaseLayout title={article.data.seoTitle ?? `${article.data.title} | עו״ד אליזבט ברזאני דדון`} description={article.data.seoDescription ?? article.data.excerpt} ogType="article">
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <PageHero eyebrow="מאמר" title={article.data.title} description={article.data.excerpt} />
-  <Breadcrumbs items={[{ label: 'מאמרים', href: '/articles' }, { label: article.data.title }]} />
+  <Breadcrumbs items={[{ label: 'מאמרים', href: '/articles/' }, { label: article.data.title }]} />
 
   <section class="section article-section">
     <div class="container article-shell">
@@ -75,7 +75,7 @@ const articleJsonLd = {
         <div class="eyebrow">קריאה נוספת</div>
         <div class="related-reading-grid">
           {relatedArticles.map((item) => (
-            <a href={withBase(`/articles/${item.id.replace(/\.md$/, '')}`)}>
+            <a href={withBase(`/articles/${item.id.replace(/\.md$/, '')}/`)}>
               <strong>{item.data.title}</strong>
               <span>{item.data.excerpt}</span>
             </a>
@@ -91,8 +91,8 @@ const articleJsonLd = {
           <AreaLinks />
         </div>
         <div class="article-cta-actions">
-          <a class="button button-primary" href={withBase('/contact')}>לפנייה וייעוץ ראשוני</a>
-          <a class="button button-secondary" href={withBase('/articles')}>לכל המאמרים</a>
+          <a class="button button-primary" href={withBase('/contact/')}>לפנייה וייעוץ ראשוני</a>
+          <a class="button button-secondary" href={withBase('/articles/')}>לכל המאמרים</a>
         </div>
       </div>
     </div>

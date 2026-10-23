@@ -4,7 +4,7 @@ import { withBase } from '../utils/url';
 
 const formAction = `https://formsubmit.co/${site.email}`;
 // FormSubmit needs an absolute URL to redirect to after sending.
-const thankYouUrl = new URL(withBase('/thank-you'), site.domain).toString();
+const thankYouUrl = new URL(withBase('/thank-you/'), site.domain).toString();
 const topics = [
   'גירושין',
   'גישור משפחתי',
@@ -68,7 +68,7 @@ const callTimes = ['בשעות הבוקר', 'בשעות הצהריים', 'בשע
       <span>
         אני מאשר/ת שהפרטים שמסרתי ישמשו ליצירת קשר איתי בלבד, ומודע/ת לכך שהטופס
         מועבר באמצעות שירות חיצוני (FormSubmit) לצורך שליחת ההודעה למשרד.
-        <a href={withBase('/privacy')}>מדיניות הפרטיות</a>
+        <a href={withBase('/privacy/')}>מדיניות הפרטיות</a>
       </span>
     </label>
 

@@ -7,14 +7,14 @@ import { getCollection, render } from 'astro:content';
 import { withBase } from '../utils/url';
 
 const seoServiceMap: Record<string, string> = {
-  'גירושין': '/services/divorce-lawyer',
-  'מזונות': '/services/child-support-lawyer',
-  'משמורת והסדרי שהות': '/services/custody-lawyer',
-  'צוואות וירושות': '/services/will-lawyer',
-  'ייפוי כוח מתמשך': '/services/lasting-power-attorney-lawyer',
-  'גישור משפחתי': '/services/family-mediation',
-  'חלוקת רכוש': '/services/property-division-lawyer',
-  'הסכמים וידועים בציבור': '/services/prenup-lawyer',
+  'גירושין': '/services/divorce-lawyer/',
+  'מזונות': '/services/child-support-lawyer/',
+  'משמורת והסדרי שהות': '/services/custody-lawyer/',
+  'צוואות וירושות': '/services/will-lawyer/',
+  'ייפוי כוח מתמשך': '/services/lasting-power-attorney-lawyer/',
+  'גישור משפחתי': '/services/family-mediation/',
+  'חלוקת רכוש': '/services/property-division-lawyer/',
+  'הסכמים וידועים בציבור': '/services/prenup-lawyer/',
 };
 const practiceAreas = (await getCollection('practiceAreas')).sort((a, b) => a.data.order - b.data.order);
 const renderedAreas = await Promise.all(
@@ -75,7 +75,7 @@ const openingPoints = [
                 {seoServiceMap[area.data.title] ? (
                   <a class="button button-secondary" href={withBase(seoServiceMap[area.data.title])}>למידע נוסף על התחום</a>
                 ) : (
-                  <a class="button button-secondary" href={withBase('/contact')}>לפנייה בנושא</a>
+                  <a class="button button-secondary" href={withBase('/contact/')}>לפנייה בנושא</a>
                 )}
               </div>
             </article>
@@ -92,7 +92,7 @@ const openingPoints = [
         <h2>זה טבעי. הרבה מקרים משלבים כמה נושאים יחד - ילדים, רכוש, הסכמות, צוואות או שאלות על העתיד</h2>
         <p>אם לא ברור עדיין מאיזה תחום להתחיל, אפשר פשוט לפנות. שיחה ראשונה טובה תעזור להבין מה נכון לבדוק קודם ואיך להתקדם בצורה מסודרת.</p>
       </div>
-      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+      <a class="button button-primary" href={withBase('/contact/')}>לתיאום שיחת ייעוץ</a>
     </div>
   </section>
 </BaseLayout>

@@ -4,11 +4,11 @@ export const site = siteSettings;
 
 export const navigation = [
   { label: 'ראשי', href: '/' },
-  { label: 'אודות', href: '/about' },
-  { label: 'תחומי עיסוק', href: '/practice-areas' },
-  { label: 'שאלות נפוצות', href: '/faq' },
-  { label: 'מאמרים', href: '/articles' },
-  { label: 'צור קשר', href: '/contact' },
+  { label: 'אודות', href: '/about/' },
+  { label: 'תחומי עיסוק', href: '/practice-areas/' },
+  { label: 'שאלות נפוצות', href: '/faq/' },
+  { label: 'מאמרים', href: '/articles/' },
+  { label: 'צור קשר', href: '/contact/' },
 ];
 
 export const highlights = [

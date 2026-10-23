@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /*.php$
 
 Sitemap: https://elib-law.co.il/sitemap-index.xml

@@ -32,7 +32,7 @@ const restArticles = articles.slice(1);
         </ul>
       </div>
       {featuredArticle && (
-        <a class="card featured-article" href={withBase(`/articles/${featuredArticle.id.replace(/\.md$/, '')}`)}>
+        <a class="card featured-article" href={withBase(`/articles/${featuredArticle.id.replace(/\.md$/, '')}/`)}>
           <div class="eyebrow">מאמר עדכני</div>
           <p class="article-date">{formatHebrewDate(featuredArticle.data.publishDate)}</p>
           <h2>{featuredArticle.data.title}</h2>
@@ -46,7 +46,7 @@ const restArticles = articles.slice(1);
   <section class="section articles-section">
     <div class="container articles-grid">
       {restArticles.map((article) => (
-        <a class="card article-card" href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
+        <a class="card article-card" href={withBase(`/articles/${article.id.replace(/\.md$/, '')}/`)}>
           <p class="article-date">{formatHebrewDate(article.data.publishDate)}</p>
           <h2>{article.data.title}</h2>
           <p>{article.data.excerpt}</p>
@@ -63,7 +63,7 @@ const restArticles = articles.slice(1);
         <h2>אפשר לפנות ולקבל הכוונה ראשונית גם אם עוד לא ברור בדיוק איך להגדיר את השאלה</h2>
         <p>לפעמים קריאה עוזרת להבין את הכיוון, אבל שיחה קצרה עושה את הסדר האמיתי. אפשר לתאר את המצב ולקבל הבנה ראשונית לגבי הצעד הבא.</p>
       </div>
-      <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+      <a class="button button-primary" href={withBase('/contact/')}>לתיאום שיחת ייעוץ</a>
     </div>
   </section>
 </BaseLayout>

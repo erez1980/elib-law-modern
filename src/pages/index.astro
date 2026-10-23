@@ -22,10 +22,10 @@ const warmth = [
   'תחושת סדר ובהירות כבר מהשלבים הראשונים',
 ];
 const featuredServices = [
-  { title: 'גירושין', text: 'ליווי משפטי מדויק בתחילת הדרך, במו״מ, בגישור או בהליך משפטי.', href: '/services/divorce-lawyer' },
-  { title: 'מזונות ומשמורת', text: 'בניית מסגרת ברורה ויציבה לילדים ולהורים, עם ראייה מעשית ואנושית.', href: '/services/custody-lawyer' },
-  { title: 'צוואות וירושות', text: 'עריכת צוואות, ליווי בירושות וטיפול במחלוקות משפחתיות רגישות.', href: '/services/will-lawyer' },
-  { title: 'ייפוי כוח מתמשך', text: 'תכנון משפטי אחראי שנותן שקט נפשי לעתיד.', href: '/services/lasting-power-attorney-lawyer' },
+  { title: 'גירושין', text: 'ליווי משפטי מדויק בתחילת הדרך, במו״מ, בגישור או בהליך משפטי.', href: '/services/divorce-lawyer/' },
+  { title: 'מזונות ומשמורת', text: 'בניית מסגרת ברורה ויציבה לילדים ולהורים, עם ראייה מעשית ואנושית.', href: '/services/custody-lawyer/' },
+  { title: 'צוואות וירושות', text: 'עריכת צוואות, ליווי בירושות וטיפול במחלוקות משפחתיות רגישות.', href: '/services/will-lawyer/' },
+  { title: 'ייפוי כוח מתמשך', text: 'תכנון משפטי אחראי שנותן שקט נפשי לעתיד.', href: '/services/lasting-power-attorney-lawyer/' },
 ];
 // Hebrew letters as step ordinals, the way Hebrew documents number clauses.
 const ordinals = ['א', 'ב', 'ג'];
@@ -101,7 +101,7 @@ const ordinals = ['א', 'ב', 'ג'];
         <ul class="warmth-list">
           {warmth.map((line) => <li>{line}</li>)}
         </ul>
-        <a class="text-link" href={withBase('/about')}>עוד על המשרד ועל הדרך שלי</a>
+        <a class="text-link" href={withBase('/about/')}>עוד על המשרד ועל הדרך שלי</a>
       </div>
     </div>
   </section>
@@ -123,7 +123,7 @@ const ordinals = ['א', 'ב', 'ג'];
         ))}
       </ul>
       <div class="services-foot">
-        <a class="button button-secondary" href={withBase('/practice-areas')}>כל תחומי העיסוק</a>
+        <a class="button button-secondary" href={withBase('/practice-areas/')}>כל תחומי העיסוק</a>
         <AreaLinks lead="המשרד בקדימה צורן מלווה גם את תושבי הסביבה:" />
       </div>
     </div>
@@ -150,7 +150,7 @@ const ordinals = ['א', 'ב', 'ג'];
     <div class="container">
       <SectionHeading title="שאלות שעולות לפני פגישה, לפני החלטה ולפני צעד משפטי" description="תשובות ראשוניות, קצרות וברורות, בנושאים שעולים הרבה בתחילת הדרך." />
       <FaqPreview />
-      <a class="text-link faq-more" href={withBase('/faq')}>לכל השאלות הנפוצות</a>
+      <a class="text-link faq-more" href={withBase('/faq/')}>לכל השאלות הנפוצות</a>
     </div>
   </section>
 

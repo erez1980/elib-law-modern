@@ -55,7 +55,7 @@ const faqJsonLd = {
   {/* The H1 carries the region too: "עורך דין גירושין בשרון" is how people
       search, and the bare service name gave Google no location signal. */}
   <PageHero eyebrow="שירות משפטי" title={`${page.title} בשרון`} description={page.description} />
-  <Breadcrumbs items={[{ label: 'תחומי עיסוק', href: '/practice-areas' }, { label: page.title }]} />
+  <Breadcrumbs items={[{ label: 'תחומי עיסוק', href: '/practice-areas/' }, { label: page.title }]} />
 
   <section class="section service-section">
     <div class="container service-grid">
@@ -104,7 +104,7 @@ const faqJsonLd = {
             <h2>אפשר לקבל תמונה ראשונית, להבין את האפשרויות ולפעול בצורה שקולה</h2>
             <p class="lead-sm">פנייה מוקדמת עוזרת להפחית טעויות, להבין את המצב ולקבל החלטות בצורה רגועה, שקולה ובהירה יותר.</p>
           </div>
-          <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+          <a class="button button-primary" href={withBase('/contact/')}>לתיאום שיחת ייעוץ</a>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ const faqJsonLd = {
           <div class="eyebrow">מאמרים קשורים</div>
           <div class="related-list">
             {relatedArticles.map((article) => (
-              <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}`)}>
+              <a href={withBase(`/articles/${article.id.replace(/\.md$/, '')}/`)}>
                 <strong>{article.data.title}</strong>
                 <span>{article.data.excerpt}</span>
               </a>

@@ -12,14 +12,14 @@ export async function getStaticPaths() {
 
 const { location } = Astro.props;
 const services = [
-  { label: 'גירושין', href: '/services/divorce-lawyer' },
-  { label: 'גישור משפחתי', href: '/services/family-mediation' },
-  { label: 'מזונות', href: '/services/child-support-lawyer' },
-  { label: 'משמורת והסדרי שהות', href: '/services/custody-lawyer' },
-  { label: 'חלוקת רכוש', href: '/services/property-division-lawyer' },
-  { label: 'הסכם ממון', href: '/services/prenup-lawyer' },
-  { label: 'צוואות וירושות', href: '/services/will-lawyer' },
-  { label: 'ייפוי כוח מתמשך', href: '/services/lasting-power-attorney-lawyer' },
+  { label: 'גירושין', href: '/services/divorce-lawyer/' },
+  { label: 'גישור משפחתי', href: '/services/family-mediation/' },
+  { label: 'מזונות', href: '/services/child-support-lawyer/' },
+  { label: 'משמורת והסדרי שהות', href: '/services/custody-lawyer/' },
+  { label: 'חלוקת רכוש', href: '/services/property-division-lawyer/' },
+  { label: 'הסכם ממון', href: '/services/prenup-lawyer/' },
+  { label: 'צוואות וירושות', href: '/services/will-lawyer/' },
+  { label: 'ייפוי כוח מתמשך', href: '/services/lasting-power-attorney-lawyer/' },
 ];
 
 const faqJsonLd = {
@@ -35,7 +35,7 @@ const faqJsonLd = {
 <BaseLayout title={location.pageTitle} description={location.description}>
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <PageHero eyebrow={`אזור שירות · ${location.city}`} title={location.heroTitle} description={location.description} />
-  <Breadcrumbs items={[{ label: 'אזורי שירות', href: '/areas' }, { label: location.city }]} />
+  <Breadcrumbs items={[{ label: 'אזורי שירות', href: '/areas/' }, { label: location.city }]} />
 
   <section class="section area-section">
     <div class="container area-grid">
@@ -99,7 +99,7 @@ const faqJsonLd = {
             <h2>אפשר להתחיל בשיחה קצרה ולהבין מה נכון לבדוק</h2>
             <p class="lead-sm">לא צריך להגיע עם שאלה מנוסחת. אפשר לתאר את המצב, ומשם נבין יחד מה רלוונטי ואיך נכון להתקדם.</p>
           </div>
-          <a class="button button-primary" href={withBase('/contact')}>לתיאום שיחת ייעוץ</a>
+          <a class="button button-primary" href={withBase('/contact/')}>לתיאום שיחת ייעוץ</a>
         </div>
       </div>
 

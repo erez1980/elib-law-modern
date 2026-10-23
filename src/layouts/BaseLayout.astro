@@ -38,7 +38,8 @@ const faviconSvgHref = withBase('/favicon.svg');
 const appleTouchIconHref = withBase('/apple-touch-icon.png');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
-const currentPath = (Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/').replace(/(.)\/$/, '$1');
+// Nav hrefs carry a trailing slash, so keep it on the current path to match.
+const currentPath = (Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/').replace(/([^/])$/, '$1/');
 const homeUrl = new URL(homeHref, Astro.site ?? Astro.url).toString();
 const mapQuery = encodeURIComponent(site.address);
 // Google picks the site name it shows above each result from WebSite data;
@@ -236,9 +237,9 @@ const jsonLd = {
         </div>
       </div>
       <div class="container footer-legal">
-        <a href={withBase('/areas')}>אזורי שירות</a>
-        <a href={withBase('/accessibility-statement')}>הצהרת נגישות</a>
-        <a href={withBase('/privacy')}>מדיניות פרטיות</a>
+        <a href={withBase('/areas/')}>אזורי שירות</a>
+        <a href={withBase('/accessibility-statement/')}>הצהרת נגישות</a>
+        <a href={withBase('/privacy/')}>מדיניות פרטיות</a>
         <span class="footer-copy">© {new Date().getFullYear()} {site.shortName}. התוכן באתר הוא מידע כללי ואינו מהווה ייעוץ משפטי.</span>
       </div>
     </footer>
