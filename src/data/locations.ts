@@ -99,6 +99,7 @@ export const locations: LocationPage[] = [
         title: 'הסכם ממון והסכם חיים משותפים',
         text: 'הסכם ממון לפני חתונה, או הסכם חיים משותפים לבני זוג שגרים יחד, מסדיר מראש מה שייך למי ומה יקרה אם הדרכים ייפרדו. לכן חשוב לנסח אותו נכון מההתחלה ולהשלים את כל השלבים שהוא דורש, ולא רק לחתום על נוסח כללי.',
         links: [
+          { label: 'עורך דין הסכם ממון', href: '/services/prenup-lawyer/' },
           { label: 'למה כדאי הסכם ממון', href: '/articles/prenup-benefits/' },
           { label: 'הסכם חיים משותפים', href: '/articles/cohabitation-agreement/' },
         ],
