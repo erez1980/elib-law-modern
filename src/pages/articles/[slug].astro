@@ -52,7 +52,7 @@ const articleJsonLd = {
   publisher: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
 };
 ---
-<BaseLayout title={article.data.seoTitle ?? `${article.data.title} | עו״ד אליזבט ברזאני דדון`} description={article.data.seoDescription ?? article.data.excerpt} ogType="article">
+<BaseLayout title={article.data.seoTitle ?? `${article.data.title} | עו״ד ברזאני דדון`} description={article.data.seoDescription ?? article.data.excerpt} ogType="article">
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <PageHero eyebrow="מאמר" title={article.data.title} description={article.data.excerpt} />
   <Breadcrumbs items={[{ label: 'מאמרים', href: '/articles/' }, { label: article.data.title }]} />
