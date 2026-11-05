@@ -7,12 +7,15 @@
 // edit. It is deliberately render-blocking — deferring it is what causes the
 // flash it exists to prevent. Keep it small.
 (() => {
-  // www.elib-law.co.il serves the same pages instead of redirecting (GitHub
-  // Pages cannot send a 301 for it unless DNS is set up that way), and Search
-  // Console reports it as a separate site. Send visitors and Google to the
-  // canonical host; Google follows a JS redirect like a server one.
-  if (location.hostname === 'www.elib-law.co.il') {
-    location.replace(`https://elib-law.co.il${location.pathname}${location.search}${location.hash}`);
+  // Canonical host is the apex https://elib-law.co.il. GitHub Pages already
+  // answers www (and http) with an HTTP 301 when public/CNAME is the apex
+  // domain. This runs only if a response is ever served on www anyway, and
+  // it also folds /index.html into / — that URL is the same file as the
+  // homepage and otherwise returns 200.
+  const onProductionHost = location.hostname === 'elib-law.co.il' || location.hostname === 'www.elib-law.co.il';
+  if (onProductionHost && (location.hostname === 'www.elib-law.co.il' || location.pathname === '/index.html')) {
+    const path = location.pathname === '/index.html' ? '/' : location.pathname;
+    location.replace(`https://elib-law.co.il${path}${location.search}${location.hash}`);
     return;
   }
 

@@ -28,16 +28,23 @@ interface Props {
   image?: string;
   noIndex?: boolean;
   ogType?: 'website' | 'article';
+  /**
+   * Absolute canonical URL. Pass false on the 404 document: GitHub Pages
+   * reuses that single file for every missing path, and the built pathname
+   * (`/404/`) is itself a 404, so a canonical there would point dead URLs
+   * at another dead URL.
+   */
+  canonical?: string | false;
 }
 
-const { title = site.title, description = site.description, image = site.ogImage ?? site.heroImage, noIndex = false, ogType = 'website' } = Astro.props;
+const { title = site.title, description = site.description, image = site.ogImage ?? site.heroImage, noIndex = false, ogType = 'website', canonical } = Astro.props;
 const homeHref = withBase('/');
 const faviconPngHref = withBase('/favicon.png');
 const faviconIcoHref = withBase('/favicon.ico');
 const faviconSvgHref = withBase('/favicon.svg');
 const appleTouchIconHref = withBase('/apple-touch-icon.png');
 const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).toString();
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const canonicalUrl = canonical === false ? undefined : canonical ?? new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 // Nav hrefs carry a trailing slash, so keep it on the current path to match.
 const currentPath = (Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/').replace(/([^/])$/, '$1/');
 const homeUrl = new URL(homeHref, Astro.site ?? Astro.url).toString();
@@ -122,9 +129,9 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
-    <link rel="canonical" href={canonicalUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
-    <meta property="og:url" content={canonicalUrl} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="he_IL" />
     <meta property="og:site_name" content={site.name} />
