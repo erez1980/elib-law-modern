@@ -74,6 +74,13 @@ const faqJsonLd = {
           <AreaLinks lead="זמין גם לתושבי:" prefix={`${page.title} ב`} />
         </div>
 
+        {page.sections?.map((section) => (
+          <div class="card service-deep">
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        ))}
+
         <div class="card service-fit soft-card">
           <h2>{page.fitTitle}</h2>
           <ul>
@@ -121,6 +128,17 @@ const faqJsonLd = {
           </div>
         </div>
 
+        {page.relatedServices && (
+          <nav class="card related-card soft-card" aria-label="שירותים קשורים">
+            <div class="eyebrow">שירותים קשורים</div>
+            <ul class="related-services">
+              {page.relatedServices.map((service) => (
+                <li><a href={withBase(service.href)}>{service.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
         <div class="card trust-card soft-card">
           <div class="eyebrow">למה לפנות למשרד</div>
           <ul>
@@ -129,6 +147,7 @@ const faqJsonLd = {
             <li>שילוב בין גישה גישורית לייצוג משפטי כשצריך</li>
             <li>רגישות לצד חשיבה אסטרטגית</li>
           </ul>
+          <a class="trust-about" href={withBase('/about/')}>על עו״ד אליזבט ברזאני דדון</a>
         </div>
       </aside>
     </div>
@@ -136,6 +155,23 @@ const faqJsonLd = {
 </BaseLayout>
 
 <style>
+  .service-deep p {
+    color: var(--color-soft-text);
+    line-height: 1.95;
+  }
+
+  .related-services {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .related-services a {
+    font-weight: 600;
+  }
+
   .service-section {
     padding-top: 1.5rem;
   }
