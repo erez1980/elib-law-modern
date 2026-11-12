@@ -46,6 +46,11 @@ const faqJsonLd = {
           <div class="micro-divider"></div>
           <h2>הגעה ופגישות</h2>
           <p>{location.access}</p>
+          <p class="office-address">כתובת המשרד: {site.address}</p>
+          <div class="directions">
+            <a class="button button-secondary" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`} target="_blank" rel="noopener">מסלול ב־Google Maps</a>
+            <a class="button button-secondary" href={`https://waze.com/ul?q=${encodeURIComponent(site.address)}&navigate=yes`} target="_blank" rel="noopener">ניווט ב־Waze</a>
+          </div>
         </div>
 
         <div class="area-focus">
@@ -163,6 +168,18 @@ const faqJsonLd = {
   .topic-links a {
     color: var(--color-pill-text);
     font-weight: 700;
+  }
+
+  .office-address {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .directions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .soft-card {
