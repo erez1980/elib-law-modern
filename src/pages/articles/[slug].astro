@@ -37,6 +37,7 @@ const byTopic = otherArticles
   .map(({ item }) => item);
 const relatedArticles = [...picked, ...byTopic].slice(0, 3);
 const pageUrl = new URL(withBase(`/articles/${article.id.replace(/\.md$/, '')}/`), Astro.site ?? Astro.url).toString();
+const aboutUrl = new URL(withBase('/about/'), Astro.site ?? Astro.url).toString();
 const articleJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -48,7 +49,15 @@ const articleJsonLd = {
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   image: new URL(withBase(article.data.coverImage ?? site.ogImage), Astro.site ?? Astro.url).toString(),
   keywords: (article.data.tags || []).join(', '),
-  author: { '@type': 'Person', '@id': 'https://elib-law.co.il/#elizabeth', name: 'אליזבט ברזאני דדון', jobTitle: 'עורכת דין ומגשרת', url: new URL(withBase('/about/'), Astro.site ?? Astro.url).toString() },
+  author: {
+    '@type': 'Person',
+    '@id': 'https://elib-law.co.il/#elizabeth',
+    name: 'אליזבט ברזאני דדון',
+    jobTitle: 'עורכת דין ומגשרת',
+    url: aboutUrl,
+    image: new URL(withBase(site.heroImage), Astro.site ?? Astro.url).toString(),
+  },
+  ...(article.data.sources.length > 0 && { citation: article.data.sources }),
   publisher: { '@type': 'LegalService', name: site.name, '@id': 'https://elib-law.co.il/#office' },
 };
 ---
@@ -60,6 +69,7 @@ const articleJsonLd = {
   <section class="section article-section">
     <div class="container article-shell">
       <div class="article-meta-row card">
+        <span>מאת: <a href={withBase('/about/')}>עו״ד אליזבט ברזאני דדון</a></span>
         <span>תאריך פרסום: <time datetime={article.data.publishDate}>{formatHebrewDate(article.data.publishDate)}</time></span>
         {article.data.updatedDate && article.data.updatedDate !== article.data.publishDate && (
           <span>עודכן: <time datetime={article.data.updatedDate}>{formatHebrewDate(article.data.updatedDate)}</time></span>
@@ -69,7 +79,30 @@ const articleJsonLd = {
 
       <article class="card article-body">
         <Content />
+        {article.data.sources.length > 0 && (
+          <section class="article-sources" aria-labelledby="sources-heading">
+            <h2 id="sources-heading">מקורות</h2>
+            <ul>
+              {article.data.sources.map((source) => <li>{source}</li>)}
+            </ul>
+            <p>המידע במאמר הוא כללי ואינו תחליף לייעוץ משפטי פרטני. החקיקה והפסיקה משתנות, ולכן כדאי לבדוק את המצב העדכני לגבי המקרה שלכם.</p>
+          </section>
+        )}
       </article>
+
+      <aside class="card author-box" aria-label="על הכותבת">
+        <img src={withBase(site.heroImage)} alt="עו״ד אליזבט ברזאני דדון" width="96" height="96" loading="lazy" decoding="async" />
+        <div>
+          <div class="eyebrow">נכתב ונבדק על ידי</div>
+          <h2 class="author-name">עו״ד ומגשרת אליזבט ברזאני דדון</h2>
+          <p>
+            עורכת דין לדיני משפחה וגישור, חברת לשכת עורכי הדין בישראל משנת {site.barAdmissionYear}.
+            {site.licenseNumber && <> מספר רישיון: {site.licenseNumber}.</>}
+            {' '}מלווה משפחות בקדימה צורן, בנתניה ובשרון בגירושין, מזונות, משמורת, רכוש, צוואות וייפוי כוח מתמשך.
+          </p>
+          <a href={withBase('/about/')}>עוד על עו״ד ברזאני דדון</a>
+        </div>
+      </aside>
 
       <div class="card related-reading">
         <div class="eyebrow">קריאה נוספת</div>
@@ -121,6 +154,61 @@ const articleJsonLd = {
 
   .article-body {
     padding: 2.1rem;
+  }
+
+  .article-sources {
+    margin-top: 2.2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.1));
+  }
+
+  .article-sources h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+  }
+
+  .article-sources p {
+    font-size: 0.92rem;
+    color: var(--color-muted);
+  }
+
+  .author-box {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    background: linear-gradient(180deg, var(--color-card) 0%, var(--color-surface-warm) 100%);
+  }
+
+  .author-box img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .author-box .author-name {
+    font-size: 1.2rem;
+    margin: 0.2rem 0 0.5rem;
+  }
+
+  .author-box p {
+    color: var(--color-soft-text);
+    line-height: 1.85;
+    margin-bottom: 0.6rem;
+  }
+
+  .author-box a {
+    color: var(--color-pill-text);
+    font-weight: 700;
+  }
+
+  @media (max-width: 560px) {
+    .author-box {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
   }
 
   .article-body :global(h2) {
