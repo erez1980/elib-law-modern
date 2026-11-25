@@ -15,5 +15,7 @@
   "facebook": "https://www.facebook.com/eliblaw",
   "heroImage": "/images/elib-profile.jpg",
   "ogImage": "/images/og-default.png",
-  "tagline": "משרד עורכי דין לענייני משפחה"
+  "tagline": "משרד עורכי דין לענייני משפחה",
+  "barAdmissionYear": 2008,
+  "licenseNumber": ""
 }

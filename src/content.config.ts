@@ -41,6 +41,10 @@ const articles = defineCollection({
     // Slugs of the articles to suggest under this one, in order.
     related: z.array(z.string()).default([]),
     coverImage: z.string().optional(),
+    // Statutes and rulings the article relies on, shown as a "sources" list
+    // under the text. Plain names only: the law's official title is the
+    // citation, and a dead deep link would undercut it.
+    sources: z.array(z.string()).default([]),
   }),
 });
 
