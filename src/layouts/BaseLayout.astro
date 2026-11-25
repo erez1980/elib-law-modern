@@ -106,6 +106,10 @@ const jsonLd = {
     image: new URL(withBase(site.heroImage), Astro.site ?? Astro.url).toString(),
     worksFor: { '@id': 'https://elib-law.co.il/#office' },
     jobTitle: 'עורכת דין ומגשרת',
+    memberOf: { '@type': 'Organization', name: 'לשכת עורכי הדין בישראל' },
+    ...(site.licenseNumber && {
+      hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'רישיון עריכת דין', identifier: site.licenseNumber },
+    }),
   },
   knowsAbout: ['דיני משפחה', 'גירושין', 'גישור משפחתי', 'מזונות ילדים', 'משמורת והסדרי שהות', 'חלוקת רכוש', 'צוואות וירושות', 'ייפוי כוח מתמשך', 'הסכמי ממון'],
 };
