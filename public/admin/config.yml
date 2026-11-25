@@ -137,4 +137,5 @@ collections:
       - { label: תגיות, name: tags, widget: list, required: false }
       - { label: מאמרים קשורים (שמות קבצים, ללא .md), name: related, widget: list, required: false }
       - { label: תמונת שער, name: coverImage, widget: image, required: false }
+      - { label: מקורות (חוקים ופסיקה), name: sources, widget: list, required: false }
       - { label: תוכן, name: body, widget: markdown }
