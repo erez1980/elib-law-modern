@@ -7,7 +7,7 @@ import { site } from '../../data/site';
 import { withBase } from '../../utils/url';
 ---
 <BaseLayout
-  title="אזורי שירות | עו״ד אליזבט ברזאני דדון"
+  title="עורך דין משפחה בשרון: אזורי שירות | עו״ד ברזאני דדון"
   description="המשרד מלווה לקוחות מקדימה צורן ומרחבי השרון: נתניה, כפר סבא, רעננה והוד השרון. ליווי אישי בדיני משפחה, גירושין, גישור, צוואות וייפוי כוח מתמשך."
 >
   <PageHero
@@ -21,7 +21,7 @@ import { withBase } from '../../utils/url';
     <div class="container">
       <div class="areas-grid">
         {locations.map((location) => (
-          <a class="card area-card" href={withBase(`/areas/${location.slug}`)}>
+          <a class="card area-card" href={withBase(`/areas/${location.slug}/`)}>
             <strong>{location.city}</strong>
             <span>{location.heroTitle}</span>
             <em>לפרטים</em>

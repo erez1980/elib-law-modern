@@ -123,9 +123,10 @@ export default defineConfig({
     '/tag': '/articles/',
     '/author': '/about/',
     '/page/2': '/articles/',
-    // City slugs the URL pattern suggests, but which have no page.
-    '/areas/kadima': '/',
-    '/areas/kadima-zoran': '/',
+    // City slugs the URL pattern suggests: aliases for the office town, and
+    // the regional parent.
+    '/areas/kadima': '/areas/kadima-zoran/',
+    '/areas/zoran': '/areas/kadima-zoran/',
     '/areas/sharon': '/areas/',
   },
   // /thank-you/ is a post-submit utility page carrying <meta robots="noindex">;
